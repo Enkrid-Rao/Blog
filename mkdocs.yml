@@ -17,7 +17,7 @@ theme:
         icon: material/brightness-4
         name: 切换亮色模式
   features:
-    - navigation.instant
+    # - navigation.instant
     - navigation.tracking
     - navigation.expand
     - navigation.indexes
