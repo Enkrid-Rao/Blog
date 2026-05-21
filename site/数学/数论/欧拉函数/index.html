@@ -1,0 +1,1377 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://251890411.xyz/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../../%E7%89%A9%E7%90%86/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>\(\S 3\) 欧拉函数 \(\varphi(n)\) - 饶鑫幸的笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#s-3-varphin" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="饶鑫幸的笔记" class="md-header__button md-logo" aria-label="饶鑫幸的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            饶鑫幸的笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              \(\S 3\) 欧拉函数 \(\varphi(n)\)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="饶鑫幸的笔记" class="md-nav__button md-logo" aria-label="饶鑫幸的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    饶鑫幸的笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    饶鑫幸的笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    \(\S 3\) 欧拉函数 \(\varphi(n)\)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    \(\S 3\) 欧拉函数 \(\varphi(n)\)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定义
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本性质
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) 对质数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) 对质数幂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算公式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 \(1\)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定理 \(1\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="引理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step \(1\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step \(2\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step \(3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        积性（定理 \(2\)）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="积性（定理 \(2\)）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        法一（正向）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        法二（数学归纳）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 \(3\)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定理 \(3\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../%E7%89%A9%E7%90%86/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    物理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../%E7%BC%96%E7%A8%8B/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    编程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定义
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本性质
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) 对质数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) 对质数幂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算公式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 \(1\)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定理 \(1\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="引理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step \(1\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step \(2\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step \(3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        积性（定理 \(2\)）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="积性（定理 \(2\)）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        法一（正向）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        法二（数学归纳）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 \(3\)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定理 \(3\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="s-3-varphin"><span class="arithmatex">\(\S 3\)</span> 欧拉函数 <span class="arithmatex">\(\varphi(n)\)</span></h1>
+<h2 id="_1">定义</h2>
+<p><span class="arithmatex">\(\varphi(n)\)</span> 表示 <span class="arithmatex">\(1 \sim n\)</span> 中与 <span class="arithmatex">\(n\)</span> 互质的正整数个数。即：</p>
+<div class="arithmatex">\[
+\varphi(n) = \sum_{\substack{1 \leqslant k \leqslant n \\ \gcd(k, n) = 1}} 1
+\]</div>
+<p>约定 <span class="arithmatex">\(\varphi(1) = 1\)</span>。</p>
+<h2 id="_2">基本性质</h2>
+<h3 id="a">(a) 对质数</h3>
+<p>若 <span class="arithmatex">\(p\)</span> 是质数，则</p>
+<div class="arithmatex">\[
+\varphi(p) = p - 1
+\]</div>
+<p>因为 <span class="arithmatex">\(1 \sim p\)</span> 中除了 <span class="arithmatex">\(p\)</span> 自身，其余 <span class="arithmatex">\(p-1\)</span> 个数全部与 <span class="arithmatex">\(p\)</span> 互质。</p>
+<h3 id="b">(b) 对质数幂</h3>
+<p>若 <span class="arithmatex">\(p\)</span> 是质数，则</p>
+<div class="arithmatex">\[
+\varphi(p^k) = p^k - p^{k-1} = p^k \left(1 - \frac{1}{p}\right)
+\]</div>
+<p>因为 <span class="arithmatex">\(1 \sim p^k\)</span> 中与 <span class="arithmatex">\(p^k\)</span> 不互质的数恰好是 <span class="arithmatex">\(p\)</span> 的倍数：<span class="arithmatex">\(p, 2p, \dots, p^{k-1} \cdot p\)</span>，共 <span class="arithmatex">\(p^{k-1}\)</span> 个。</p>
+<h2 id="_3">计算公式</h2>
+<p>设 <span class="arithmatex">\(n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_r^{\alpha_r}\)</span>（标准分解），则</p>
+<div class="arithmatex">\[
+\varphi(n) = n \prod_{i=1}^{r} \left(1 - \frac{1}{p_i}\right)
+\]</div>
+<p><strong>证明（容斥原理）</strong>：在 <span class="arithmatex">\(1 \sim n\)</span> 中，先去掉所有 <span class="arithmatex">\(p_1\)</span> 的倍数，再去掉 <span class="arithmatex">\(p_2\)</span> 的倍数，再把被重复去掉的 <span class="arithmatex">\(p_1p_2\)</span> 的倍数加回来……这正是容斥原理：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\varphi(n) &amp;= n - \sum_{i} \frac{n}{p_i} + \sum_{i &lt; j} \frac{n}{p_i p_j} - \sum_{i &lt; j &lt; k} \frac{n}{p_i p_j p_k} + \cdots \\
+&amp;= n \left[ 1 - \sum_{i} \frac{1}{p_i} + \sum_{i &lt; j} \frac{1}{p_i p_j} - \cdots \right] \\
+&amp;= n \prod_{i=1}^{r} \left(1 - \frac{1}{p_i}\right)
+\end{aligned}
+\]</div>
+<p>最后一步用到了展开式 <span class="arithmatex">\(\prod (1 - x_i) = 1 - \sum x_i + \sum x_i x_j - \cdots\)</span></p>
+<hr />
+<h2 id="1">定理 <span class="arithmatex">\(1\)</span></h2>
+<div class="arithmatex">\[
+\begin{gathered}
+\bf{\text{对于} n \ge 1，\text{有} \displaystyle\sum_{d \mid n} \varphi(d)=n}
+\end{gathered}
+\]</div>
+<h3 id="_4">思路</h3>
+<p>集合 <span class="arithmatex">\(S=\left\{\dfrac{i}{n} \,\middle|\, 1\le i \le n\right\}\)</span>，<span class="arithmatex">\(\left| S \right|=n\)</span>。</p>
+<p>对于 <span class="arithmatex">\(d \mid n\)</span>，令 <span class="arithmatex">\(S_d = \left\{\dfrac{i}{d} \,\middle|\, 1\le i \le d \text{ 且 } \gcd(i,d)=1\right\}\)</span>，则 <span class="arithmatex">\(\left| S_d \right|=\varphi(d)\)</span>。</p>
+<p><strong>即证</strong>：<span class="arithmatex">\(S_d\)</span> 构成集合 <span class="arithmatex">\(S\)</span> 的一个划分——所有 <span class="arithmatex">\(S_d\)</span> 并起来为 <span class="arithmatex">\(S\)</span>，且两两不相交。</p>
+<h3 id="_5">证明</h3>
+<p><strong>①</strong> <span class="arithmatex">\(S_d \cap S_{d'}= \emptyset\)</span></p>
+<p><strong>反证法</strong>：</p>
+<div class="arithmatex">\[
+\begin{gathered}
+\text{对于 } d\mid n,\ d'\mid n ,\ d\neq d' ,\ \text{有 } S_d \cap S_{d'} = \emptyset \\
+\text{假设 } \exists\ a \in S_d \cap S_{d'} \\
+\begin{cases}
+a\in S_d \quad \therefore a= \dfrac{i}{d} ,\ 1 \le i \le d \text{ 且 } \gcd(i,d)=1 \\[4pt]
+a\in S_{d'} \quad \therefore a= \dfrac{i'}{d'} ,\ 1 \le i' \le d' \text{ 且 } \gcd(i',d')=1
+\end{cases} \\[8pt]
+\therefore\ \dfrac{i}{d}= \dfrac{i'}{d'} \Rightarrow\ id'=i'd \\
+\therefore\ d \mid id' ,\ \text{又 } \because\ \gcd(i,d)=1 \Rightarrow\ d \mid d' \\
+\text{同理可得 } d' \mid d \Rightarrow\ d=d' \quad \textbf{矛盾，假设不成立} \quad \square
+\end{gathered}
+\]</div>
+<p><strong>②</strong> <span class="arithmatex">\(\displaystyle\bigcup_{d\mid n} S_d \subset S\)</span></p>
+<div class="arithmatex">\[
+\begin{gathered}
+\text{对于 }\forall\ a\in \bigcup_{d\mid n} S_d,\ \text{有 } a\in S_d \\
+\therefore a = \dfrac{i}{d} ,\ 1 \le i \le d \text{ 且 } \gcd(i,d)=1 \\
+\because d \mid n \quad \therefore a = \dfrac{i}{d} = \dfrac{i \cdot \frac{n}{d}}{n} \\[4pt]
+\because 1\le i \le d \quad \therefore 1\le \frac{n}{d} \le i \cdot \frac{n}{d} \le n \\
+\therefore\ a\in S \quad \Longrightarrow \quad \bigcup_{d \mid n} S_d \subset S \quad \square
+\end{gathered}
+\]</div>
+<p><strong>③</strong> <span class="arithmatex">\(\displaystyle S\subset \bigcup_{d\mid n} S_d\)</span></p>
+<div class="arithmatex">\[
+\begin{gathered}
+\text{对于 }\forall\ a \in S ,\quad a = \dfrac{i}{n} ,\ 1\le i \le n \\
+\text{设 } \gcd(i,n)=d \\
+a=\dfrac{i}{n} = \dfrac{\;i/d\;}{n/d} ,\quad \text{显然 } 1 \le \frac{i}{d} \le \frac{n}{d} \\
+\text{且 } \gcd\!\left(\frac{i}{d}, \frac{n}{d}\right) =1 \quad \therefore a \in S_{n/d} \\
+\therefore\ a\in \bigcup_{d\mid n} S_d \\
+\therefore\ S \subset \bigcup_{d\mid n} S_d \quad \square
+\end{gathered}
+\]</div>
+<hr />
+<h2 id="_6">引理</h2>
+<div class="arithmatex">\[
+\begin{gathered}
+    \bf{\text{设 }\gcd(m,n)=1,\ \text{ 如果  }t_1 \text{ 通过 }n \text{ 的全部因子, 则 }t_1t_2 \text{ 通过 } mn \text{ 的全部因子 } }
+\end{gathered}
+\]</div>
+<h3 id="_7">证明</h3>
+<h4 id="step-1">Step <span class="arithmatex">\(1\)</span></h4>
+<p><strong>证明</strong>：<span class="arithmatex">\(t_1 t_2 \mid mn\)</span></p>
+<div class="arithmatex">\[
+\because\ t_1 \mid m,\ t_2 \mid n \quad \therefore\ t_1t_2\mid mn \quad \square
+\]</div>
+<h4 id="step-2">Step <span class="arithmatex">\(2\)</span></h4>
+<p><strong>证明</strong>：<span class="arithmatex">\(t_1t_2=t_1't_2'\)</span> 当且仅当 <span class="arithmatex">\(t_1=t_1'\)</span>，<span class="arithmatex">\(t_2=t_2'\)</span>。</p>
+<p><strong>反证法</strong>：</p>
+<div class="arithmatex">\[
+\begin{gathered}
+\text{对于 } t_1 \mid m,\ t_1'\mid m,\ t_2 \mid n,\ t_2' \mid n \\[4pt]
+\text{若 } (t_1,t_2) \neq (t_1',t_2'),\, t_1t_2 \neq t_1't_2' \\[4pt]
+\text{假设 } t_1t_2=t_1't_2' \\[4pt]
+\therefore\ t_1 \mid t_1't_2',\ t_1' \mid t_1t_2 \\[4pt]
+\begin{cases}
+\gcd(t_1,t_2') \mid t_1,\ t_1 \mid m \Rightarrow  \gcd(t_1,t_2') \mid m \\[4pt]
+\gcd(t_1,t_2') \mid t_2',\ t_2' \mid n \Rightarrow \gcd(t_1,t_2') \mid n
+\end{cases} \\[12pt]
+\therefore\ \gcd(t_1,t_2') \mid \gcd(m,n),\ \text{又 }\because \gcd(m,n)=1 \\[4pt]
+\therefore\ \gcd(t_1,t_2')=1 \\[4pt]
+\text{又 } \because t_1 \mid t_1't_2',\ \therefore\ t_1 \mid t_1' \\[4pt]
+\text{同理可得 } t_1' \mid t_1 \quad \therefore\ t_1=t_1' \\[4pt]
+\therefore\ \textbf{假设不成立} \quad \square
+\end{gathered}
+\]</div>
+<h4 id="step-3">Step <span class="arithmatex">\(3\)</span></h4>
+<p><strong>证明</strong>：<span class="arithmatex">\(mn\)</span> 的全部因子可以表示为 <span class="arithmatex">\(t_1t_2\)</span>。</p>
+<div class="arithmatex">\[
+\begin{gathered}
+\forall\ t \mid mn ,\ \text{令 } t_1 = \gcd(t,m),\ t_2 = \frac{t}{t_1} \\[4pt]
+\therefore\ \gcd\!\left(\frac{t}{\gcd(t,m)},\ \frac{m}{\gcd(t,m)}\right)=1 \\[4pt]
+\frac{t}{\gcd(t,m)}\mid n \Rightarrow \frac{t}{t_1} \mid n \Rightarrow t_2 \mid n \quad \square
+\end{gathered}
+\]</div>
+<hr />
+<h2 id="2">积性（定理 <span class="arithmatex">\(2\)</span>）</h2>
+<div class="arithmatex">\[
+\begin{gathered}
+    \bf{\text{若 } \gcd(m,n)=1, \text{ 则 } \varphi(mn)=\varphi(m)\varphi(n)}
+\end{gathered}
+\]</div>
+<h3 id="_8">法一（正向）</h3>
+<p><strong>证明</strong>：</p>
+<p>设 <span class="arithmatex">\(m = \prod p_i^{\alpha_i}\)</span>，<span class="arithmatex">\(n = \prod q_j^{\beta_j}\)</span>，由 <span class="arithmatex">\(\gcd(m, n) = 1\)</span> 知 <span class="arithmatex">\(\{p_i\}\)</span> 与 <span class="arithmatex">\(\{q_j\}\)</span> 不相交。于是：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\varphi(mn) &amp;= mn \prod_{p \mid mn} \left(1 - \frac{1}{p}\right) \\
+&amp;= mn \left( \prod_{p_i \mid m} \left(1 - \frac{1}{p_i}\right) \right) \left( \prod_{q_j \mid n} \left(1 - \frac{1}{q_j}\right) \right) \\
+&amp;= \left[ m \prod_{p_i \mid m} \left(1 - \frac{1}{p_i}\right) \right] \cdot \left[ n \prod_{q_j \mid n} \left(1 - \frac{1}{q_j}\right) \right] \\
+&amp;= \varphi(m) \varphi(n) \quad \square
+\end{aligned}
+\]</div>
+<h3 id="_9">法二（数学归纳）</h3>
+<p><strong>证明</strong>：</p>
+<p>当 <span class="arithmatex">\(m=n=1\)</span> 时，<span class="arithmatex">\(\varphi(1)=1=1\times 1=\varphi(1)\cdot \varphi(1)\)</span>。</p>
+<p>假设结论对所有小于 <span class="arithmatex">\(mn\)</span> 的正整数都成立，下面证明对于 <span class="arithmatex">\(mn\)</span> 也成立。</p>
+<div class="arithmatex">\[
+\begin{gathered}
+\begin{aligned}
+mn &amp;= \sum_{t_1 \mid m} \varphi(t_1) \sum_{t_2 \mid n} \varphi(t_2) = \sum_{t_1 \mid m}\sum_{t_2 \mid n} \varphi(t_1)\varphi(t_2) \\
+&amp;= \sum_{\substack{t_1 \mid m,\, t_2 \mid n\\ (t_1,t_2) \neq (m,n)}} \varphi(t_1) \varphi(t_2)+ \varphi(m)\,\varphi(n)
+\end{aligned} \\[6pt]
+\because\ t_1 \mid m,\ t_2 \mid n,\ \gcd(m,n)=1 \quad \therefore\ \gcd(t_1,t_2)=1 \\[4pt]
+\therefore\ \varphi(t_1)\varphi(t_2)=\varphi(t_1t_2) \\[8pt]
+\begin{aligned}
+\therefore\ mn &amp;= \sum_{\substack{t_1 \mid m,\, t_2 \mid n \\ (t_1,t_2)\neq (m,n)}} \varphi \left( t_1t_2 \right)+\varphi(m)\varphi(n) \\[4pt]
+&amp;= \sum_{t_1 \mid m,\, t_2 \mid n }\varphi(t_1t_2)-\varphi(mn)+\varphi(m)\varphi(n) \\[4pt]
+&amp;= \sum_{t_1t_2 \mid mn} \varphi(t_1t_2)-\varphi(mn)+\varphi(m)\varphi(n) \\
+&amp;= mn-\varphi(mn)+\varphi(m)\varphi(n)
+\end{aligned} \\[8pt]
+\therefore\ \varphi(mn)=\varphi(m)\varphi(n) \quad \square
+\end{gathered}
+\]</div>
+<blockquote>
+<p><strong>推论</strong>：有了积性，就可以通过 <span class="arithmatex">\(n\)</span> 的质因数分解直接拼出 <span class="arithmatex">\(\varphi(n)\)</span>：
+$$
+\varphi(n) = \prod_{i=1}^{r} \varphi(p_i^{\alpha_i}) = \prod_{i=1}^{r} p_i^{\alpha_i-1} (p_i - 1)
+$$</p>
+</blockquote>
+<hr />
+<h2 id="3">定理 <span class="arithmatex">\(3\)</span></h2>
+<ol>
+<li>设 <span class="arithmatex">\(\gcd(m,n)=d\)</span>，则有 <span class="arithmatex">\(\displaystyle\varphi(mn)=\varphi(m)\varphi(n)\dfrac{d}{\varphi(d)}\)</span></li>
+<li>若 <span class="arithmatex">\(a\mid b\)</span>，则 <span class="arithmatex">\(\displaystyle\varphi(a) \mid \varphi(b)\)</span></li>
+</ol>
+<h3 id="_10">证明</h3>
+<p><strong><span class="arithmatex">\((1)\)</span></strong></p>
+<p>令 <span class="arithmatex">\(\gcd(m,n)=d\)</span>，则</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\varphi(mn) &amp;= mn \cdot \prod_{p \mid mn} \left(1-\frac{1}{p}\right) \\[6pt]
+&amp;= mn \cdot \frac{\displaystyle\prod_{p \mid m} \left(1-\frac{1}{p}\right) \prod_{p\mid n} \left(1-\frac{1}{p}\right)}{\displaystyle\prod_{p\mid d}\left(1-\frac{1}{p}\right)} \\[8pt]
+&amp;= \frac{m \cdot \displaystyle\prod_{p\mid m} \left(1-\frac{1}{p}\right) \cdot n \cdot \displaystyle\prod_{p\mid n} \left(1-\frac{1}{p}\right) \cdot d}{d \cdot \displaystyle\prod_{p\mid d} \left(1-\frac{1}{p}\right)} \\[8pt]
+&amp;= \varphi(m)\,\varphi(n)\,\frac{d}{\varphi(d)} \qquad \square
+\end{aligned}
+\]</div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
