@@ -4,18 +4,18 @@ theme:
   name: material
   language: zh
   palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: 切换暗色模式
     - scheme: slate
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/brightness-4
+        icon: material/brightness-7
         name: 切换亮色模式
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换暗色模式
   features:
     # - navigation.instant
     - navigation.tracking
