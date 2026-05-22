@@ -14,7 +14,7 @@
         <link rel="prev" href="../%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/">
       
       
-        <link rel="next" href="../%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%87%BD%E6%95%B0/">
+        <link rel="next" href="../%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF/">
       
       
         
@@ -50,6 +50,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
     
@@ -403,6 +405,8 @@
       
         
           
+        
+      
         
       
         
@@ -792,6 +796,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    狄利克雷卷积
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1446,22 +1478,22 @@ mn &amp;= \sum_{t_1 \mid m} \varphi(t_1) \sum_{t_2 \mid n} \varphi(t_2) = \sum_{
 <hr />
 <p><strong><span class="arithmatex">\((2)\)</span></strong></p>
 <div class="arithmatex">\[
-\because\ a \mid b \quad \therefore\ \exists c \in \mathbb{Z},\quad \text{s.t.}\quad b=ac
-$$
-$$
+\because\ a \mid b \quad \therefore\ \exists c \in \mathbb{Z} ,\quad \text{s.t.}\quad b=ac
+\]</div>
+<div class="arithmatex">\[
 \text{设 } \gcd(a,c)=d
-$$
-$$
+\]</div>
+<div class="arithmatex">\[
 \begin{align}
-\therefore\ \varphi(b)&amp;=\varphi(a)\varphi(c)\cdot \frac{d }{\varphi(d)} = \varphi(a) \cdot \frac{c \cdot \prod_{p\mid c} \left( 1-\frac{1}{p} \right)}{\prod_{p\mid d} \left( 1-\frac{1}{p} \right)} \\
-     &amp;=  c\cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left( 1-\frac 1 p \right) \cdot \varphi(a)   \\
-    &amp;= \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} p_i^{c_i} \cdot \prod_{\substack{p \mid c \\ p \nmid d}} \left( 1-\frac 1 p \right) \cdot \varphi(a) \\
-    &amp;=   \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left( p_i^{c_i} \cdot \left( 1-\frac 1 p \right) \right) \cdot \varphi(a) \\
-    &amp;=  \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left(p_i^{c_i} -p_i^{c_i -1}\right) \cdot \varphi(a)
+\therefore\ \varphi(b)&amp;=\varphi(a)\varphi(c)\cdot \frac{d }{\varphi(d)} = \varphi(a) \cdot \frac{c \cdot \prod_{p\mid c } \left( 1-\frac{1 }{p } \right)}{\prod_{p\mid d }^{} \left( 1-\frac{1 }{p } \right)  } \\
+     &amp;=  c\cdot \prod_{\substack{p\mid c \text{ 且  }p \nmid d }}^{} \left( 1-\frac 1 p  \right) \cdot \varphi(a)   \\
+    &amp;= \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i} \cdot \prod_{p\mid c \text{ 且  } p \nmid d }^{} p_i^{c_i} \cdot \prod_{p\mid c \text{ 且  } p\nmid d }^{ } \left( 1-\frac 1 p  \right) \cdot \varphi(a) \\
+    &amp;=   \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i} \cdot \prod_{p\mid c \text{ 且 } p\nmid d } \left( p_i^{c_i} \cdot \left( 1-\frac 1 p \right) \right) \cdot \varphi(a) \\
+    &amp;=  \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i} \cdot \prod_{p\mid c \text{ 且 } p\nmid d } \left(p_i^{c_i} -p_i^{c_i -1}\right) \cdot \varphi(a) 
 \end{align}
-$$
-$$
-\text{显然 } \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left(p_i^{c_i}-p_i^{c_i-1}\right) \text{ 是整数}
+\]</div>
+<div class="arithmatex">\[
+显然 \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i}\cdot \prod_{p\mid c \text{ 且 } p\nmid d } \left(p_i^{c_i}-p_i^{c_i-1}\right) 是整数
 \]</div>
 <div class="arithmatex">\[
 \therefore\ \varphi(a) \mid \varphi(b) \quad \square
@@ -1529,11 +1561,9 @@ $$
     
       <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../../javascripts/mathjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-      
-        <script src="../../../../javascripts/mathjax-config.js"></script>
+        <script src="../../../../javascripts/katex-config.js"></script>
       
     
   </body>

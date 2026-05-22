@@ -1,0 +1,1708 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://251890411.xyz/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF/">
+      
+      
+        <link rel="prev" href="../%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/">
+      
+      
+        <link rel="next" href="../%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%87%BD%E6%95%B0/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>狄利克雷卷积 - rxx's notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="rxx&#39;s notes" class="md-header__button md-logo" aria-label="rxx's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            rxx's notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              狄利克雷卷积
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="rxx&#39;s notes" class="md-nav__button md-logo" aria-label="rxx's notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    rxx's notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    rxx的笔记
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 数论函数
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三章 数论函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    欧拉函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    狄利克雷卷积
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    狄利克雷卷积
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        狄利克雷卷积
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="狄利克雷卷积">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明:
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证明:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交换律:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结合律
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见积性函数速查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 3：狄利克雷卷积保持积性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 4：狄利克雷卷积的逆元定理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 5：积性函数的狄利克雷逆也是积性函数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 6：完全积性的充要条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定理 6：完全积性的充要条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f-f1-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （=&gt;）若 f 完全积性，则 f⁻¹ = μ·f
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1-f-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （&lt;=）若 f⁻¹ = μ·f，则 f 完全积性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        除数函数的卷积表示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        欧拉—莫比乌斯关系的卷积表述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    莫比乌斯函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../%E7%89%A9%E7%90%86/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    物理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    物理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../%E7%BC%96%E7%A8%8B/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    编程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        狄利克雷卷积
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="狄利克雷卷积">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明:
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证明:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交换律:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结合律
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见积性函数速查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 3：狄利克雷卷积保持积性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 4：狄利克雷卷积的逆元定理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 5：积性函数的狄利克雷逆也是积性函数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定理 6：完全积性的充要条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定理 6：完全积性的充要条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        证明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="证明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f-f1-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （=&gt;）若 f 完全积性，则 f⁻¹ = μ·f
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1-f-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （&lt;=）若 f⁻¹ = μ·f，则 f 完全积性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        除数函数的卷积表示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        欧拉—莫比乌斯关系的卷积表述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">狄利克雷卷积</h1>
+<h2 id="_2">狄利克雷卷积</h2>
+<p>两个数论函数 <span class="arithmatex">\(f, g\)</span> 的狄利克雷卷积定义为：</p>
+<div class="arithmatex">\[
+(f * g)(n) = \sum_{d \mid n} f(d) \, g\!\left(\frac{n}{d}\right)
+\]</div>
+<p><strong>基本性质</strong>：
+- <strong>交换律</strong>：<span class="arithmatex">\(f * g = g * f\)</span>
+- <strong>结合律</strong>：<span class="arithmatex">\((f * g) * h = f * (g * h)\)</span>
+- <strong>单位元</strong>：<span class="arithmatex">\(\varepsilon\)</span>（即 <span class="arithmatex">\(f * \varepsilon = f\)</span>），其中 <span class="arithmatex">\(\varepsilon(n) = [n = 1]\)</span>
+- 若 <span class="arithmatex">\(f(1) \neq 0\)</span>，则 <span class="arithmatex">\(f\)</span> 存在唯一的狄利克雷逆 <span class="arithmatex">\(f^{-1}\)</span>，满足 <span class="arithmatex">\(f * f^{-1} = \varepsilon\)</span></p>
+<h3 id="_3">证明:</h3>
+<h4 id="_4">交换律:</h4>
+<div class="arithmatex">\[
+\begin{aligned}
+(f*g)(n)&amp;=\sum_{d \mid n}f(d) \, g\!\left( \frac{n}{d} \right) \\
+   &amp;= \sum_{\substack{d\mid n \\ dd'=n}} f\left(\frac{n }{d'}\right)\,g\!\left(d'\right) \\
+   &amp;= \sum_{d'\mid n} g \left( d' \right)f \left( \frac{n }{d' } \right) \\
+   &amp;= \left( g*f  \right) (n)
+\end{aligned}
+\]</div>
+<hr />
+<h4 id="_5">结合律</h4>
+<p>我们需要证明 <span class="arithmatex">\((f*g)*k=f*(g*k)\)</span></p>
+<p>$
+\text{设 } A(n)=(f*g)(n)
+$</p>
+<p>$$
+\begin{aligned}
+(A<em>k)(n)&amp;=\sum_{a\mid n} A(a)k \left( \frac n a  \right)\
+    &amp;= \sum_{a\mid n} \left[ (f</em>g)(a) \right] \cdot k \left( \frac n a  \right) \
+   &amp;= \sum_{a\mid n} \sum_{b\mid a } f(b)\cdot g \left( \frac a b  \right) \cdot k \left( \frac n a  \right) \
+   &amp;= \sum_{abc=n} f(a)\,g(b)\,k(c)
+\end{aligned}
+$$
+设 <span class="arithmatex">\(B(n)=(g*k)(n)\)</span></p>
+<div class="arithmatex">\[
+\begin{aligned}
+   (f*B)(n) &amp;= \sum_{a\mid n} f(a)\,B \left( \frac n a  \right) \\
+   &amp;= \sum_{a\mid n} f(a) \cdots
+\end{aligned}
+\]</div>
+<p>$$
+\text{笔者已经累了🥱🥱🥱, 这里剩余部分就交给读者自行证明了}
+$$
+~~这些话好像经常出现在某些教材,这里学习大师的语言艺术~~</p>
+<h2 id="_6">常见积性函数速查</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">记号</th>
+<th style="text-align: left;">定义</th>
+<th style="text-align: center;">积性类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">单位函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\varepsilon(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\([n = 1]\)</span></td>
+<td style="text-align: center;">完全积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">常数函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathbf{1}(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(1\)</span></td>
+<td style="text-align: center;">完全积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">恒等函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{id}(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(n\)</span></td>
+<td style="text-align: center;">完全积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">幂函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{id}_k(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(n^k\)</span></td>
+<td style="text-align: center;">完全积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">欧拉函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\varphi(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(1 \sim n\)</span> 中与 <span class="arithmatex">\(n\)</span> 互质的个数</td>
+<td style="text-align: center;">积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">莫比乌斯函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mu(n)\)</span></td>
+<td style="text-align: left;">见莫比乌斯函数章节</td>
+<td style="text-align: center;">积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">除数函数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\sigma_k(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\sum_{d \mid n} d^k\)</span></td>
+<td style="text-align: center;">积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">因子个数</td>
+<td style="text-align: left;"><span class="arithmatex">\(d(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\sigma_0(n)\)</span></td>
+<td style="text-align: center;">积性</td>
+</tr>
+<tr>
+<td style="text-align: left;">因子和</td>
+<td style="text-align: left;"><span class="arithmatex">\(\sigma(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\sigma_1(n)\)</span></td>
+<td style="text-align: center;">积性</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1">定理 1</h2>
+<div class="arithmatex">\[
+\begin{equation*}
+   若 f(n) 是积性函数（且不恒为零），则 f(1) = 1。
+\end{equation*}
+\]</div>
+<p><strong>证明</strong>：取 <span class="arithmatex">\(m = n = 1\)</span>，由 <span class="arithmatex">\(\gcd(1, 1) = 1\)</span> 及积性定义：</p>
+<div class="arithmatex">\[
+f(1) = f(1 \cdot 1) = f(1) \cdot f(1)
+\]</div>
+<p>若 <span class="arithmatex">\(f(1) = 0\)</span>，则对任意 <span class="arithmatex">\(n\)</span> 有 <span class="arithmatex">\(f(n) = f(n \cdot 1) = f(n) \cdot 0 = 0\)</span>（平凡零函数）。排除此退化情形，故 <span class="arithmatex">\(f(1) = 1\)</span>。<span class="arithmatex">\(\square\)</span></p>
+<hr />
+<h2 id="2">定理 2</h2>
+<div class="arithmatex">\[
+\begin{equation*}
+  I(n)= \left[ \frac 1 n  \right]
+\end{equation*}
+\]</div>
+<p>对于所有的数论函数, 均有 <span class="arithmatex">\((f*I)(n)=f(n)\)</span></p>
+<p>证明:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+   (f*I)(n) &amp;= \sum_{a\mid n}f(a)\cdot I \left( \frac n a  \right) \\
+   &amp;= \sum_{a\mid n} f(a)\cdot  \left[ \frac a n  \right]\\
+   &amp;= \sum_{a\mid n}\left(\begin{cases}
+      f(n)&amp; a=n  \\[4pt]
+      0&amp; a&lt;n 
+   \end{cases}\right) \\
+   &amp;= f(n) \quad \square
+\end{aligned}
+\]</div>
+<hr />
+<h2 id="3">定理 3：狄利克雷卷积保持积性</h2>
+<div class="arithmatex">\[
+\begin{equation*}
+如果 f(n) 和 g(n) 是积性函数，那么 h(n) = (f * g)(n) = \sum_{d \mid n} f(d) g\!\left(\frac{n}{d}\right) 也是积性函数。
+\end{equation*}
+\]</div>
+<p><strong>证明</strong>：设 <span class="arithmatex">\((m, n) = 1\)</span>，需要证明 <span class="arithmatex">\(h(mn) = h(m) h(n)\)</span>。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h(mn)
+&amp;= (f * g)(mn) = \sum_{d \mid mn} f(d) g\!\left(\frac{mn}{d}\right) \\
+&amp;= \sum_{t_1 \mid m,\; t_2 \mid n} f(t_1 t_2) \, g\!\left(\frac{mn}{t_1 t_2}\right)
+\quad \text{(因为 } (m,n)=1 \text{，} mn \text{ 的每个因子唯一分解为 } t_1 t_2 \text{)}
+\end{aligned}
+\]</div>
+<p>由于 <span class="arithmatex">\((t_1, t_2) = 1\)</span> 且 <span class="arithmatex">\(f, g\)</span> 是积性函数，所以 <span class="arithmatex">\(f(t_1 t_2) = f(t_1) f(t_2)\)</span>，同时：</p>
+<div class="arithmatex">\[
+g\!\left(\frac{mn}{t_1 t_2}\right) = g\!\left(\frac{m}{t_1} \cdot \frac{n}{t_2}\right) = g\!\left(\frac{m}{t_1}\right) g\!\left(\frac{n}{t_2}\right)
+\quad \left(\text{注意 } \left(\frac{m}{t_1}, \frac{n}{t_2}\right) = 1\right)
+\]</div>
+<p>代入得：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h(mn)
+&amp;= \sum_{t_1 \mid m,\; t_2 \mid n} f(t_1) f(t_2) \cdot g\!\left(\frac{m}{t_1}\right) g\!\left(\frac{n}{t_2}\right) \\
+&amp;= \left(\sum_{t_1 \mid m} f(t_1) g\!\left(\frac{m}{t_1}\right)\right) \cdot \left(\sum_{t_2 \mid n} f(t_2) g\!\left(\frac{n}{t_2}\right)\right) \\
+&amp;= h(m) \cdot h(n)
+\end{aligned}
+\]</div>
+<p>故 <span class="arithmatex">\(h(n)\)</span> 是积性函数。<span class="arithmatex">\(\square\)</span></p>
+<hr />
+<h2 id="4">定理 4：狄利克雷卷积的逆元定理</h2>
+<p>如果 <span class="arithmatex">\(g(n)\)</span> 和 <span class="arithmatex">\(h(n) = (f * g)(n)\)</span> 都是积性函数，则 <span class="arithmatex">\(f(n)\)</span> 也是积性函数。</p>
+<p><strong>证明（反证法）</strong>：假设 <span class="arithmatex">\(f(n)\)</span> 不是积性函数，则一定存在一对互素的正整数 <span class="arithmatex">\((m, n) = 1\)</span>，使得 <span class="arithmatex">\(f(mn) \neq f(m) f(n)\)</span>。</p>
+<p>在所有这样的 <span class="arithmatex">\((m, n)\)</span> 中，选取使得乘积 <span class="arithmatex">\(mn\)</span> 最小的一对。</p>
+<p>由于 <span class="arithmatex">\(h = f * g\)</span> 是积性函数，且 <span class="arithmatex">\((m, n) = 1\)</span>：</p>
+<div class="arithmatex">\[
+h(mn) = h(m) h(n) \tag{1}
+\]</div>
+<p>另一方面，按狄利克雷卷积展开 <span class="arithmatex">\(h(mn)\)</span>。因为 <span class="arithmatex">\((m, n) = 1\)</span>，<span class="arithmatex">\(mn\)</span> 的每个因子可唯一写成 <span class="arithmatex">\(d_1 d_2\)</span> 的形式（其中 <span class="arithmatex">\(d_1 \mid m,\; d_2 \mid n\)</span>）：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h(mn) &amp;= \sum_{d \mid mn} f(d) g\!\left(\frac{mn}{d}\right) \\
+&amp;= \sum_{d_1 \mid m} \sum_{d_2 \mid n} f(d_1 d_2) \cdot g\!\left(\frac{m}{d_1}\right) g\!\left(\frac{n}{d_2}\right)
+\end{aligned}
+\]</div>
+<p>从双重求和里把 <span class="arithmatex">\((d_1, d_2) = (m, n)\)</span> 这一项单独提出来：</p>
+<div class="arithmatex">\[
+h(mn) = f(mn) \cdot g(1) g(1) + \sum_{\substack{d_1 \mid m,\; d_2 \mid n \\ (d_1, d_2) \neq (m, n)}} f(d_1 d_2) \cdot g\!\left(\frac{m}{d_1}\right) g\!\left(\frac{n}{d_2}\right)
+\]</div>
+<p>对于剩余项，因为 <span class="arithmatex">\(d_1 d_2 &lt; mn\)</span>，由"<span class="arithmatex">\(mn\)</span> 是最小反例"的选取可知 <span class="arithmatex">\(f(d_1 d_2) = f(d_1) f(d_2)\)</span>。而 <span class="arithmatex">\(g\)</span> 是积性函数且 <span class="arithmatex">\(g(1) = 1\)</span>，因此：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h(mn) &amp;= f(mn) + \sum_{d_1 \mid m} \sum_{d_2 \mid n} f(d_1) f(d_2) \cdot g\!\left(\frac{m}{d_1}\right) g\!\left(\frac{n}{d_2}\right) \;-\; f(m) f(n) \\
+&amp;= f(mn) + \left(\sum_{d_1 \mid m} f(d_1) g\!\left(\frac{m}{d_1}\right)\right)\! \left(\sum_{d_2 \mid n} f(d_2) g\!\left(\frac{n}{d_2}\right)\right) \;-\; f(m) f(n) \\
+&amp;= f(mn) + h(m) h(n) - f(m) f(n)
+\end{aligned}
+\]</div>
+<p>结合 <span class="arithmatex">\((1)\)</span> 式 <span class="arithmatex">\(h(mn) = h(m) h(n)\)</span>，代入上式：</p>
+<div class="arithmatex">\[
+h(m) h(n) = f(mn) + h(m) h(n) - f(m) f(n)
+\]</div>
+<p>两边消去 <span class="arithmatex">\(h(m) h(n)\)</span>，得：</p>
+<div class="arithmatex">\[
+f(mn) = f(m) f(n)
+\]</div>
+<p>这与一开始的假设 <span class="arithmatex">\(f(mn) \neq f(m) f(n)\)</span> 矛盾。因此不存在反例，<span class="arithmatex">\(f(n)\)</span> 必须是积性函数。<span class="arithmatex">\(\square\)</span></p>
+<hr />
+<h2 id="5">定理 5：积性函数的狄利克雷逆也是积性函数</h2>
+<p>若 <span class="arithmatex">\(f(n)\)</span> 是积性函数（且 <span class="arithmatex">\(f(1) \neq 0\)</span>），则其狄利克雷逆 <span class="arithmatex">\(f^{-1}(n)\)</span> 也是积性函数。</p>
+<p><strong>证明</strong>：由狄利克雷逆的定义，</p>
+<div class="arithmatex">\[
+(f * f^{-1})(n) = \varepsilon(n) = [n = 1]
+\]</div>
+<p><span class="arithmatex">\(\varepsilon(n)\)</span> 显然是积性函数（甚至完全积性）。已知 <span class="arithmatex">\(f(n)\)</span> 是积性函数，由定理3（取 <span class="arithmatex">\(g = f\)</span>、<span class="arithmatex">\(h = \varepsilon\)</span> 均为积性），即得 <span class="arithmatex">\(f^{-1}(n)\)</span> 是积性函数。<span class="arithmatex">\(\square\)</span></p>
+<hr />
+<h2 id="6">定理 6：完全积性的充要条件</h2>
+<p>设 <span class="arithmatex">\(f(n)\)</span> 是积性函数，则 <span class="arithmatex">\(f(n)\)</span> 是完全积性函数的充要条件是</p>
+<div class="arithmatex">\[
+f^{-1}(n) = \mu(n) \cdot f(n)
+\]</div>
+<p>其中 <span class="arithmatex">\(f^{-1}\)</span> 是 <span class="arithmatex">\(f\)</span> 的狄利克雷逆，<span class="arithmatex">\(\mu\)</span> 是莫比乌斯函数。</p>
+<h3 id="_7">证明</h3>
+<h4 id="f-f1-f">（=&gt;）若 f 完全积性，则 f⁻¹ = μ·f</h4>
+<p>验证 <span class="arithmatex">\(\mu \cdot f\)</span> 恰为 <span class="arithmatex">\(f\)</span> 的狄利克雷逆：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\bigl(f * (\mu \cdot f)\bigr)(n)
+&amp;= \sum_{d \mid n} \mu(d) \cdot f(d) \cdot f\!\left(\frac{n}{d}\right) \\
+&amp;= \sum_{d \mid n} \mu(d) \cdot f\!\left(d \cdot \frac{n}{d}\right)
+   \qquad \text{（$f$ 完全积性）}\\
+&amp;= f(n) \sum_{d \mid n} \mu(d) \\
+&amp;= f(n) \cdot [n = 1]
+   \qquad \text{（$\mu * \mathbf{1} = \varepsilon$）}\\
+&amp;= \varepsilon(n)
+\end{aligned}
+\]</div>
+<p>故 <span class="arithmatex">\(f^{-1} = \mu \cdot f\)</span>。<span class="arithmatex">\(\square\)</span></p>
+<h4 id="f1-f-f">（&lt;=）若 f⁻¹ = μ·f，则 f 完全积性</h4>
+<p>先证一个引理。</p>
+<p><strong>引理</strong>：在 <span class="arithmatex">\(f^{-1} = \mu \cdot f\)</span> 且 <span class="arithmatex">\(f\)</span> 积性的条件下，对任意质数幂有 <span class="arithmatex">\(f(p^\alpha) = f(p)^\alpha\)</span>。</p>
+<p><em>引理证明</em>：由卷积逆的定义 <span class="arithmatex">\(f * f^{-1} = \varepsilon\)</span>，代入 <span class="arithmatex">\(f^{-1} = \mu \cdot f\)</span>：</p>
+<div class="arithmatex">\[
+\varepsilon(n) = \sum_{d \mid n} \mu(d) \cdot f(d) \cdot f\!\left(\frac{n}{d}\right)
+\]</div>
+<p>取 <span class="arithmatex">\(n = p^\alpha\)</span>（<span class="arithmatex">\(\alpha \ge 1\)</span>）。<span class="arithmatex">\(p^\alpha\)</span> 的因子中 <span class="arithmatex">\(\mu(d) \neq 0\)</span> 的只有 <span class="arithmatex">\(d = 1\)</span> 和 <span class="arithmatex">\(d = p\)</span>（含 <span class="arithmatex">\(p^2\)</span> 及以上有平方因子），故：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+0 &amp;= \mu(1) f(1) f(p^\alpha) + \mu(p) f(p) f(p^{\alpha-1}) \\
+  &amp;= f(p^\alpha) - f(p) f(p^{\alpha-1})
+\end{aligned}
+\]</div>
+<p>因此 <span class="arithmatex">\(f(p^\alpha) = f(p) f(p^{\alpha-1})\)</span>。递推：</p>
+<div class="arithmatex">\[
+f(p^\alpha) = f(p)^{\alpha-1} \cdot f(p) = f(p)^\alpha
+\]</div>
+<p>引理证毕。</p>
+<p><strong>回到必要性</strong>：任取 <span class="arithmatex">\(m, n \in \mathbb{N}^+\)</span>，作标准分解（允许指数为零）：</p>
+<div class="arithmatex">\[
+m = \prod_{i=1}^{s} p_i^{a_i}, \quad n = \prod_{i=1}^{s} p_i^{b_i}, \quad a_i, b_i \ge 0
+\]</div>
+<p>则 <span class="arithmatex">\(mn = \prod_{i=1}^{s} p_i^{a_i + b_i}\)</span>。由 <span class="arithmatex">\(f\)</span> 的积性及引理：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f(mn) &amp;= f\!\left(\prod_{i=1}^{s} p_i^{a_i+b_i}\right)
+      = \prod_{i=1}^{s} f(p_i^{a_i+b_i}) \\
+      &amp;= \prod_{i=1}^{s} f(p_i)^{a_i+b_i}
+         \qquad \text{（引理）}\\
+      &amp;= \prod_{i=1}^{s} f(p_i)^{a_i} \cdot \prod_{i=1}^{s} f(p_i)^{b_i} \\
+      &amp;= \prod_{i=1}^{s} f(p_i^{a_i}) \cdot \prod_{i=1}^{s} f(p_i^{b_i}) \\
+      &amp;= f\!\left(\prod_{i=1}^{s} p_i^{a_i}\right) \cdot f\!\left(\prod_{i=1}^{s} p_i^{b_i}\right) \\
+      &amp;= f(m) \cdot f(n)
+\end{aligned}
+\]</div>
+<p><span class="arithmatex">\(m, n\)</span> 任意，故 <span class="arithmatex">\(f\)</span> 是完全积性函数。<span class="arithmatex">\(\square\)</span></p>
+<hr />
+<h2 id="_8">除数函数的卷积表示</h2>
+<p>利用恒等函数 <span class="arithmatex">\(f_\alpha(n) = n^\alpha\)</span> 与常数函数 <span class="arithmatex">\(\mathbf{1}(n) \equiv 1\)</span>，可将除数函数写成狄利克雷卷积的形式：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\sigma_\alpha(n) &amp;= \sum_{d \mid n} d^\alpha \\
+&amp;= \sum_{d \mid n} f_\alpha(d) \cdot \mathbf{1}\!\left(\frac{n}{d}\right) \\
+&amp;= (f_\alpha * \mathbf{1})(n)
+\end{aligned}
+\]</div>
+<p>特别地：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(\alpha\)</span></th>
+<th style="text-align: center;">记号</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">卷积形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(d(n)\)</span> 或 <span class="arithmatex">\(\tau(n)\)</span></td>
+<td style="text-align: left;">正因子个数</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathbf{1} * \mathbf{1}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(1\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\sigma(n)\)</span></td>
+<td style="text-align: left;">正因子之和</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{id} * \mathbf{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>因为 <span class="arithmatex">\(f_\alpha(n) = n^\alpha\)</span> 和 <span class="arithmatex">\(\mathbf{1}(n) \equiv 1\)</span> 都是（完全）积性函数，由定理2（狄利克雷卷积保持积性）可知 <span class="arithmatex">\(\sigma_\alpha(n)\)</span> 也是积性函数。</p>
+<hr />
+<h2 id="_9">欧拉—莫比乌斯关系的卷积表述</h2>
+<p>以下两条恒等式是整个初等数论最核心的结论，用卷积写出来既简洁又便于推导：</p>
+<div class="arithmatex">\[
+\boxed{\varphi * \mathbf{1} = \mathrm{id}} \qquad \qquad \boxed{\mu * \mathbf{1} = \varepsilon}
+\]</div>
+<p><strong>第一条的证明</strong>：<span class="arithmatex">\((\varphi * \mathbf{1})(n) = \sum_{d \mid n} \varphi(d) = n = \mathrm{id}(n)\)</span>。</p>
+<p><strong>第二条的证明</strong>：<span class="arithmatex">\((\mu * \mathbf{1})(n) = \sum_{d \mid n} \mu(d) = [n = 1] = \varepsilon(n)\)</span>。</p>
+<p>从这两条出发，可以流水般推出其他关系：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">关系</th>
+<th style="text-align: left;">推导</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="arithmatex">\(\varphi = \mu * \mathrm{id}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\varphi = \varphi * \varepsilon = \varphi * (\mathbf{1} * \mu) = (\varphi * \mathbf{1}) * \mu = \mathrm{id} * \mu\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{id} = \varphi * \mathbf{1}\)</span></td>
+<td style="text-align: left;">已证明</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex">\(\mathbf{1} * \mu = \varepsilon\)</span></td>
+<td style="text-align: left;">已证明</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex">\(\varphi(n) = n \sum_{d \mid n} \frac{\mu(d)}{d}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\varphi = \mu * \mathrm{id}\)</span> 展开即得</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_10">例题</h2>
+<p><strong>问题</strong>：若 <span class="arithmatex">\(f(n)\)</span> 是积性函数，证明</p>
+<div class="arithmatex">\[
+f(m) f(n) = f(\gcd(m, n)) \cdot f(\operatorname{lcm}(m, n))
+\]</div>
+<p>其中 <span class="arithmatex">\(\gcd(m, n)\)</span> 是最大公因数，<span class="arithmatex">\(\operatorname{lcm}(m, n)\)</span> 是最小公倍数。</p>
+<p><strong>证明</strong>：设 <span class="arithmatex">\(m, n\)</span> 的质因数分解为（允许指数为零）</p>
+<div class="arithmatex">\[
+m = \prod_{i=1}^{s} p_i^{a_i}, \quad n = \prod_{i=1}^{s} p_i^{b_i}, \quad a_i, b_i \ge 0
+\]</div>
+<p>则</p>
+<div class="arithmatex">\[
+\gcd(m, n) = \prod_{i=1}^{s} p_i^{\min(a_i, b_i)}, \qquad
+\operatorname{lcm}(m, n) = \prod_{i=1}^{s} p_i^{\max(a_i, b_i)}
+\]</div>
+<p>由 <span class="arithmatex">\(f\)</span> 的积性：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f(m) f(n)
+&amp;= \left(\prod_{i=1}^{s} f(p_i^{a_i})\right)
+   \left(\prod_{i=1}^{s} f(p_i^{b_i})\right) \\
+&amp;= \prod_{i=1}^{s} f(p_i^{a_i}) \, f(p_i^{b_i})
+\end{aligned}
+\]</div>
+<p>对每个 <span class="arithmatex">\(i\)</span>，<span class="arithmatex">\(\{a_i,\, b_i\}\)</span> 与 <span class="arithmatex">\(\{\min(a_i, b_i),\, \max(a_i, b_i)\}\)</span> 是同一个多重集，因此</p>
+<div class="arithmatex">\[
+f(p_i^{a_i}) f(p_i^{b_i})
+= f(p_i^{\min(a_i, b_i)}) \, f(p_i^{\max(a_i, b_i)})
+\]</div>
+<p>代入得：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f(m) f(n)
+&amp;= \prod_{i=1}^{s} f(p_i^{\min(a_i, b_i)}) \, f(p_i^{\max(a_i, b_i)}) \\
+&amp;= f\!\left(\prod_{i=1}^{s} p_i^{\min(a_i, b_i)}\right)
+   \cdot f\!\left(\prod_{i=1}^{s} p_i^{\max(a_i, b_i)}\right) \\
+&amp;= f(\gcd(m, n)) \cdot f(\operatorname{lcm}(m, n))
+\end{aligned}
+\]</div>
+<p>证毕。<span class="arithmatex">\(\square\)</span></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+      
+        <script src="../../../../javascripts/katex-config.js"></script>
+      
+    
+  </body>
+</html>
