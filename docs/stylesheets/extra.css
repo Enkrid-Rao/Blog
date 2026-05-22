@@ -1,0 +1,5 @@
+/* MathJax \text{} 字号匹配正文 —— 消除公式内外中文显示差异 */
+/* MathJax CHTML 输出中，\text{} 对应 .mjx-mtext，按环境缩放后与正文字号不一致 */
+.mjx-mtext {
+  font-size: 1rem !important;
+}

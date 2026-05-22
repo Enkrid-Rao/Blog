@@ -8,31 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://251890411.xyz/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/">
+        <link rel="canonical" href="https://251890411.xyz/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/">
       
       
-        <link rel="next" href="../../../%E7%89%A9%E7%90%86/">
+        <link rel="next" href="../%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%87%BD%E6%95%B0/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>\(\S 3\) 欧拉函数 \(\varphi(n)\) - 饶鑫幸的笔记</title>
+        <title>欧拉函数 - rxx's notes</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +53,9 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,7 +71,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +96,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../.." title="饶鑫幸的笔记" class="md-header__button md-logo" aria-label="饶鑫幸的笔记" data-md-component="logo">
+    <a href="../../../.." title="rxx&#39;s notes" class="md-header__button md-logo" aria-label="rxx's notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,13 +110,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            饶鑫幸的笔记
+            rxx's notes
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              \(\S 3\) 欧拉函数 \(\varphi(n)\)
+              欧拉函数
             
           </span>
         </div>
@@ -127,9 +129,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_1" hidden>
+      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
@@ -137,9 +139,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换亮色模式"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色模式"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="切换亮色模式" for="__palette_0" hidden>
+      <label class="md-header__button md-icon" title="切换暗色模式" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
@@ -218,13 +220,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="饶鑫幸的笔记" class="md-nav__button md-logo" aria-label="饶鑫幸的笔记" data-md-component="logo">
+    <a href="../../../.." title="rxx&#39;s notes" class="md-nav__button md-logo" aria-label="rxx's notes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    饶鑫幸的笔记
+    rxx's notes
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -236,14 +238,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    饶鑫幸的笔记
+    rxx的笔记
   
 
     
@@ -285,7 +287,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   
@@ -351,7 +353,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   
@@ -396,6 +398,104 @@
   
   
   
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章 数论函数
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第三章 数论函数
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -411,7 +511,7 @@
   <span class="md-ellipsis">
     
   
-    \(\S 3\) 欧拉函数 \(\varphi(n)\)
+    欧拉函数
   
 
     
@@ -429,7 +529,7 @@
   <span class="md-ellipsis">
     
   
-    \(\S 3\) 欧拉函数 \(\varphi(n)\)
+    欧拉函数
   
 
     
@@ -519,12 +619,12 @@
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        定理 \(1\)
+        定理 1
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定理 \(1\)">
+    <nav class="md-nav" aria-label="定理 1">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -582,7 +682,7 @@
   <a href="#step-1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step \(1\)
+        Step 1
       
     </span>
   </a>
@@ -593,7 +693,7 @@
   <a href="#step-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step \(2\)
+        Step 2
       
     </span>
   </a>
@@ -604,7 +704,7 @@
   <a href="#step-3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step \(3\)
+        Step 3
       
     </span>
   </a>
@@ -625,12 +725,12 @@
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        积性（定理 \(2\)）
+        积性（定理 2）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="积性（定理 \(2\)）">
+    <nav class="md-nav" aria-label="积性（定理 2）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -664,12 +764,12 @@
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        定理 \(3\)
+        定理 3
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定理 \(3\)">
+    <nav class="md-nav" aria-label="定理 3">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -691,6 +791,42 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    莫比乌斯函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -739,7 +875,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../%E7%89%A9%E7%90%86/" class="md-nav__link ">
+            <a href="../../../../%E7%89%A9%E7%90%86/" class="md-nav__link ">
               
   
   
@@ -805,7 +941,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../%E7%BC%96%E7%A8%8B/" class="md-nav__link ">
+            <a href="../../../../%E7%BC%96%E7%A8%8B/" class="md-nav__link ">
               
   
   
@@ -935,12 +1071,12 @@
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        定理 \(1\)
+        定理 1
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定理 \(1\)">
+    <nav class="md-nav" aria-label="定理 1">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -998,7 +1134,7 @@
   <a href="#step-1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step \(1\)
+        Step 1
       
     </span>
   </a>
@@ -1009,7 +1145,7 @@
   <a href="#step-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step \(2\)
+        Step 2
       
     </span>
   </a>
@@ -1020,7 +1156,7 @@
   <a href="#step-3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step \(3\)
+        Step 3
       
     </span>
   </a>
@@ -1041,12 +1177,12 @@
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        积性（定理 \(2\)）
+        积性（定理 2）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="积性（定理 \(2\)）">
+    <nav class="md-nav" aria-label="积性（定理 2）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1080,12 +1216,12 @@
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        定理 \(3\)
+        定理 3
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定理 \(3\)">
+    <nav class="md-nav" aria-label="定理 3">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1156,10 +1292,10 @@
 \]</div>
 <p>最后一步用到了展开式 <span class="arithmatex">\(\prod (1 - x_i) = 1 - \sum x_i + \sum x_i x_j - \cdots\)</span></p>
 <hr />
-<h2 id="1">定理 <span class="arithmatex">\(1\)</span></h2>
+<h2 id="1">定理 1</h2>
 <div class="arithmatex">\[
 \begin{gathered}
-\bf{\text{对于} n \ge 1，\text{有} \displaystyle\sum_{d \mid n} \varphi(d)=n}
+\mathbf{\text{对于 } n \ge 1,\ \text{有 } \displaystyle\sum_{d \mid n} \varphi(d)=n}
 \end{gathered}
 \]</div>
 <h3 id="_4">思路</h3>
@@ -1207,16 +1343,16 @@ a=\dfrac{i}{n} = \dfrac{\;i/d\;}{n/d} ,\quad \text{显然 } 1 \le \frac{i}{d} \l
 <h2 id="_6">引理</h2>
 <div class="arithmatex">\[
 \begin{gathered}
-    \bf{\text{设 }\gcd(m,n)=1,\ \text{ 如果  }t_1 \text{ 通过 }n \text{ 的全部因子, 则 }t_1t_2 \text{ 通过 } mn \text{ 的全部因子 } }
+    \mathbf{\text{设 } \gcd(m,n)=1,\ \text{如果 } t_1 \text{ 通过 } n \text{ 的全部因子},\ t_2 \text{ 通过 } m \text{ 的全部因子},\ \text{则 } t_1t_2 \text{ 通过 } mn \text{ 的全部因子}}
 \end{gathered}
 \]</div>
 <h3 id="_7">证明</h3>
-<h4 id="step-1">Step <span class="arithmatex">\(1\)</span></h4>
+<h4 id="step-1">Step 1</h4>
 <p><strong>证明</strong>：<span class="arithmatex">\(t_1 t_2 \mid mn\)</span></p>
 <div class="arithmatex">\[
 \because\ t_1 \mid m,\ t_2 \mid n \quad \therefore\ t_1t_2\mid mn \quad \square
 \]</div>
-<h4 id="step-2">Step <span class="arithmatex">\(2\)</span></h4>
+<h4 id="step-2">Step 2</h4>
 <p><strong>证明</strong>：<span class="arithmatex">\(t_1t_2=t_1't_2'\)</span> 当且仅当 <span class="arithmatex">\(t_1=t_1'\)</span>，<span class="arithmatex">\(t_2=t_2'\)</span>。</p>
 <p><strong>反证法</strong>：</p>
 <div class="arithmatex">\[
@@ -1236,7 +1372,7 @@ a=\dfrac{i}{n} = \dfrac{\;i/d\;}{n/d} ,\quad \text{显然 } 1 \le \frac{i}{d} \l
 \therefore\ \textbf{假设不成立} \quad \square
 \end{gathered}
 \]</div>
-<h4 id="step-3">Step <span class="arithmatex">\(3\)</span></h4>
+<h4 id="step-3">Step 3</h4>
 <p><strong>证明</strong>：<span class="arithmatex">\(mn\)</span> 的全部因子可以表示为 <span class="arithmatex">\(t_1t_2\)</span>。</p>
 <div class="arithmatex">\[
 \begin{gathered}
@@ -1246,10 +1382,10 @@ a=\dfrac{i}{n} = \dfrac{\;i/d\;}{n/d} ,\quad \text{显然 } 1 \le \frac{i}{d} \l
 \end{gathered}
 \]</div>
 <hr />
-<h2 id="2">积性（定理 <span class="arithmatex">\(2\)</span>）</h2>
+<h2 id="2">积性（定理 2）</h2>
 <div class="arithmatex">\[
 \begin{gathered}
-    \bf{\text{若 } \gcd(m,n)=1, \text{ 则 } \varphi(mn)=\varphi(m)\varphi(n)}
+    \mathbf{\text{若 } \gcd(m,n)=1,\ \text{则 } \varphi(mn)=\varphi(m)\varphi(n)}
 \end{gathered}
 \]</div>
 <h3 id="_8">法一（正向）</h3>
@@ -1285,13 +1421,13 @@ mn &amp;= \sum_{t_1 \mid m} \varphi(t_1) \sum_{t_2 \mid n} \varphi(t_2) = \sum_{
 \end{gathered}
 \]</div>
 <blockquote>
-<p><strong>推论</strong>：有了积性，就可以通过 <span class="arithmatex">\(n\)</span> 的质因数分解直接拼出 <span class="arithmatex">\(\varphi(n)\)</span>：
-$$
+<p><strong>推论</strong>：有了积性，就可以通过 <span class="arithmatex">\(n\)</span> 的质因数分解直接拼出 <span class="arithmatex">\(\varphi(n)\)</span>：</p>
+<div class="arithmatex">\[
 \varphi(n) = \prod_{i=1}^{r} \varphi(p_i^{\alpha_i}) = \prod_{i=1}^{r} p_i^{\alpha_i-1} (p_i - 1)
-$$</p>
+\]</div>
 </blockquote>
 <hr />
-<h2 id="3">定理 <span class="arithmatex">\(3\)</span></h2>
+<h2 id="3">定理 3</h2>
 <ol>
 <li>设 <span class="arithmatex">\(\gcd(m,n)=d\)</span>，则有 <span class="arithmatex">\(\displaystyle\varphi(mn)=\varphi(m)\varphi(n)\dfrac{d}{\varphi(d)}\)</span></li>
 <li>若 <span class="arithmatex">\(a\mid b\)</span>，则 <span class="arithmatex">\(\displaystyle\varphi(a) \mid \varphi(b)\)</span></li>
@@ -1308,12 +1444,37 @@ $$</p>
 \end{aligned}
 \]</div>
 <hr />
+<p><strong><span class="arithmatex">\((2)\)</span></strong></p>
+<div class="arithmatex">\[
+\because\ a \mid b \quad \therefore\ \exists c \in \mathbb{Z},\quad \text{s.t.}\quad b=ac
+$$
+$$
+\text{设 } \gcd(a,c)=d
+$$
+$$
+\begin{align}
+\therefore\ \varphi(b)&amp;=\varphi(a)\varphi(c)\cdot \frac{d }{\varphi(d)} = \varphi(a) \cdot \frac{c \cdot \prod_{p\mid c} \left( 1-\frac{1}{p} \right)}{\prod_{p\mid d} \left( 1-\frac{1}{p} \right)} \\
+     &amp;=  c\cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left( 1-\frac 1 p \right) \cdot \varphi(a)   \\
+    &amp;= \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} p_i^{c_i} \cdot \prod_{\substack{p \mid c \\ p \nmid d}} \left( 1-\frac 1 p \right) \cdot \varphi(a) \\
+    &amp;=   \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left( p_i^{c_i} \cdot \left( 1-\frac 1 p \right) \right) \cdot \varphi(a) \\
+    &amp;=  \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left(p_i^{c_i} -p_i^{c_i -1}\right) \cdot \varphi(a)
+\end{align}
+$$
+$$
+\text{显然 } \prod_{p\mid c,\, p\mid d} p_i^{c_i} \cdot \prod_{\substack{p\mid c \\ p \nmid d}} \left(p_i^{c_i}-p_i^{c_i-1}\right) \text{ 是整数}
+\]</div>
+<div class="arithmatex">\[
+\therefore\ \varphi(a) \mid \varphi(b) \quad \square
+\]</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -1363,14 +1524,16 @@ $$</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../javascripts/mathjax.js"></script>
+        <script src="../../../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../javascripts/mathjax-config.js"></script>
       
     
   </body>
