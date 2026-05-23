@@ -1,15 +1,519 @@
-/* MathJax \text{} 字号匹配正文 —— 消除公式内外中文显示差异 */
-/* MathJax CHTML 输出中，\text{} 对应 .mjx-mtext，按环境缩放后与正文字号不一致 */
+/* ───────────────────────────────────────────────────────────
+   Academic Notebook · Scholarly Notebook Theme
+   ─────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════
+   1. Font & Typography
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --md-text-font: "LXGW WenKai", "Noto Serif SC", "Source Han Serif SC",
+    "STSong", "SimSun", "Songti SC", "Noto Serif CJK SC", serif;
+}
+
+body {
+  line-height: 1.8;
+}
+
+/* Headings — bolder weight, tighter spacing */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.md-typeset h1 {
+  font-size: 1.85rem;
+  margin-top: 0;
+}
+.md-typeset h2 {
+  font-size: 1.45rem;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+}
+.md-typeset h3 {
+  font-size: 1.15rem;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+/* Body paragraph breathing room */
+.md-typeset p {
+  margin-bottom: 1.2em;
+}
+
+/* List spacing */
+.md-typeset ul,
+.md-typeset ol {
+  margin-bottom: 1em;
+}
+.md-typeset li {
+  margin-bottom: 0.3em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2. Math Formulas (MathJax)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Unified text sizing inside math */
 .mjx-mtext {
   font-size: 1rem !important;
 }
 
-/* 护眼暖黄：羊皮纸暖色背景 */
+/* Inline math line-height */
+mjx-container {
+  line-height: 1.6;
+}
+
+/* ── Display math ($$) blocks — "floating note" style ── */
+mjx-container[display="true"] {
+  --math-bg: rgba(128, 128, 128, 0.035);
+  --math-border: rgba(128, 128, 128, 0.10);
+  background: var(--math-bg);
+  border-left: 3px solid var(--math-border);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Subtle shadow lift on hover */
+mjx-container[display="true"]:hover {
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* ── \boxed{} enhanced border ── */
+.mjx-menclose {
+  border-width: 1.5px !important;
+  border-radius: 4px;
+  padding: 2px 6px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3. Blockquote — "margin note" style
+   ═══════════════════════════════════════════════════════════ */
+.md-typeset blockquote {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--md-default-fg-color--light);
+  background: transparent;
+  border-left: 3px solid var(--md-default-fg-color--lighter);
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   4. Tables
+   ═══════════════════════════════════════════════════════════ */
+.md-typeset table {
+  border-radius: 8px;
+  overflow: hidden;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+}
+
+.md-typeset table thead th {
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--md-default-fg-color--lightest);
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--md-default-fg-color--lighter);
+}
+
+.md-typeset table tbody tr:nth-child(even) {
+  background: rgba(128, 128, 128, 0.03);
+}
+
+.md-typeset table td {
+  padding: 0.65rem 1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5. Custom Scrollbar
+   ═══════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-default-fg-color--light);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-default-fg-color--lighter) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6. Code Blocks
+   ═══════════════════════════════════════════════════════════ */
+.md-typeset code {
+  font-size: 0.88em;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+
+.md-typeset pre > code {
+  border-radius: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7. Back-to-Top Button
+   ═══════════════════════════════════════════════════════════ */
+.md-top {
+  font-size: 0;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+.md-top svg {
+  width: 20px;
+  height: 20px;
+}
+.md-top:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8. Color Theme: Slate Gray (墨灰)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Light scheme ── */
+[data-md-color-primary="slate-gray"][data-md-color-scheme="default"] {
+  --md-primary-fg-color: #546e7a;
+  --md-primary-fg-color--light: #819ca9;
+  --md-primary-fg-color--dark: #29434e;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #607d8b;
+  --md-typeset-a-color: #455a64;
+  --md-default-bg-color: #faf8f5;
+}
+
+/* ── Dark scheme ── */
+[data-md-color-primary="slate-gray"][data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #607d8b;
+  --md-primary-fg-color--light: #8eacbb;
+  --md-primary-fg-color--dark: #34515e;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #90a4ae;
+  --md-typeset-a-color: #90a4ae;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9. Scheme Adaptations (Light & Dark)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Light mode — warm paper texture ── */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #fefefa;
+}
+
+[data-md-color-scheme="default"] .md-main {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(139, 119, 90, 0.025) 0%,
+      transparent 100%
+    );
+}
+
+/* ── Warm mode — sepia paper, easier on the eyes than pure white ── */
+[data-md-color-scheme="warm"] {
+  --md-default-bg-color: #f5efe4;
+  --md-default-fg-color: #3b3228;
+  --md-default-fg-color--light: #6b5e52;
+  --md-default-fg-color--lighter: #9b8e80;
+  --md-default-fg-color--lightest: #d8cfc2;
+  --md-typeset-color: #3b3228;
+  --md-typeset-a-color: #8b5e3c;
+  --md-accent-fg-color: #a1887f;
+  --md-code-bg-color: #ede0d0;
+  --md-code-fg-color: #4e4034;
+  --md-admonition-bg-color: rgba(141, 110, 99, 0.08);
+  --md-footer-bg-color: #3b3228;
+  --md-footer-bg-color--dark: #2b2420;
+}
+
+[data-md-color-scheme="warm"] .md-main {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(180, 150, 120, 0.04) 0%,
+      transparent 100%
+    );
+}
+
+/* Warm mode: math blocks */
+[data-md-color-scheme="warm"] mjx-container[display="true"] {
+  --math-bg: rgba(180, 150, 120, 0.08);
+  --math-border: rgba(160, 130, 100, 0.18);
+}
+
+/* ── Dark mode — warm low-contrast gray (not pure black) ── */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #1b1d1f;
+}
+
+[data-md-color-scheme="slate"] .md-main {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(200, 190, 170, 0.02) 0%,
+      transparent 100%
+    );
+}
+
+/* Dark mode: math blocks use ultra-dark semi-transparent background */
+[data-md-color-scheme="slate"] mjx-container[display="true"] {
+  --math-bg: rgba(255, 255, 255, 0.025);
+  --math-border: rgba(255, 255, 255, 0.07);
+}
+
+[data-md-color-scheme="slate"] mjx-container[display="true"]:hover {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode: blockquote contrast */
+[data-md-color-scheme="slate"] .md-typeset blockquote {
+  opacity: 0.72;
+}
+
+/* Dark mode: table row striping */
+[data-md-color-scheme="slate"] .md-typeset table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Dark mode: better link contrast */
+[data-md-color-scheme="slate"] {
+  --md-typeset-a-color: #90a4ae;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   10. Theme Picker UI
+   ═══════════════════════════════════════════════════════════ */
+.md-theme-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.md-theme-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--md-default-fg-color);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.md-theme-trigger:hover {
+  background: var(--md-default-fg-color--lightest);
+  transform: scale(1.08);
+}
+.md-theme-trigger:active {
+  transform: scale(0.95);
+}
+
+.md-theme-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: -8px;
+  z-index: 100;
+  min-width: 148px;
+  padding: 8px 0;
+  border-radius: 12px;
+  background: var(--md-default-bg-color);
+  box-shadow:
+    0 0 0 1px var(--md-default-fg-color--lightest),
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.95);
+  transition:
+    opacity 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.18s;
+  transform-origin: top right;
+}
+.md-theme-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Menu label */
+.md-theme-menu::before {
+  content: "配色方案";
+  display: block;
+  padding: 6px 16px 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--md-default-fg-color--light);
+  opacity: 0.7;
+}
+
+.md-theme-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 16px;
+  border: none;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--md-default-fg-color);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background 0.15s,
+    border-color 0.2s,
+    padding-left 0.2s;
+  position: relative;
+}
+.md-theme-item:hover {
+  background: var(--md-default-fg-color--lightest);
+  border-left-color: var(--md-default-fg-color--lighter);
+}
+.md-theme-item.active {
+  color: var(--md-primary-fg-color);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--md-primary-fg-color) 8%, transparent);
+  border-left-color: var(--md-primary-fg-color);
+}
+
+/* Active checkmark */
+.md-theme-item.active::after {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--md-primary-fg-color);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' fill='black'/%3E%3C/svg%3E");
+  mask-size: 14px;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: 14px;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  animation: theme-check-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes theme-check-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Color swatch preview */
+.md-theme-dot {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.md-theme-item:hover .md-theme-dot {
+  transform: scale(1.1);
+}
+.md-theme-item.active .md-theme-dot {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 0 2px var(--md-primary-fg-color),
+    0 0 0 4px color-mix(in srgb, var(--md-primary-fg-color) 25%, transparent);
+}
+
+/* Menu item staggered entrance (supports up to 5 items) */
+.md-theme-menu.open .md-theme-item:nth-child(2) {
+  transition-delay: 0.02s;
+}
+.md-theme-menu.open .md-theme-item:nth-child(3) {
+  transition-delay: 0.04s;
+}
+.md-theme-menu.open .md-theme-item:nth-child(4) {
+  transition-delay: 0.06s;
+}
+.md-theme-menu.open .md-theme-item:nth-child(5) {
+  transition-delay: 0.08s;
+}
+.md-theme-menu.open .md-theme-item:nth-child(6) {
+  transition-delay: 0.1s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   11. Eye-Protection Background Overrides
+   ═══════════════════════════════════════════════════════════ */
 [data-md-color-primary="amber"][data-md-color-scheme="default"] {
   --md-default-bg-color: #fdf6e3;
 }
-
-/* 护眼绿：淡绿豆沙背景 */
 [data-md-color-primary="teal"][data-md-color-scheme="default"] {
   --md-default-bg-color: #f4faf5;
+}
+[data-md-color-primary="brown"][data-md-color-scheme="default"] {
+  --md-default-bg-color: #faf3e6;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   12. Responsive: Prevent math overflow on mobile
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  mjx-container[display="true"] {
+    padding: 0.6rem 0.7rem;
+    margin: 0.8rem 0;
+    border-radius: 0 6px 6px 0;
+    overflow-x: auto;
+  }
+
+  .md-typeset table {
+    font-size: 0.85rem;
+  }
+
+  .md-typeset h1 {
+    font-size: 1.5rem;
+  }
+  .md-typeset h2 {
+    font-size: 1.25rem;
+  }
+  .md-typeset h3 {
+    font-size: 1.05rem;
+  }
 }

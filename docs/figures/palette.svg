@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- palette body -->
+  <path fill="#8d6e63" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 2 2 0 0 0 2-2v-1.5a1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5V20a1 1 0 0 0 1 1h1a3 3 0 0 0 3-3v-6A10 10 0 0 0 12 2z"/>
+  <!-- paint dots -->
+  <circle cx="6.5" cy="11.5" r="2" fill="#ef5350"/>
+  <circle cx="9.5" cy="7.5"  r="2" fill="#66bb6a"/>
+  <circle cx="14.5" cy="7.5" r="2" fill="#42a5f5"/>
+  <circle cx="17.5" cy="11.5" r="2" fill="#ffa726"/>
+  <circle cx="9.5" cy="15.5" r="2" fill="#ab47bc"/>
+</svg>

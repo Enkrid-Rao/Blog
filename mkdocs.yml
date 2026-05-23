@@ -4,54 +4,24 @@ theme:
   name: material
   language: zh
   palette:
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: 靛蓝 · 暗色
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: slate-gray
+      accent: blue-grey
+      toggle:
+        icon: material/weather-sunset
+        name: 切换暖色模式
+    - scheme: warm
+      primary: slate-gray
+      accent: blue-grey
       toggle:
         icon: material/brightness-4
-        name: 靛蓝 · 亮色
+        name: 切换暗色模式
     - scheme: slate
-      primary: blue
-      accent: light blue
+      primary: slate-gray
+      accent: blue-grey
       toggle:
         icon: material/brightness-7
-        name: 蓝色 · 暗色
-    - scheme: default
-      primary: blue
-      accent: light blue
-      toggle:
-        icon: material/brightness-4
-        name: 蓝色 · 亮色
-    - scheme: slate
-      primary: teal
-      accent: green
-      toggle:
-        icon: material/brightness-7
-        name: 护眼绿 · 暗色
-    - scheme: default
-      primary: teal
-      accent: green
-      toggle:
-        icon: material/brightness-4
-        name: 护眼绿 · 亮色
-    - scheme: slate
-      primary: amber
-      accent: deep orange
-      toggle:
-        icon: material/brightness-7
-        name: 护眼暖黄 · 暗色
-    - scheme: default
-      primary: amber
-      accent: deep orange
-      toggle:
-        icon: material/brightness-4
-        name: 护眼暖黄 · 亮色
+        name: 切换亮色模式
   features:
     - navigation.tabs
     - navigation.tracking
@@ -61,7 +31,10 @@ theme:
     - toc.follow
 
 nav:
-  - 首页: index.md
+  - 首页:
+    - index.md
+    - 阅读指南: 关于/阅读指南.md
+    - 关于本站: 关于/index.md
   - 数学:
     - 数学/index.md
     - 数论:
@@ -92,6 +65,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax-config.js
+  - javascripts/theme-picker.js
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 extra_css:
