@@ -1,4 +1,7 @@
 MathJax = {
+  tex: {
+    packages: {'[+]': ['cancel']}
+  },
   chtml: {
     matchFontHeight: false
   }
