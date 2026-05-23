@@ -3,3 +3,13 @@
 .mjx-mtext {
   font-size: 1rem !important;
 }
+
+/* 护眼暖黄：羊皮纸暖色背景 */
+[data-md-color-primary="amber"][data-md-color-scheme="default"] {
+  --md-default-bg-color: #fdf6e3;
+}
+
+/* 护眼绿：淡绿豆沙背景 */
+[data-md-color-primary="teal"][data-md-color-scheme="default"] {
+  --md-default-bg-color: #f4faf5;
+}
