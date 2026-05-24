@@ -1,5 +1,7 @@
 (function () {
-  var NAMESPACE = 'rxx-notes';
+  // 注意: countapi.mileshilliard.com 不支持 namespace 层级
+  // key 是一段纯字符串，所以用 : 拼合前缀和路径
+  var PREFIX = 'rxx';
   var API_BASE = 'https://countapi.mileshilliard.com/api/v1';
   var inited = false;
 
@@ -9,10 +11,14 @@
     return key;
   }
 
+  function fullKey(key) {
+    return PREFIX + ':' + key;
+  }
+
   async function getCount(key, doHit) {
     try {
       var action = doHit ? 'hit' : 'get';
-      var resp = await fetch(API_BASE + '/' + action + '/' + NAMESPACE + '/' + key);
+      var resp = await fetch(API_BASE + '/' + action + '/' + fullKey(key));
       if (!resp.ok) throw new Error('API error: ' + resp.status);
       var data = await resp.json();
       return data.value;
