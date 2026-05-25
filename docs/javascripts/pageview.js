@@ -4,6 +4,7 @@
   var PREFIX = 'rxx';
   var API_BASE = 'https://countapi.mileshilliard.com/api/v1';
   var inited = false;
+  var lastPageKey = null;
 
   function getPageKey() {
     var path = window.location.pathname;
@@ -28,17 +29,34 @@
     }
   }
 
-  async function updateCounts() {
+  async function updateCounts(forceHit) {
     var pageEl = document.getElementById('pv-page-count');
     var totalEl = document.getElementById('pv-total-count');
 
+    var currentKey = getPageKey();
+    var pageChanged = currentKey !== lastPageKey;
+
     if (pageEl) {
-      var pageCount = await getCount(getPageKey(), true);
-      if (pageCount !== null) pageEl.textContent = pageCount;
+      if (pageChanged || forceHit) {
+        // 页面切换：hit 计数 +1
+        var pageCount = await getCount(currentKey, true);
+        if (pageCount !== null) pageEl.textContent = pageCount;
+        lastPageKey = currentKey;
+      } else {
+        // 同一页面（锚点滚动等）：只读取，不增加计数
+        var pageCount = await getCount(currentKey, false);
+        if (pageCount !== null) pageEl.textContent = pageCount;
+      }
     }
     if (totalEl) {
-      var totalCount = await getCount('site_total', true);
-      if (totalCount !== null) totalEl.textContent = totalCount;
+      if (pageChanged || forceHit) {
+        // 页面切换时总计才 +1
+        var totalCount = await getCount('site_total', true);
+        if (totalCount !== null) totalEl.textContent = totalCount;
+      } else {
+        var totalCount = await getCount('site_total', false);
+        if (totalCount !== null) totalEl.textContent = totalCount;
+      }
     }
   }
 
@@ -55,19 +73,21 @@
       '<span> · 总计 <span id="pv-total-count">-</span></span>';
     copyright.appendChild(wrap);
 
-    updateCounts();
+    updateCounts(true);
 
     var _pushState = history.pushState;
     history.pushState = function () {
       _pushState.apply(this, arguments);
-      updateCounts();
+      updateCounts(false);
     };
     var _replaceState = history.replaceState;
     history.replaceState = function () {
       _replaceState.apply(this, arguments);
-      updateCounts();
+      updateCounts(false);
     };
-    window.addEventListener('popstate', updateCounts);
+    window.addEventListener('popstate', function () {
+      updateCounts(false);
+    });
   }
 
   if (document.readyState === 'loading') {
