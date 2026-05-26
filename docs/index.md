@@ -36,4 +36,12 @@
 
     [:octicons-arrow-right-24: 进入](编程/)
 
+-   :material-share-variant:{ .lg .middle } __其他分享__
+
+    ---
+
+    实用工具、生活技巧
+
+    [:octicons-arrow-right-24: 进入](其他分享/)
+
 </div>
