@@ -2,4 +2,5 @@ CLAUDE.md
 .vercel
 .workbuddy/
 .claude/
+.crossnote/
 __pycache__/

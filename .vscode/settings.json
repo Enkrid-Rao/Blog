@@ -2,7 +2,6 @@
   "markdown.styles": [
     ".vscode/markdown-preview.css"
   ],
-  "markdown-preview-enhanced.styles": [
-    ".vscode/markdown-preview.css"
-  ]
+  "markdown-preview-enhanced.previewTheme": "none.css",
+  "markdown-preview-enhanced.codeBlockTheme": "github.css"
 }

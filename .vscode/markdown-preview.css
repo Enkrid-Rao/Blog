@@ -1,0 +1,86 @@
+/* ───────────────────────────────────────────────────────────
+   VS Code Built-in Markdown Preview · Warm Theme
+   备选方案 — MPE 用户请用 style.less
+   ─────────────────────────────────────────────────────────── */
+
+body.vscode-body {
+  font-family: "LXGW WenKai", "Noto Serif SC", "Source Han Serif SC",
+    "STSong", "SimSun", "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 16px;
+  line-height: 1.8;
+  background-color: #f5efe4;
+  color: #3b3228;
+  padding: 2em;
+}
+
+body.vscode-body h1,
+body.vscode-body h2,
+body.vscode-body h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #3b3228;
+  border-bottom: none;
+}
+body.vscode-body h1 { font-size: 1.85rem; margin-top: 0; }
+body.vscode-body h2 { font-size: 1.45rem; margin-top: 1.8em; }
+body.vscode-body h3 { font-size: 1.15rem; margin-top: 1.4em; }
+
+body.vscode-body p { margin-bottom: 1.2em; }
+
+body.vscode-body a { color: #8b5e3c; text-decoration: none; }
+body.vscode-body a:hover { color: #a07040; text-decoration: underline; }
+
+body.vscode-body code {
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 0.88em;
+  color: #4e4034;
+  background-color: #ede0d0;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+
+body.vscode-body pre {
+  background-color: #ede0d0;
+  border-radius: 8px;
+  padding: 1em;
+  overflow: auto;
+}
+body.vscode-body pre > code {
+  background: transparent;
+  padding: 0;
+}
+
+body.vscode-body blockquote {
+  color: #6b5e52;
+  background: transparent;
+  border-left: 3px solid #9b8e80;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  opacity: 0.85;
+}
+
+body.vscode-body table {
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+body.vscode-body th {
+  font-weight: 600;
+  background: #d8cfc2;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid #9b8e80;
+}
+body.vscode-body td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid rgba(160, 130, 100, 0.12);
+}
+body.vscode-body tr:nth-child(even) { background: rgba(180, 150, 120, 0.08); }
+
+body.vscode-body hr {
+  height: 1px;
+  border: none;
+  background-color: #9b8e80;
+  opacity: 0.3;
+}
+
+body.vscode-body img { max-width: 100%; border-radius: 6px; }
