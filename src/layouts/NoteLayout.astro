@@ -35,7 +35,7 @@ const title = match?.[2] ?? note.data.title;
 const updated = formatDate(note.data.updated);
 const reading = readingTime(note.body);
 const courseHref = `/notes/${course.subject}/${course.id}`;
-const canonical = new URL(`/notes/${note.id}/`, Astro.site ?? 'https://251890411.xyz');
+const canonical = new URL(`/notes/${note.id}/`, Astro.site ?? 'https://www.251890411.xyz');
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',

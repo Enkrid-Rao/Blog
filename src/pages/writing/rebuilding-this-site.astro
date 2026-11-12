@@ -13,7 +13,7 @@ const jsonLd = post
       description: post.excerpt,
       datePublished: post.date,
       author: { '@type': 'Person', name: 'rxx' },
-      mainEntityOfPage: new URL(`/writing/${post.slug}/`, Astro.site ?? 'https://251890411.xyz').href,
+      mainEntityOfPage: new URL(`/writing/${post.slug}/`, Astro.site ?? 'https://www.251890411.xyz').href,
       keywords: post.tags.join(', '),
     }
   : undefined;

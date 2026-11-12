@@ -23,7 +23,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://251890411.xyz');
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.251890411.xyz');
 const jsonLdText = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : '';
 ---
 

@@ -8,7 +8,9 @@
 
 **本轮改动已提交并推送。** 提交见 `git log`；`main` 与 `workbuddy/main-aef8e669` 都指向新 commit。
 
-部署走 **apex `251890411.xyz`**（该域名已解析到 Vercel，旧站也在这里），`blog` 子域名继续 301 到 apex；旧站 26 条中文路径已在 `vercel.json` 里补 301。Vercel CLI 的本地 token 已失效，无法从命令行手动发布；push 后是否自动构建取决于项目的 Git 集成，需看线上确认。
+部署走 **www `www.251890411.xyz`**：Vercel 项目的主域名是 www，apex 会 307 到 www；`vercel.json` 只保留 `blog` → www 的 301，**不要再加 www → apex**，否则会形成循环。旧站 26 条中文路径已在 `vercel.json` 里补 301。Vercel CLI 的本地 token 已失效，无法从命令行手动发布；push 后是否自动构建取决于项目的 Git 集成，需看线上确认。
+
+> 2026-11-12 14:05 修正：早先的 `vercel.json` 写的是 `www → apex`，与 Vercel 的 apex → www 冲突，线上出现 307/308 循环；已移除该条并把 canonical 切到 www。
 
 上一轮已提交的内容见 `8a35168`（首页、五个子页面、13 篇笔记、RSS、三主题、响应式）。
 
@@ -70,7 +72,7 @@ npm run preview                                 # 预览生产构建
 ## 剩余（按需，涉及用户决策或外部操作）
 
 1. **确认线上部署**：push 后看 Vercel 是否自动构建；若没有，在本机 `vercel login` 后执行 `vercel --prod`。项目已链接（`.vercel/project.json`），无需重新导入。
-2. **子域名**：当前方案是 apex 直接服务、`blog` 301 到 apex，不需要新增 DNS；若以后想让 `blog` 直接服务，需在 Spaceship 加 CNAME（`cname.vercel-dns.com`）并在 Vercel 绑定域名，同时删掉 `vercel.json` 里的 blog 301、把 `SITE_URL` 设为 blog。
+2. **子域名**：当前方案是 www 直接服务、apex 307 到 www、`blog` 301 到 www，不需要新增 DNS；若以后想让 `blog` 直接服务，需在 Spaceship 加 CNAME（`cname.vercel-dns.com`）并在 Vercel 绑定域名，同时删掉 `vercel.json` 里的 blog 301、把 `SITE_URL` 设为 blog。
 3. **仍待用户拍板的视觉问题**：移动菜单「底部对齐 + 上方留白」是否保留、Hero 文案「把复杂的事，写清楚。」是否定稿、三主题够不够。
 4. **本轮未做（方案里可选，不阻塞）**：阅读工具栏 Aa / 字号 / 专注模式、OG 分享图、`/writing` 按年分组。
 

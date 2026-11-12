@@ -2,7 +2,7 @@
 
 `rxx` 的个人博客：数学、代码与文字之间的一些记录。笔记长期维护，日志按时间走，实验室留给还没成型的东西。
 
-在线访问：https://251890411.xyz
+在线访问：https://www.251890411.xyz（`251890411.xyz` 会跳到 www）
 
 ## 技术栈
 
@@ -63,7 +63,7 @@ src/
 ## 部署到 Vercel
 
 1. 仓库已与 Vercel 项目 `blog` 关联（`.vercel/project.json`），`buildCommand` 和 `outputDirectory` 已写在 `vercel.json`。
-2. 主域名 `251890411.xyz` 已解析到 Vercel，直接服务新站；`www` 和 `blog` 子域名会 301 到 apex。
+2. Vercel 项目的主域名是 `www.251890411.xyz`，apex 会 307 到 www；`vercel.json` 只保留 `blog` → www 的 301，**不要再加 www → apex**，否则两边会互相跳转。
 3. 若以后想让 `blog.251890411.xyz` 直接服务：在 Spaceship 加 CNAME 指向 `cname.vercel-dns.com`，在 Vercel 绑定域名，删掉 `vercel.json` 里的 blog 301，并设置环境变量 `SITE_URL=https://blog.251890411.xyz`。
 
 ## 旧站迁移说明

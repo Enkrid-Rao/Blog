@@ -5,7 +5,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 // 本地默认用主域名；部署到子域名时在 Vercel 里设置 SITE_URL。
-const site = process.env.SITE_URL || 'https://251890411.xyz';
+const site = process.env.SITE_URL || 'https://www.251890411.xyz';
 
 export default defineConfig({
   site,

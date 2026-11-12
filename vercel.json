@@ -6,14 +6,8 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.251890411.xyz" }],
-      "destination": "https://251890411.xyz/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
       "has": [{ "type": "host", "value": "blog.251890411.xyz" }],
-      "destination": "https://251890411.xyz/$1",
+      "destination": "https://www.251890411.xyz/$1",
       "permanent": true
     },
     {
