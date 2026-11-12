@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts } from '../../data/posts';
+import '../../styles/pages.css';
+---
+
+<BaseLayout
+  title="日志 — rxx"
+  description="随笔、CTF Writeups 与项目记录。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">02 / Writing</p>
+      <h1 class="page-title">日志</h1>
+      <p class="page-lede">
+        按时间发生的东西：随笔、CTF Writeups、项目记录。
+        比笔记松一点，也比笔记诚实一点。
+      </p>
+      <div class="filter-row">
+        <span class="filter-chip filter-chip--active">全部 <span class="count">1</span></span>
+        <span class="filter-chip">随笔 <span class="count">1</span></span>
+        <span class="filter-chip">CTF <span class="count">0</span></span>
+        <span class="filter-chip">项目 <span class="count">0</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="posts-index" data-reveal>
+        {posts.map((post) => (
+          <a class="post-card" href={`/writing/${post.slug}`}>
+            <span class="post-card__date">{post.displayDate}</span>
+            <div>
+              <h2 class="post-card__title">{post.title}</h2>
+              <p class="post-card__excerpt">{post.excerpt}</p>
+            </div>
+            <div class="post-card__meta">
+              <span>{post.type}</span>
+              <span>{post.reading}</span>
+              <span class="post-card__arrow" aria-hidden="true">↗</span>
+            </div>
+          </a>
+        ))}
+
+        <div class="posts-empty">
+          <span class="post-card__date">TBA</span>
+          <div>
+            <h2 class="post-card__title">CTF Writeups</h2>
+            <p class="post-card__excerpt">
+              位置先留好。等第一场比赛之后，这里会有题目、环境和完整的解题过程。
+            </p>
+          </div>
+          <div class="post-card__meta">
+            <span>预留</span>
+            <span>—</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-note">
+        日志只按时间走，不追求体系。想系统读的东西，去<a href="/notes">笔记库</a>。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

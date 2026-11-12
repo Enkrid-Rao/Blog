@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Chapter, Course } from '../data/taxonomy';
+import InlineMath from './InlineMath.astro';
+
+interface Props {
+  course: Course;
+  courseChapters: (Chapter & { notes: CollectionEntry<'notes'>[] })[];
+  currentNoteId: string;
+}
+
+const { course, courseChapters, currentNoteId } = Astro.props;
+---
+
+<div class="note-tree-inner">
+  <a class="tree-course" href={`/notes/${course.subject}/${course.id}`}>
+    {course.title}
+  </a>
+  <p class="tree-course__en">{course.en}</p>
+
+  <nav class="tree-nav" aria-label="课程目录">
+    {courseChapters.map((chapter) => (
+      <div class="tree-chapter">
+        <p class="tree-chapter__title">{chapter.title}</p>
+        <ul>
+          {chapter.notes.map((note) => (
+            <li>
+              <a
+                href={`/notes/${note.id}`}
+                aria-current={note.id === currentNoteId ? 'page' : undefined}
+              >
+                <InlineMath text={note.data.title} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</div>

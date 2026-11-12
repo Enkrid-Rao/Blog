@@ -1,0 +1,79 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import 'katex/dist/katex.min.css';
+import '../styles/global.css';
+import AmbientBackground from '../components/AmbientBackground.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'rxx — 个人索引',
+  description = '数学、代码与文字之间的一些记录。',
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://251890411.xyz');
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="obsidian">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#08090b" data-theme-color />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="rxx" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta name="twitter:card" content="summary" />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('rxx-theme');
+          const theme =
+            stored === 'ivory' || stored === 'sepia' ? stored : 'obsidian';
+          document.documentElement.dataset.theme = theme;
+          const colors = {
+            obsidian: '#08090b',
+            ivory: '#f1eee7',
+            sepia: '#e8dfcf',
+          };
+          const meta = document.querySelector('meta[data-theme-color]');
+          if (meta) meta.setAttribute('content', colors[theme]);
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <AmbientBackground />
+    <div class="site-shell">
+      <SiteHeader />
+      <main id="main">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

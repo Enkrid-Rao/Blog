@@ -1,0 +1,126 @@
+---
+title: '§3.2 莫比乌斯函数 $\mu(n)$'
+description: "一个看似古怪、却能把求和翻过来的函数。"
+subject: math
+course: number-theory
+chapter: 03-arithmetic-functions
+order: 2
+updated: 2026-06-08
+tags: [数论, 数论函数]
+featured: false
+---
+## 定义
+
+当 $n=1$ 时，$\mu(n)=1$；当 $n>1$ 时，设 $n$ 的标准分解式为 $n=p_1^{a_1}\cdots p_s^{a_s}$，则
+
+$$
+\mu(n) = \begin{cases}
+    (-1)^s & \text{若 } a_1 = a_2 = \cdots = a_s = 1 \\
+    0      & \text{若 } \exists\, a_i > 1
+\end{cases}
+$$
+
+## 定理 1
+
+$$
+\text{如果 } n \ge 1,\ \text{则有}\quad \sum_{d \mid n} \mu(d) = \left[ \frac{1}{n} \right]
+$$
+
+### 证明
+
+当 $n=1$ 时，$\sum_{d\mid n} \mu(d) = \mu(1) = 1$，结论成立。
+
+当 $n>1$ 时，$n$ 的标准分解为 $n = p_1^{a_1} p_2^{a_2} \cdots p_s^{a_s}$。
+
+对 $\sum \mu(d)$ 有贡献的只有 $d = p_1 p_2 \cdots p_s$（一次项）：
+
+$$
+\begin{aligned}
+    \therefore \sum_{d\mid n}\mu(d) &= \mu(1)+\sum_{i=1}^s \mu(p_i)+\sum_{1\le i\le j\le s}\mu(p_ip_j)+\cdots +\mu(p_1p_2\cdots p_s) \\
+    &= 1+s\cdot(-1)+ \binom{s}{2} \cdot (-1)^2 +\cdots +(-1)^s \\
+    &= \sum_{i=0}^s\binom{s}{i}\cdot(-1)^i \\
+    &= (1+(-1))^s = 0
+\end{aligned}
+$$
+
+---
+
+## 推论
+
+$$
+\sum_{d\mid n}\mu(d) \cdot \frac{n}{d} = \varphi(n)
+$$
+
+### 证明
+
+当 $n = p_1^{a_1}\cdots p_s^{a_s}$ 时，$\displaystyle\varphi(n)=n\cdot \left(1-\frac{1}{p_1}\right) \left(1-\frac{1}{p_2}\right)\cdots \left(1-\frac{1}{p_s}\right)$
+
+$$
+\begin{aligned}
+    \sum_{d\mid n} \mu(d)\cdot \frac n d
+    &= \mu(1)\cdot \frac n 1 + \sum_{i=1}^{s}\mu(p_i)\cdot \frac{n}{p_i} + \sum_{i<j}\mu(p_ip_j)\cdot \frac n {p_ip_j} + \cdots + \mu(p_1\cdots p_s)\cdot \frac n {p_1\cdots p_s} \\
+    &= n + \sum_{i=1}^s (-1)\cdot \frac n {p_i} + \sum_{1\le i< j\le s} \frac{n}{p_ip_j} + \cdots + (-1)^s \cdot \frac{n}{p_1\cdots p_s} \\
+    &= n\cdot \left[ 1 + \sum\left(-\frac 1 {p_i}\right) + \sum\left(\frac 1 {p_ip_j}\right) + \cdots + (-1)^s\cdot \frac{1}{p_1\cdots p_s} \right] \\
+    &= n\cdot \left( 1-\frac 1 {p_1} \right)\left( 1-\frac 1 {p_2} \right)\cdots \left( 1-\frac 1 {p_s} \right)
+\end{aligned}
+$$
+
+---
+
+## 定理 2
+
+设 $n>1$，$d$ 通过 $n$ 的不含有多于 $m$ 个素因子的因数时，
+
+$$
+\sum \mu(d) = \begin{cases}
+    \ge 0 & m\ \text{为偶数} \\[4pt]
+    \le 0 & m\ \text{为奇数}
+\end{cases}
+$$
+
+当 $m$ 为偶数时，分四种情况讨论：
+
+$$(1)\ m=s \qquad (2)\ m=s-1 \qquad (3)\ 1\le m < \tfrac s 2 \qquad (4)\ \tfrac s 2 \le m < s-1$$
+
+> 这里给出 $\displaystyle\sum_{d\mid n}\mu(d)=\sum_{i=0}^s \binom{s}{i}(-1)^i$，右边可理解为 $d$ 包含 $i$ 个素因子的项。
+
+---
+
+**(1) 当 $m=s$ 时**，$\displaystyle \sum \mu(d) = \sum_{i=0}^{s} \binom{s}{i}(-1)^i = 0$ 成立。
+
+**(2) 当 $m=s-1$ 时**，$\displaystyle \sum \mu(d)=\sum_{d\mid n}\mu(d)-\mu(p_1p_2\cdots p_s) = 0-(-1)^s=(-1)^{s+1}$
+
+$$
+\because\ m\text{ 是偶数且 }m=s-1,\ \therefore s+1\text{ 是偶数}
+$$
+
+$$
+\therefore\ \sum\mu(d)=1\ge 0\quad \text{成立}
+$$
+
+**(3) 当 $1 \le m < \frac s 2$ 时**，
+
+$$\sum\mu(d)=\sum_{i=0}^m \binom{s}{i}(-1)^i = \binom{s}{0} -\binom{s}{1}+ \binom{s}{2}+\cdots+\binom{s}{m}$$
+
+$$
+当 m<\frac s 2 \text{ 时}, \quad 有 \binom{s}{i+1}> \binom{s}{i}
+$$
+
+$$
+\therefore\ \sum\mu(d)=\binom{s}{0} + \sum_{i=1}^{m-1} \left[ \binom{s}{i+1}-\binom{s}{i} \right] \ge 0 \quad \text{成立}
+$$
+
+**(4) 当 $\frac s 2 \le m < s-1$ 时**，
+
+$$
+\begin{aligned}
+    \sum\mu(d) &= \sum_{i=0}^{m} \binom{s}{i}(-1)^i  \\
+    &= \sum_{i=0}^{s} \binom{s}{i} - \sum_{i=m+1}^{s}\binom{s}{i}(-1)^i \\
+    &= \sum_{i=m+1}^{s}\binom{s}{i}(-1)^{i+1} \\
+    &= \binom{s}{m+1}-\binom{s}{m+2} +\cdots +\binom{s}{s-1}(-1)^s+\binom{s}{s}(-1)^{s+1}
+\end{aligned}
+$$
+
+$$
+然后请读者自行分类讨论后得出答案\cancel{\scriptscriptstyle 绝对不是因为我想偷懒}
+$$

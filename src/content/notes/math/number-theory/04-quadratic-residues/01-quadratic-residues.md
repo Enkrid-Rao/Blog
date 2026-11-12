@@ -1,0 +1,132 @@
+---
+title: "§4.1 二次剩余"
+description: "模 p 之下，哪些数能开平方。"
+subject: math
+course: number-theory
+chapter: 04-quadratic-residues
+order: 1
+updated: 2026-06-08
+tags: [数论, 二次剩余]
+featured: false
+---
+## 定义
+
+设 $p$ 是奇素数，$\gcd(n, p) = 1$。若同余式
+
+$$
+x^2 \equiv n \pmod{p}
+$$
+
+有解，则 $n$ 叫做**模数 $p$ 的二次剩余**；若无解，则 $n$ 叫做**模数 $p$ 的二次非剩余**。
+
+> **例**：取 $p = 7$，在缩系 $\{1,2,3,4,5,6\}$ 中：
+>$$
+> 1^2 \equiv 1,\ 2^2 \equiv 4,\ 3^2 \equiv 2,\ 4^2 \equiv 2,\ 5^2 \equiv 4,\ 6^2 \equiv 1 \pmod{7}
+> $$
+> 
+>故 $1, 2, 4$ 是模 $7$ 的二次剩余，$3, 5, 6$ 是模 $7$ 的二次非剩余。
+
+---
+
+## 定理 1
+
+在模数 $p$ 的缩系 $1, 2, \cdots, p-1$ 中，有 $\dfrac{p-1}{2}$ 个模数 $p$ 的二次剩余和 $\dfrac{p-1}{2}$ 个模数 $p$ 的二次非剩余。且 $1,\left\langle 2^2 \right\rangle_p,\left\langle 3^2 \right\rangle_p\cdots \left\langle \left( \frac{p-1}{2} \right)^2 \right\rangle_p$ 就是模 $p$ 的全部二次剩余
+
+### 证明
+
+考虑 $1^2, 2^2, \dots, (p-1)^2 \pmod{p}$，这 $p-1$ 个数中的每一个都对应缩系中的一个二次剩余。
+
+> 毕竟自己就是平方数嘛😅
+
+注意到：
+
+$$
+(p - k)^2 = p^2 - 2pk + k^2 \equiv k^2 \pmod{p}
+$$
+
+故 $k^2$ 与 $(p-k)^2$ 模 $p$ 同余。因此只需考察
+
+$$
+1^2,\ 2^2,\ \dots,\ \left(\frac{p-1}{2}\right)^2 \pmod{p}
+$$
+
+下面证明这 $\frac{p-1}{2}$ 个数两两不同余。
+
+**反证法**：若存在 $1 \le i < j \le \frac{p-1}{2}$ 使得 $i^2 \equiv j^2 \pmod{p}$，则
+
+$$
+p \mid (j^2 - i^2) = (j-i)(j+i)
+$$
+
+由于 $0 < j-i < j+i < p$，$p$ 不能整除 $j-i$ 也不能整除 $j+i$，矛盾。
+
+故这 $\frac{p-1}{2}$ 个数互不同余，恰好给出 $\frac{p-1}{2}$ 个二次剩余。缩系共有 $p-1$ 个数，故剩余 $\frac{p-1}{2}$ 个为二次非剩余。$\quad \square$
+
+---
+
+## 定理 2（欧拉判别条件）
+
+设 $p$ 是奇素数，$\gcd(n, p) = 1$，则
+
+$$
+\begin{gathered}
+\mathbf{n \text{ 是模 } p \text{ 的二次剩余 } \iff n^{\frac{p-1}{2}} \equiv 1 \pmod{p}} \\[4pt]
+\mathbf{n \text{ 是模 } p \text{ 的二次非剩余 } \iff n^{\frac{p-1}{2}} \equiv -1 \pmod{p}}
+\end{gathered}
+$$
+
+### 证明
+
+由费马小定理，$n^{p-1} \equiv 1 \pmod{p}$，即
+
+$$
+\left(n^{\frac{p-1}{2}} - 1\right)\left(n^{\frac{p-1}{2}} + 1\right) \equiv 0 \pmod{p}
+$$
+
+由于 $p$ 是素数，必有 $n^{\frac{p-1}{2}} \equiv 1 \pmod{p}$ 或 $n^{\frac{p-1}{2}} \equiv -1 \pmod{p}$。
+
+**$(\Rightarrow)$** 若 $n$ 是二次剩余，则 $\exists\, x_0$ 使 $x_0^2 \equiv n \pmod{p}$，且 $\gcd(x_0, p) = 1$。于是
+
+$$
+n^{\frac{p-1}{2}} \equiv (x_0^2)^{\frac{p-1}{2}} = x_0^{p-1} \equiv 1 \pmod{p} \quad \text{(费马小定理)}
+$$
+
+**$(\Leftarrow)$** 若 $n^{\frac{p-1}{2}} \equiv 1 \pmod{p}$，需证 $n$ 是二次剩余。
+
+由定理 1，缩系中恰有 $\frac{p-1}{2}$ 个二次剩余，设为 $a_1, a_2, \dots, a_{\frac{p-1}{2}}$。考虑多项式
+
+$$
+f(x) = x^{\frac{p-1}{2}} - 1
+$$
+
+对每个二次剩余 $a_i$，由正向证明知 $f(a_i) \equiv 0 \pmod{p}$，故 $f(x)$ 在模 $p$ 下有 $\frac{p-1}{2}$ 个不同的根。
+
+而 $\deg f = \frac{p-1}{2}$，由拉格朗日定理，模素数 $p$ 下 $f(x)$ 至多有 $\frac{p-1}{2}$ 个根。因此 $f(x) \equiv 0 \pmod{p}$ 的根就是全体二次剩余。
+
+若 $n^{\frac{p-1}{2}} \equiv 1 \pmod{p}$，则 $n$ 是 $f(x)$ 的根，故 $n$ 必为二次剩余。$\quad \square$
+
+> **推论**：$n^{\frac{p-1}{2}} \equiv -1 \pmod{p} \iff n$ 是二次非剩余。
+
+---
+
+## 定理 3（二次剩余乘积性质）
+
+$$
+\begin{gathered}
+\mathbf{\text{模 } p \text{ 的两个二次剩余之积仍是二次剩余}} \\[4pt]
+\mathbf{\text{二次剩余与二次非剩余之积是二次非剩余}} \\[4pt]
+\mathbf{\text{两个二次非剩余之积是二次剩余}}
+\end{gathered}
+$$
+
+### 证明
+
+设 $n_1, n_2$ 均与 $p$ 互质。由欧拉判别条件：
+
+$$
+(n_1 n_2)^{\frac{p-1}{2}} \equiv n_1^{\frac{p-1}{2}} \cdot n_2^{\frac{p-1}{2}} \pmod{p}
+$$
+
+- 若 $n_1, n_2$ 都是二次剩余，则 $n_1^{\frac{p-1}{2}} \equiv 1,\ n_2^{\frac{p-1}{2}} \equiv 1$，积为 $1 \equiv 1$，故 $n_1n_2$ 是二次剩余。
+- 若一个是二次剩余、一个是二次非剩余，则积为 $1 \cdot (-1) = -1$，故 $n_1n_2$ 是二次非剩余。
+- 若两个都是二次非剩余，则积为 $(-1) \cdot (-1) = 1$，故 $n_1n_2$ 是二次剩余。$\quad \square$

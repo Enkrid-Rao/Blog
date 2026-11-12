@@ -1,0 +1,576 @@
+.note-shell {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 760px) 180px;
+  gap: clamp(26px, 3.4vw, 48px);
+  align-items: start;
+  padding-top: 132px;
+  padding-bottom: clamp(96px, 12vw, 140px);
+}
+
+.note-tree,
+.note-toc {
+  position: sticky;
+  top: 100px;
+  max-height: calc(100svh - 124px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.note-tree-inner {
+  padding-bottom: 20px;
+}
+
+.tree-course {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.tree-course:hover {
+  color: var(--accent);
+}
+
+.tree-course__en {
+  margin-top: 4px;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tree-nav {
+  margin-top: 24px;
+}
+
+.tree-chapter + .tree-chapter {
+  margin-top: 22px;
+}
+
+.tree-chapter__title {
+  margin-bottom: 8px;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tree-chapter ul {
+  border-left: 1px solid var(--line);
+}
+
+.tree-chapter a {
+  position: relative;
+  display: block;
+  padding: 5px 0 5px 12px;
+  color: var(--fg-muted);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  transition: color var(--dur-fast) ease;
+}
+
+.tree-chapter a:hover {
+  color: var(--fg);
+}
+
+.tree-chapter a[aria-current='page'] {
+  color: var(--accent);
+}
+
+.tree-chapter a[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: -2.5px;
+  top: 12px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.note-toc-inner .label {
+  margin-bottom: 12px;
+}
+
+.note-toc-inner ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.note-toc-inner a {
+  display: block;
+  padding: 5px 0;
+  color: var(--fg-subtle);
+  font-size: 0.72rem;
+  line-height: 1.55;
+  transition: color var(--dur-fast) ease;
+}
+
+.note-toc-inner a:hover,
+.note-toc-inner a.is-active {
+  color: var(--fg);
+}
+
+.note-toc-inner a.is-active {
+  color: var(--accent);
+}
+
+.note-toc-inner .toc-depth-3 a {
+  padding-left: 13px;
+  font-size: 0.68rem;
+}
+
+.note-main {
+  min-width: 0;
+  max-width: 760px;
+}
+
+.note-header {
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--line);
+}
+
+.note-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 28px;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.note-breadcrumb a:hover {
+  color: var(--fg);
+}
+
+.note-section {
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.note-title {
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.note-description {
+  max-width: 56ch;
+  margin-top: 16px;
+  color: var(--fg-muted);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+.note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 26px;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.note-prose {
+  padding-top: 36px;
+  font-size: clamp(1rem, 1.1vw, 1.06rem);
+  line-height: 1.95;
+}
+
+.note-prose > * + * {
+  margin-top: 1.35em;
+}
+
+.note-prose h2,
+.note-prose h3,
+.note-prose h4 {
+  scroll-margin-top: 116px;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.note-prose h2 {
+  margin-top: 2.5em;
+  padding-bottom: 0.45em;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+  line-height: 1.35;
+}
+
+.note-prose h3 {
+  margin-top: 2.1em;
+  font-size: 1.18rem;
+  line-height: 1.45;
+}
+
+.note-prose h4 {
+  margin-top: 1.8em;
+  font-size: 1.02rem;
+}
+
+.note-prose p {
+  color: var(--fg-muted);
+}
+
+.note-prose strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.note-prose em {
+  color: var(--fg);
+}
+
+.note-prose a {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  transition: border-color var(--dur-fast) ease;
+}
+
+.note-prose a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.note-prose ul,
+.note-prose ol {
+  padding-left: 1.35em;
+  list-style: disc;
+}
+
+.note-prose ol {
+  list-style: decimal;
+}
+
+.note-prose li {
+  color: var(--fg-muted);
+}
+
+.note-prose li + li {
+  margin-top: 0.45em;
+}
+
+.note-prose li::marker {
+  color: var(--fg-subtle);
+}
+
+.note-prose blockquote {
+  margin: 1.8em 0;
+  padding: 6px 0 6px 22px;
+  border-left: 1px solid var(--accent);
+  color: var(--fg-subtle);
+  font-size: 0.92em;
+  line-height: 1.8;
+}
+
+.note-prose blockquote p {
+  color: inherit;
+}
+
+.note-prose hr {
+  height: 1px;
+  margin-block: 2.8em;
+  border: 0;
+  background: var(--line);
+}
+
+.note-prose code {
+  padding: 0.12em 0.38em;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg-soft);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  font-variant-ligatures: contextual;
+}
+
+.note-prose pre {
+  margin: 1.6em 0;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-soft);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  font-variant-ligatures: contextual;
+}
+
+.note-prose pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: inherit;
+}
+
+.note-prose table {
+  display: block;
+  width: 100%;
+  margin: 1.7em 0;
+  border-collapse: collapse;
+  overflow-x: auto;
+  font-size: 0.84rem;
+}
+
+.note-prose th,
+.note-prose td {
+  padding: 0.62em 0.85em;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.note-prose th {
+  color: var(--fg);
+  font-weight: 500;
+  background: color-mix(in srgb, var(--fg) 3.5%, transparent);
+}
+
+.note-prose tr:hover td {
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
+}
+
+.note-prose img {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+/* KaTeX display blocks: quiet glass strips, no jumping */
+.note-prose .katex {
+  font-size: 1.02em;
+}
+
+.note-prose .katex-display {
+  margin: 1.6em 0;
+  padding: 1.05rem 1.25rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 0 12px 12px 0;
+  background: color-mix(in srgb, var(--fg) 3.2%, transparent);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.note-prose .katex-display > .katex {
+  font-size: 1.04em;
+}
+
+.note-prose .katex-display::-webkit-scrollbar {
+  height: 4px;
+}
+
+.note-prose .katex-error {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.note-foot {
+  margin-top: clamp(56px, 8vw, 88px);
+}
+
+.note-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.note-pager__link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition:
+    border-color var(--dur-fast) ease,
+    background-color var(--dur-fast) ease;
+}
+
+.note-pager__link:hover {
+  border-color: var(--line-strong);
+  background: var(--glass);
+}
+
+.note-pager__link--next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.note-pager__title {
+  color: var(--fg);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.note-foot__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.note-source {
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.note-source:hover {
+  color: var(--fg);
+}
+
+.note-mobile-panel {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .note-shell {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+
+  .note-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .note-shell {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 112px;
+  }
+
+  .note-tree {
+    display: none;
+  }
+
+  .note-mobile-panel {
+    display: block;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .note-mobile-panel summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    color: var(--fg-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .note-mobile-panel summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .note-mobile-panel summary::after {
+    content: '+';
+    color: var(--accent);
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .note-mobile-panel[open] summary::after {
+    content: '−';
+  }
+
+  .note-mobile-panel .note-tree-inner,
+  .note-mobile-panel .note-toc-inner {
+    padding: 4px 0 20px;
+  }
+
+  .note-mobile-panel .tree-nav {
+    margin-top: 14px;
+  }
+
+  .note-mobile-panel .note-toc-inner .label {
+    display: none;
+  }
+
+  .note-header {
+    padding-top: 28px;
+  }
+
+  .note-title {
+    font-size: clamp(2.2rem, 8vw, 3.4rem);
+  }
+
+  .note-prose {
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 680px) {
+  .note-shell {
+    padding-top: 100px;
+  }
+
+  .note-breadcrumb {
+    margin-bottom: 22px;
+    font-size: 0.56rem;
+  }
+
+  .note-meta {
+    gap: 7px 14px;
+    font-size: 0.54rem;
+  }
+
+  .note-pager {
+    grid-template-columns: 1fr;
+  }
+
+  .note-pager__link--next {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .note-prose .katex-display {
+    padding: 0.8rem 0.85rem;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .note-foot__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

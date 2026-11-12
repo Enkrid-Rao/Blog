@@ -1,0 +1,243 @@
+---
+title: "§4.2 勒让德符号"
+description: "二次剩余的判别工具，从欧拉准则到互反律的入口。"
+subject: math
+course: number-theory
+chapter: 04-quadratic-residues
+order: 2
+updated: 2026-06-08
+tags: [数论, 二次剩余]
+featured: true
+---
+## 定义
+
+设 $p$ 是奇素数，$\gcd(n, p) = 1$，定义**勒让德符号**为：
+
+$$
+\left(\frac{n}{p}\right) = \begin{cases}
+\ \ 1 & \text{若 } n \text{ 是模 } p \text{ 的二次剩余} \\[4pt]
+-1  & \text{若 } n \text{ 是模 } p \text{ 的二次非剩余}
+\end{cases}
+$$
+
+当 $p \mid n$ 时，补充定义 $\left(\dfrac{n}{p}\right) = 0$。
+
+由欧拉判别条件，立即有
+
+$$
+\left(\frac{n}{p}\right) \equiv n^{\frac{p-1}{2}} \pmod{p}
+$$
+
+---
+
+## 性质
+
+设 $p$ 是奇素数，则勒让德符号满足：
+
+### (a) 周期性
+
+$$
+\begin{gathered}
+\mathbf{\text{若 } a \equiv b \pmod{p},\ \text{则 } \left(\frac{a}{p}\right) = \left(\frac{b}{p}\right)}
+\end{gathered}
+$$
+
+直接由定义可得。
+
+### (b) 完全积性
+
+$$
+\begin{gathered}
+\mathbf{\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)}
+\end{gathered}
+$$
+
+### 证明
+
+由欧拉判别条件：
+
+$$
+\left(\frac{ab}{p}\right) \equiv (ab)^{\frac{p-1}{2}} = a^{\frac{p-1}{2}} \cdot b^{\frac{p-1}{2}} \equiv \left(\frac{a}{p}\right)\left(\frac{b}{p}\right) \pmod{p}
+$$
+
+即
+
+$$
+p \mid \left(\frac{ab}{p}\right) - \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)
+$$
+
+而 $\left(\frac{ab}{p}\right) - \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)$ 的值域为 $[-2, 2]$，又 $p > 2$，故这个差只能是 $0$。因此
+
+$$
+\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right) \quad \square
+$$
+
+### (c) 补充律一
+
+$$
+\begin{gathered}
+\mathbf{\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}} = \begin{cases}
+\ \ 1 & \text{若 } p \equiv 1 \pmod{4} \\[4pt]
+-1  & \text{若 } p \equiv 3 \pmod{4}
+\end{cases}}
+\end{gathered}
+$$
+
+### 证明
+
+由欧拉判别条件，$\left(\dfrac{-1}{p}\right) \equiv (-1)^{\frac{p-1}{2}} \pmod{p}$。
+
+两边取值均在 $\{1, -1\}$ 中，而 $p > 2$，故
+
+$$
+\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}}
+$$
+
+当 $p \equiv 1 \pmod{4}$ 时，$\frac{p-1}{2}$ 为偶数，$(-1)^{\frac{p-1}{2}} = 1$；当 $p \equiv 3 \pmod{4}$ 时，$\frac{p-1}{2}$ 为奇数，$(-1)^{\frac{p-1}{2}} = -1$。$\quad \square$
+
+
+### (d) 补充律二
+
+$$
+\begin{gathered}
+\mathbf{\left(\frac{2}{p}\right) = (-1)^{\frac{p^2-1}{8}} = \begin{cases}
+\ \ 1 & \text{若 } p \equiv \pm 1 \pmod{8} \\[4pt]
+-1  & \text{若 } p \equiv \pm 3 \pmod{8}
+\end{cases}}
+\end{gathered}
+$$
+
+### 证明
+
+显然我们可以得到:
+
+$$
+\left( \frac 2 p  \right)=2^{\frac{p-1}{2}} \pmod{p}
+$$
+
+所以我们证明的关键是判断 $2^{\frac{p-1}{2}} \bmod{p}$ 这个数到底是 $1$ 还是 $-1$
+
+然后我们自然地想到如何构造出一个等式结果恰好包含 $2^{\frac{p-1}{2}}$ 且恰好有另外一种表达形式呢? 而且另外一种形式是非常易求的,或者说易判断符号的
+
+这就到了 **集中注意力** 的时候了🐷🐷🐷
+
+数列 $\left\{ 2,4,6,\cdots,p-1 \right \}$ 可不就恰好可以得到 $\frac{p-1}{2}$ 个 $2$ 吗?
+
+即:
+$$
+\prod_{i=1}^{\frac{p-1}{2}} 2i = 2^{\frac{p-1}{2}} \cdot \prod_{i=1}^{\frac{p-1}{2}} i
+$$
+
+所以问题就来到了 $\displaystyle \prod_{i=1}^{\frac{p-1}{2}} 2i$ 与 $\displaystyle \prod_{i=1}^{\frac{p-1}{2}} i$ 之间是否有其他的某种**联系**?
+
+事实上他们都有 $\frac{p-1}{2}$ 个数, 但是一个是 $\left\{ 2,4,\cdots p-1 \right \}$, 一个是 $\left\{ 1,2,\cdots \frac{p-1}{2} \right \}$ 
+
+这时候想到**绝对最小剩余**, 注意到  $\left\{ 2,4,\cdots p-1 \right \}$ 在模 $p$ 下,可以化为 $\left\{ \cdots-3, -1,2,4\cdots  \right \}$, 这里就 **初见端倪** 了, 不难发现他们都含有数字 $\left\{ 1,2,\cdots ,\frac{p-1}{2} \right \}$ , 那么我们再进一步研究就可以得到
+
+> 这里其实有点儿不严谨, 后续在 *高斯引理* 部分有严谨的证明
+
+我们假设从 $\left\{ 2,4,\cdots p-1 \right \}$ 化为 **绝对最小剩余** 后的**负数**有 $k$ 个 ~~(因为判断奇偶性真的很麻烦或者说繁琐)~~, 那么就会有:
+
+$$
+\prod_{i=1}^{\frac{p-1}{2}} 2i =(-1)^k \cdot \prod_{i=1}^{\frac{p-1}{2}} i
+$$
+
+那现在就只剩下最后一步, 就是找到 $k$ 和 $p$ 的关系了
+
+又 $p$ 是奇素数, 所以绝对最小剩余是 $\left\{ r \mid -\frac{p-1}{2}\le r \le \frac{p-1}{2} \right \}$
+
+(1) $\frac{p-1}{2}$ 是奇数:
+
+令 $p=4t-1$
+
+那么从 $\frac{p+1}{2}$ 到 $p-1$ 这 $\displaystyle \frac{p-1-\frac{p+1}{2}}{2}+1 = \frac{p+1}{4}$ 个数都会变成负数, 所以 $k=\displaystyle \frac{p+1}{4}=t$ 
+
+(2) $\frac{p-1}{2}$ 是偶数:
+
+令 $p=4t+1$
+
+那么类似地可以计算出 $k=\displaystyle \frac{p-1-\frac{p+3}{2}}{2}+1=\frac{p-1}{4}=t$
+
+显然分类讨论 $t$ 的奇偶**就可以得出答案**,然后通过验证发现 $\dfrac{p^2-1}{8}$ 完美符合, 但是我们能否顺利成章地推出  $\dfrac{p^2-1}{8}$ 呢?
+
+### 进一步研究
+也就是说我们想得到一种函数关系: $\displaystyle k=k(p)$ 来方便我们的计算
+
+已知:
+
+$$
+\displaystyle
+k = \begin{cases}
+    \frac{p+1}{4} & p \equiv -1 \pmod{4} \\[4pt]
+    \frac{p-1}{4} & p \equiv 1 \pmod{4} 
+\end{cases}
+$$
+
+所以 
+
+$$
+(-1)^{k} = \begin{cases}
+    (-1)^{\frac{p+1}{4}} & \frac{p-1}{2} 为奇数 \\
+    (-1)^{\frac{p-1}{4}} & \frac{p+1}{2} 为奇数 
+\end{cases}
+$$
+
+显然 **一个数的奇数次方是不改变符号的** , 那么
+
+$$
+\begin{equation*}
+    (-1)^k = \left( (-1)^{\frac{p+1}{4}} \right) ^{\frac{p-1}{2}} = \left( (-1)^{\frac{p-1}{4}} \right)^{\frac{p+1}{2}} = (-1)^{\frac{p^2-1}{8}}
+\end{equation*}
+$$
+
+> 其实这里看起来非常巧妙,但实际上还是由结果反推来的,但是下面这个是真的
+
+--- 
+
+这次我们不是将绝对最小剩余外的数分离,而是全部讨论
+
+注意到
+
+$$
+\begin{aligned}
+    p-1 &= 1\cdot (-1) \pmod{p}  \\
+    2   &= 2\cdot (-1)^2 \pmod{p} \\
+    p-3 &= 3\cdot (-1)^3 \pmod{p} \\
+    4   &= 4\cdot (-1)^4 \pmod{p} \\
+    \vdots \\
+    p-\frac{p-1}{2} &= \frac{p-1}{2} \cdot (-1)^{\frac{p-1}{2}} \pmod{p}, 
+    \qquad \text{若 } \frac{p-1}{2} \text{ 为奇数} \\[4pt]
+    \frac{p-1}{2}   &= \frac{p-1}{2} \cdot (-1)^{\frac{p-1}{2}} \pmod{p}, 
+    \qquad \text{若 } \frac{p-1}{2} \text{ 为偶数}
+\end{aligned}
+$$
+
+左右累乘,可得:
+
+$$
+\begin{equation*}
+    \prod_{i=1}^{\frac{p-1}{2}}2i  = \prod_{i=1}^{\frac{p-1}{2}} i \cdot (-1)^{1+2+\cdots+\frac{p-1}{2} }
+\end{equation*}
+$$
+
+所以最后有
+
+$$
+\begin{equation*}
+    k = \frac{(1+\frac{p-1}{2})\cdot \frac{p-1}{2}}{2} = \frac{p^2-1}{8} \quad \square
+\end{equation*}
+$$
+
+> 这也就是老师上课讲的方法, 我原本想着写一种更加简单易懂的方法, 但是却发现不妨便顺着推出 $\frac{p^2-1}{8}$ 这个确切的表达式, 回过头来发现老师这个方法挺好的
+
+---
+
+## 高斯引理
+
+设 $p$ 是一个奇素数, $\gcd(n,p)=1$, 且 $\dfrac{p-1}{2}$ 个数 $\left\langle n \right\rangle_p,\left\langle 2n \right\rangle_p,\cdots, \left\langle (\frac{p-1}{2})n \right\rangle_p$ 中有 $m$ 个大于 $\dfrac{p }{2}$, 则 $\left( \dfrac n p  \right)=(-1)^m$  
+
+### 证明
+
+$$
+设 \left\langle n  \right\rangle_p, \left\langle 2n \right\rangle_p, \left\langle \left( \frac{p-1}{2} \right) \right\rangle_p 中小于 \frac{p }{2 } 的数为 a_1,a_2,\cdots, a_s, 大于\frac{p }{2} 的数为 b_1,b_2,\cdots b_m,l+m=\frac{p-1}{2} 
+$$

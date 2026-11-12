@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/pages.css';
+---
+
+<BaseLayout
+  title="重建这个站点 — rxx"
+  description="把笔记和写作分开，把视觉重新做一遍。"
+>
+  <article>
+    <header class="article-header">
+      <div class="container">
+        <a class="article-back" href="/writing">← 返回日志</a>
+        <h1 class="article-title">重建这个站点</h1>
+        <div class="article-meta">
+          <span>2026.11.11</span>
+          <span>随笔</span>
+          <span>4 min</span>
+          <span>rxx</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-body">
+      <div class="container">
+        <div class="prose">
+          <p>
+            这个站最早是 MkDocs + Material。它很适合写文档：左边一棵树，右边一页纸，
+            公式和搜索都是现成的。但当我开始想放一点别的东西——随笔、CTF 的记录、
+            还没成型的项目——它就开始别扭了。
+          </p>
+
+          <h2>为什么重做</h2>
+          <p>
+            问题不在外观，在结构。原来的导航是「数学 / 物理 / 编程」，
+            像三本教材摊在桌上；而我想做的其实是一个人的索引：
+            <strong>笔记是长期维护的，日志是按时间发生的。</strong>
+            这两件事混在一起，两边都会变差。
+          </p>
+          <p>
+            所以这次把站点拆成四个入口：笔记、日志、实验室、关于。
+            笔记保留课程和章节的顺序；日志只按时间走；实验室给还没做完的东西留位置。
+            导航不再假装自己是一本书。
+          </p>
+
+          <h2>视觉上的取舍</h2>
+          <p>
+            液态玻璃很容易做过头。模糊、发光、漂浮，堆在一起就会变成一张廉价的海报。
+            这次只让玻璃待在外壳上：导航、卡片、弹层、阅读工具栏。
+            正文仍然是一张安静的纸，背景的光雾在阅读时也会慢下来。
+          </p>
+          <blockquote>
+            玻璃是外壳，纸是内容。动在边缘，静在字里。
+          </blockquote>
+
+          <h2>还没做完的</h2>
+          <p>
+            笔记正文还在迁移，CTF 只有入口，diary 还停在「规划中」。
+            这一版先把骨架和首页做稳，剩下的慢慢填。
+            如果你偶然路过，看到半成品，也算是一种真实的进度。
+          </p>
+        </div>
+
+        <div class="article-foot">
+          <span>写于 2026 年 11 月</span>
+          <span>标签：随笔 / 建站</span>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+// Purely decorative. Kept behind the page shell so it never affects hit testing.
+---
+<div class="ambient" aria-hidden="true">
+  <div class="ambient__glow ambient__glow--top"></div>
+  <div class="ambient__glow ambient__glow--bottom"></div>
+  <div class="ambient__vignette"></div>
+</div>
+
+<style>
+  .ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ambient__glow {
+    position: absolute;
+    width: 90vw;
+    height: 90vw;
+    max-width: 1200px;
+    max-height: 1200px;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.55;
+  }
+
+  .ambient__glow--top {
+    top: -52%;
+    right: -26%;
+    background: radial-gradient(circle, var(--aurora-1), transparent 66%);
+  }
+
+  .ambient__glow--bottom {
+    bottom: -58%;
+    left: -28%;
+    background: radial-gradient(circle, var(--aurora-2), transparent 66%);
+    opacity: 0.34;
+  }
+
+  .ambient__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 50% 42%,
+      transparent 35%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 100%
+    );
+  }
+
+  @media (max-width: 680px) {
+    .ambient__glow {
+      filter: blur(70px);
+      opacity: 0.38;
+    }
+  }
+</style>

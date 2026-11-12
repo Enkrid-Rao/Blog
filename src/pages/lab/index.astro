@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+import '../../styles/pages.css';
+---
+
+<BaseLayout
+  title="实验室 — rxx"
+  description="还没做完的项目、工具和实验。diary 正在规划中。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">03 / The Lab</p>
+      <h1 class="page-title">实验室</h1>
+      <p class="page-lede">
+        给还没做完的东西留一个位置。这里不展示完成度，只展示方向。
+      </p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>1 个规划中</span>
+        <span>0 个已上线</span>
+        <span>资源库 · 预留</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="projects">
+        {projects.map((project) => (
+          <article class="project-card" data-reveal>
+            <div class="project-card__top">
+              <p class="label">Project / {project.slug}</p>
+              <span class="status-pill">
+                <span class="status-dot" aria-hidden="true"></span>
+                {project.status}
+              </span>
+            </div>
+
+            <h2 class="project-card__title">{project.title}</h2>
+            <p class="project-card__sub">{project.subtitle}</p>
+            <p class="project-card__desc">{project.description}</p>
+
+            <ul class="scope-list">
+              <li><span class="num">01</span>私密记录，不进入公开时间流</li>
+              <li><span class="num">02</span>先做本地优先，再考虑同步</li>
+              <li><span class="num">03</span>等它真的值得打开，再放出来</li>
+            </ul>
+
+            <div class="project-card__foot">
+              <span class="status-pill">{project.meta}</span>
+            </div>
+          </article>
+        ))}
+
+        <article class="project-card project-card--muted" data-reveal style="--delay: 1">
+          <div class="project-card__top">
+            <p class="label">Project / resources</p>
+            <span class="status-pill">
+              <span class="status-dot" aria-hidden="true"></span>
+              预留
+            </span>
+          </div>
+          <h2 class="project-card__title" style="font-size: clamp(2.2rem, 4vw, 3.4rem);">resources</h2>
+          <p class="project-card__sub">Files, notes, and things worth keeping.</p>
+          <p class="project-card__desc">
+            以后放可下载的资料、模板和工具。现在还没有东西，所以先不打开。
+          </p>
+          <ul class="scope-list">
+            <li><span class="num">01</span>文件元数据与下载入口</li>
+            <li><span class="num">02</span>对象存储，不把大文件塞进仓库</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="lab-note">
+        实验室不是「作品集」。这里可以放失败的东西、半成品的工具，
+        以及一些只想自己用的小项目。等 diary 有了第一版，再把它挪到前面。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

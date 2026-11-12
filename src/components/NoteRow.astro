@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { readingTime } from '../lib/notes';
+import InlineMath from './InlineMath.astro';
+
+interface Props {
+  note: CollectionEntry<'notes'>;
+}
+
+const { note } = Astro.props;
+---
+
+<a class="note-row" href={`/notes/${note.id}`}>
+  <span class="note-row__order">{String(note.data.order).padStart(2, '0')}</span>
+  <div>
+    <h3 class="note-row__title">
+      <InlineMath text={note.data.title} />
+      <span class="badge">{readingTime(note.body)} min</span>
+    </h3>
+    <p class="note-row__desc">{note.data.description}</p>
+  </div>
+  <div class="note-row__tags">
+    {note.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+  </div>
+</a>

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages.css';
+---
+
+<BaseLayout title="404 — rxx" description="这里什么都没有。" noindex>
+  <section class="not-found">
+    <div class="container">
+      <p class="label">Error / 404</p>
+      <div class="not-found__code" aria-hidden="true">404</div>
+      <h1 class="not-found__title">这里什么都没有。</h1>
+      <p class="not-found__text">
+        可能是我还没写，也可能是链接坏了。你可以回到首页，
+        或者去笔记库里随便翻一篇。
+      </p>
+      <div class="not-found__actions">
+        <a class="btn btn--primary" href="/">回到首页 <span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="btn btn--glass" href="/notes">翻笔记 <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

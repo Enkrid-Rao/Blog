@@ -1,0 +1,120 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import NoteTree from '../components/NoteTree.astro';
+import NoteToc from '../components/NoteToc.astro';
+import InlineMath from '../components/InlineMath.astro';
+import type { NoteEntry } from '../lib/notes';
+import { formatDate, readingTime } from '../lib/notes';
+import { stripMath } from '../lib/math';
+import type { Chapter, Course, Subject } from '../data/taxonomy';
+import '../styles/note.css';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  note: NoteEntry;
+  chapter: Chapter;
+  course: Course;
+  subject: Subject;
+  courseChapters: (Chapter & { notes: NoteEntry[] })[];
+  headings: Heading[];
+  prev?: NoteEntry;
+  next?: NoteEntry;
+}
+
+const { note, chapter, course, subject, courseChapters, headings, prev, next } = Astro.props;
+
+const match = note.data.title.match(/^(§[\d.]+)\s*(.*)$/);
+const section = match?.[1] ?? '';
+const title = match?.[2] ?? note.data.title;
+const updated = formatDate(note.data.updated);
+const reading = readingTime(note.body);
+const courseHref = `/notes/${course.subject}/${course.id}`;
+---
+
+<BaseLayout
+  title={`${stripMath(title)} — ${course.title} — rxx`}
+  description={note.data.description}
+>
+  <div class="note-shell container">
+    <aside class="note-tree">
+      <NoteTree course={course} courseChapters={courseChapters} currentNoteId={note.id} />
+    </aside>
+
+    <article class="note-main">
+      <details class="note-mobile-panel">
+        <summary>课程目录</summary>
+        <NoteTree course={course} courseChapters={courseChapters} currentNoteId={note.id} />
+      </details>
+      {headings.some((heading) => heading.depth === 2 || heading.depth === 3) && (
+        <details class="note-mobile-panel">
+          <summary>本页目录</summary>
+          <NoteToc headings={headings} />
+        </details>
+      )}
+
+      <header class="note-header">
+        <nav class="note-breadcrumb" aria-label="面包屑">
+          <a href="/notes">笔记</a>
+          <span aria-hidden="true">/</span>
+          <span>{subject.title}</span>
+          <span aria-hidden="true">/</span>
+          <a href={courseHref}>{course.title}</a>
+          <span aria-hidden="true">/</span>
+          <span>{chapter.title}</span>
+        </nav>
+
+        {section && <p class="note-section">{section}</p>}
+        <h1 class="note-title"><InlineMath text={title} /></h1>
+        <p class="note-description">{note.data.description}</p>
+
+        <div class="note-meta">
+          <span>{chapter.title}</span>
+          <span>更新 {updated}</span>
+          <span>{reading} min</span>
+          <span>{note.data.tags.join(' / ')}</span>
+        </div>
+      </header>
+
+      <div class="prose note-prose">
+        <slot />
+      </div>
+
+      <footer class="note-foot">
+        <div class="note-pager">
+          {prev ? (
+            <a class="note-pager__link" href={`/notes/${prev.id}`}>
+              <span class="label">上一节</span>
+              <span class="note-pager__title"><InlineMath text={prev.data.title} /></span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <a class="note-pager__link note-pager__link--next" href={`/notes/${next.id}`}>
+              <span class="label">下一节</span>
+              <span class="note-pager__title"><InlineMath text={next.data.title} /></span>
+            </a>
+          ) : (
+            <span />
+          )}
+        </div>
+
+        <div class="note-foot__bottom">
+          <div class="note-tags">
+            {note.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+          <a class="note-source" href={courseHref}>回到课程 ↗</a>
+        </div>
+      </footer>
+    </article>
+
+    <aside class="note-toc">
+      <NoteToc headings={headings} />
+    </aside>
+  </div>
+</BaseLayout>

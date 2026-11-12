@@ -1,0 +1,158 @@
+---
+import { site } from '../data/site';
+import ThemeSwitcher from './ThemeSwitcher.astro';
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isActive(href: string) {
+  return current === href || current.startsWith(`${href}/`);
+}
+---
+
+<header class="site-header" data-header>
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="rxx 首页">
+      rxx<span class="brand-dot" aria-hidden="true"></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="主导航">
+      {site.nav.map((item) => (
+        <a
+          class="nav-link"
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          <span class="nav-index" aria-hidden="true">{item.index}</span>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-tools">
+      <ThemeSwitcher />
+      <a class="header-cta" href="/notes">
+        开始阅读
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <button
+        class="icon-button menu-trigger"
+        type="button"
+        data-menu-open
+        aria-label="打开菜单"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="menu-lines" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+  <div class="mobile-menu__inner">
+    <p class="label mobile-menu__label">Index — 2026</p>
+    <nav class="mobile-nav" aria-label="移动端导航">
+      {site.nav.map((item) => (
+        <a href={item.href} data-menu-link>
+          <span class="num" aria-hidden="true">{item.index}</span>
+          {item.label}
+          <span class="en" aria-hidden="true">{item.en}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="mobile-theme">
+      <span class="label">Appearance</span>
+      <div class="mobile-theme__options">
+        <button type="button" class="mobile-theme__option" data-theme-option="obsidian">
+          <span class="swatch swatch--obsidian" aria-hidden="true"></span>黑曜
+        </button>
+        <button type="button" class="mobile-theme__option" data-theme-option="ivory">
+          <span class="swatch swatch--ivory" aria-hidden="true"></span>象牙
+        </button>
+        <button type="button" class="mobile-theme__option" data-theme-option="sepia">
+          <span class="swatch swatch--sepia" aria-hidden="true"></span>暖纸
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu__foot">
+      <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href={`mailto:${site.email}`}>Email ↗</a>
+      <span>© {new Date().getFullYear()} rxx</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .menu-lines {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 18px;
+  }
+
+  .menu-lines span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transition:
+      transform 0.4s var(--ease-out),
+      width 0.4s var(--ease-out);
+  }
+
+  .menu-trigger[aria-expanded='true'] .menu-lines span:nth-child(1) {
+    transform: translateY(3px) rotate(45deg);
+  }
+
+  .menu-trigger[aria-expanded='true'] .menu-lines span:nth-child(2) {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+
+  .mobile-theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-theme__options {
+    display: flex;
+    gap: 6px;
+  }
+
+  .mobile-theme__option {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--fg-muted);
+    font-size: 0.72rem;
+  }
+
+  .mobile-theme__option[aria-pressed='true'] {
+    color: var(--fg);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .mobile-theme__option .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+  }
+
+  @media (min-width: 901px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>

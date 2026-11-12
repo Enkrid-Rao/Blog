@@ -1,0 +1,12 @@
+---
+import { renderInlineMath } from '../lib/math';
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const html = renderInlineMath(text);
+---
+
+<Fragment set:html={html} />

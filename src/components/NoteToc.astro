@@ -1,0 +1,29 @@
+---
+import { stripMath } from '../lib/math';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+{items.length > 0 && (
+  <div class="note-toc-inner">
+    <p class="label">On this page</p>
+    <ul>
+      {items.map((heading) => (
+        <li class={`toc-depth-${heading.depth}`}>
+          <a href={`#${heading.slug}`} data-toc-link>{stripMath(heading.text)}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}

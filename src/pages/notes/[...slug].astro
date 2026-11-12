@@ -1,0 +1,53 @@
+---
+import { render } from 'astro:content';
+import NoteLayout from '../../layouts/NoteLayout.astro';
+import {
+  chapters,
+  courses,
+  getChaptersForCourse,
+  subjects,
+} from '../../data/taxonomy';
+import { getNotes, type NoteEntry } from '../../lib/notes';
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+interface Props {
+  note: NoteEntry;
+}
+
+const { note } = Astro.props;
+const allNotes = await getNotes();
+const courseNotes = allNotes.filter((item) => item.data.course === note.data.course);
+const index = courseNotes.findIndex((item) => item.id === note.id);
+const prev = index > 0 ? courseNotes[index - 1] : undefined;
+const next = index >= 0 && index < courseNotes.length - 1 ? courseNotes[index + 1] : undefined;
+
+const chapter = chapters[note.data.chapter as keyof typeof chapters];
+const course = courses[note.data.course as keyof typeof courses];
+const subject = subjects[note.data.subject];
+const courseChapters = getChaptersForCourse(course.id).map((item) => ({
+  ...item,
+  notes: courseNotes.filter((entry) => entry.data.chapter === item.id),
+}));
+
+const { Content, headings } = await render(note);
+---
+
+<NoteLayout
+  note={note}
+  chapter={chapter}
+  course={course}
+  subject={subject}
+  courseChapters={courseChapters}
+  headings={headings}
+  prev={prev}
+  next={next}
+>
+  <Content />
+</NoteLayout>

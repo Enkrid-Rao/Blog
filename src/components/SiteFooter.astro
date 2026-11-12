@@ -1,0 +1,54 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="rxx 首页">
+          rxx<span class="brand-dot" aria-hidden="true"></span>
+        </a>
+        <p class="footer-tagline">
+          数学、代码与文字之间的一些记录。<br />
+          写给自己，也写给偶然路过的人。
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h2>索引</h2>
+        <a href="/notes">笔记</a>
+        <a href="/writing">日志</a>
+        <a href="/lab">实验室</a>
+        <a href="/about">关于</a>
+      </div>
+
+      <div class="footer-col">
+        <h2>内容</h2>
+        <a href="/notes">数论笔记</a>
+        <a href="/writing">随笔</a>
+        <a href="/lab">diary</a>
+        <a href="/rss.xml">RSS 订阅</a>
+        <span>CTF · 即将开放</span>
+      </div>
+
+      <div class="footer-col">
+        <h2>联系</h2>
+        <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href={`mailto:${site.email}`}>Email ↗</a>
+        <span>251890411.xyz</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {year} rxx · 内容 CC BY-SA 4.0</span>
+      <span>Built with Astro · 保持好奇</span>
+      <button class="back-to-top" type="button" data-back-to-top>
+        回到顶部 <span aria-hidden="true">↑</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="footer-wordmark" aria-hidden="true">rxx</div>
+</footer>

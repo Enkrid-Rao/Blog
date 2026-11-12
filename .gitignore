@@ -4,3 +4,9 @@ CLAUDE.md
 .claude/
 .crossnote/
 __pycache__/
+node_modules/
+dist/
+.astro/
+_inbox/
+.DS_Store
+*.log

@@ -1,4 +1,28 @@
 {
-  "buildCommand": "python3 -m venv /tmp/venv && . /tmp/venv/bin/activate && pip install mkdocs-material && mkdocs build",
-  "outputDirectory": "site"
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.251890411.xyz" }],
+      "destination": "https://251890411.xyz/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "blog.251890411.xyz" }],
+      "destination": "https://251890411.xyz/$1",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
 }

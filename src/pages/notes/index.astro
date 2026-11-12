@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NoteRow from '../../components/NoteRow.astro';
+import { chapterList, courses } from '../../data/taxonomy';
+import { formatDate, getNotes } from '../../lib/notes';
+import '../../styles/pages.css';
+
+const allNotes = await getNotes();
+const course = courses['number-theory'];
+const courseChapters = chapterList.filter((chapter) => chapter.course === course.id);
+const groups = courseChapters.map((chapter) => ({
+  ...chapter,
+  notes: allNotes.filter((note) => note.data.chapter === chapter.id),
+}));
+const total = allNotes.length;
+const lastUpdated = allNotes
+  .map((note) => note.data.updated)
+  .filter((date): date is Date => Boolean(date))
+  .sort((a, b) => b.getTime() - a.getTime())[0];
+---
+
+<BaseLayout
+  title="笔记 — rxx"
+  description="数论、二次剩余、原根：一个按课程与章节组织的笔记库。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">01 / Notes</p>
+      <h1 class="page-title">笔记库</h1>
+      <p class="page-lede">
+        按课程和章节组织，适合从头读，也适合随手查。
+        目前只有数论，物理和编程还在后面排队。
+      </p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>{total} 篇笔记</span>
+        <span>{courseChapters.length} 个章节</span>
+        <span>{course.title} / {course.en}</span>
+        <span>最后更新 {formatDate(lastUpdated)}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="notes-notice" data-reveal>
+        <span class="status-dot" aria-hidden="true"></span>
+        正文已迁入 Astro，公式在构建时由 KaTeX 渲染，阅读时不会闪烁。
+      </div>
+
+      <div class="notes-index">
+        {groups.map((chapter) => (
+          <section class="chapter-block" data-reveal>
+            <div class="chapter-head">
+              <span class="chapter-head__index">{chapter.index}</span>
+              <h2 class="chapter-head__title">{chapter.title}</h2>
+              <p class="chapter-head__desc">{chapter.description}</p>
+            </div>
+
+            <div class="note-list">
+              {chapter.notes.map((note) => <NoteRow note={note} />)}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <p class="notes-end">— 数论 · {total} 篇 · 未完待续 —</p>
+    </div>
+  </section>
+</BaseLayout>
