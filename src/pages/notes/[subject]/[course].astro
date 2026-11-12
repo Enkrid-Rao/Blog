@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import NoteRow from '../../../components/NoteRow.astro';
+import NotesSidebar from '../../../components/NotesSidebar.astro';
 import { courses, getChaptersForCourse, subjects } from '../../../data/taxonomy';
 import { formatDate, getNotes, latestUpdated } from '../../../lib/notes';
 import '../../../styles/pages.css';
@@ -23,74 +24,92 @@ const courseChapters = getChaptersForCourse(course.id).map((chapter) => ({
 const lastUpdated = latestUpdated(courseNotes);
 ---
 
-<BaseLayout
-  title={`${course.title} — 笔记 — rxx`}
-  description={course.description}
->
-  <section class="page-hero">
-    <div class="container">
-      <div class="course-breadcrumb">
-        <a href="/notes">笔记</a>
-        <span aria-hidden="true">/</span>
-        <a href={`/notes/${subject.id}`}>{subject.title}</a>
-        <span aria-hidden="true">/</span>
-        <span>{course.title}</span>
-      </div>
-      <h1 class="page-title">{course.title}</h1>
-      <p class="page-lede">{course.description}</p>
-      <div class="page-hero__meta">
-        {course.status === 'active' ? (
-          <>
-            <span><span class="dot"></span>{courseNotes.length} 篇笔记</span>
-            <span>{courseChapters.length} 个章节</span>
-            <span>最后更新 {formatDate(lastUpdated)}</span>
-          </>
-        ) : (
-          <>
-            <span><span class="dot"></span>筹备中</span>
-            <span>0 篇笔记</span>
-            <span>章节尚未排定</span>
-          </>
-        )}
-      </div>
-    </div>
-  </section>
+<BaseLayout title={`${course.title} — 笔记 — rxx`} description={course.description}>
+  <section class="notes-shell">
+    <div class="container notes-layout">
+      <NotesSidebar />
 
-  <section class="page-body">
-    <div class="container">
-      {course.status === 'planned' ? (
-        <div class="empty-state" data-reveal>
-          <p class="label">Planned</p>
-          <h2 class="empty-state__title">这门课还没开始。</h2>
-          <p>
-            章节和篇目还没定下来，所以这里暂时没有目录。
-            等第一篇真的写出来，它会自动出现在这里，不需要手写导航。
-          </p>
-          <div class="empty-state__actions">
-            <a class="btn btn--glass" href={`/notes/${subject.id}`}>回到{subject.title}</a>
-            <a class="btn btn--ghost" href="/notes">全部笔记</a>
+      <div class="notes-main">
+        <header class="page-hero page-hero--notes">
+          <div class="course-breadcrumb">
+            <a href="/notes">笔记</a>
+            <span aria-hidden="true">/</span>
+            <a href={`/notes/${subject.id}`}>{subject.title}</a>
+            <span aria-hidden="true">/</span>
+            <span>{course.title}</span>
           </div>
+          <h1 class="page-title">{course.title}</h1>
+          <p class="page-lede">{course.description}</p>
+          <div class="page-hero__meta">
+            {course.status === 'active' ? (
+              <>
+                <span><span class="dot"></span>{courseNotes.length} 篇笔记</span>
+                <span>{courseChapters.length} 个章节</span>
+                <span>最后更新 {formatDate(lastUpdated)}</span>
+              </>
+            ) : (
+              <>
+                <span><span class="dot"></span>筹备中</span>
+                <span>0 篇笔记</span>
+                <span>章节尚未排定</span>
+              </>
+            )}
+          </div>
+        </header>
+
+        <div class="page-body">
+          {course.status === 'planned' ? (
+            <div class="empty-state" data-reveal>
+              <p class="label">Planned</p>
+              <h2 class="empty-state__title">这门课还没开始。</h2>
+              <p>章节与篇目尚未排定。</p>
+              <div class="empty-state__actions">
+                <a class="btn btn--glass" href={`/notes/${subject.id}`}>回到{subject.title}</a>
+                <a class="btn btn--ghost" href="/notes">全部笔记</a>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div class="chapter-toolbar">
+                <p class="label">Sections / {courseChapters.length}</p>
+                <button
+                  class="filter-chip"
+                  type="button"
+                  data-expand-all
+                  aria-expanded="false"
+                >
+                  全部展开
+                </button>
+              </div>
+
+              <div class="chapter-stack">
+                {courseChapters.map((chapter, index) => (
+                  <details
+                    class="chapter-block"
+                    id={chapter.id}
+                    open={index === 0}
+                    data-chapter
+                  >
+                    <summary class="chapter-head">
+                      <span class="chapter-head__index">{chapter.index}</span>
+                      <h2 class="chapter-head__title">
+                        {chapter.title}
+                        <span class="chapter-head__count">{chapter.notes.length} 篇</span>
+                      </h2>
+                      <span class="chapter-head__desc">{chapter.description}</span>
+                      <span class="chapter-head__chevron" aria-hidden="true"></span>
+                    </summary>
+
+                    <div class="note-list">
+                      {chapter.notes.map((note) => <NoteRow note={note} />)}
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </>
+          )}
         </div>
-      ) : (
-        <>
-          <div class="notes-index">
-            {courseChapters.map((chapter) => (
-              <section class="chapter-block" data-reveal>
-                <div class="chapter-head">
-                  <span class="chapter-head__index">{chapter.index}</span>
-                  <h2 class="chapter-head__title">{chapter.title}</h2>
-                  <p class="chapter-head__desc">{chapter.description}</p>
-                </div>
-                <div class="note-list">
-                  {chapter.notes.map((note) => <NoteRow note={note} />)}
-                </div>
-              </section>
-            ))}
-          </div>
-
-          <p class="notes-end">— {course.title} · 未完待续 —</p>
-        </>
-      )}
+      </div>
     </div>
   </section>
 </BaseLayout>

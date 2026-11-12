@@ -9,150 +9,138 @@ updated: 2026-06-08
 tags: [数论, 数论函数]
 featured: false
 ---
-> 上课用的是 $\operatorname{pot}_p(n)$，但是 $v_p(n)$ 是更常用的用法（虽然可能有歧义），但两者含义完全相同，所以笔者下面全部用 $v_p(n)$，望见谅。
+> 上课用的是 $\operatorname{pot}_p(n)$，这里统一写成更常见的 $v_p(n)$，两者含义相同。
 
 ## 定义
 
-对于一给定**素数** $p$，设 $p^m \parallel n$，即 $p^m \mid n,\ p^{m+1} \nmid n$，则记 $v_p(n)=m$
+给定素数 $p$，若 $p^m \parallel n$，即 $p^m \mid n$ 且 $p^{m+1} \nmid n$，则记
 
+$$
+v_p(n) = m.
+$$
 
-对于**有理数** $\displaystyle\frac a b$，有 $\displaystyle v_p\!\left(\frac a b\right)=v_p(a)-v_p(b)$
+对有理数 $a/b$，定义
+
+$$
+v_p\!\left(\frac{a}{b}\right) = v_p(a) - v_p(b).
+$$
 
 ## 基本性质
 
-1. $v_p(mn)=v_p(m)+v_p(n)$
-2. $v_p(n^k)=k\cdot v_p(n)$
+1. $v_p(mn) = v_p(m) + v_p(n)$；
+2. $v_p(n^k) = k\,v_p(n)$。
 
 **例子**：
 
 $$
 \begin{aligned}
-    v_3(54) &= v_3(3^3\times 2) \\
-    &= v_3(3^3)+v_3(2) \\
-    &= 3v_3(3)+0 \\
-    &= 3
+v_3(54)
+&= v_3(3^3 \times 2) \\
+&= v_3(3^3) + v_3(2) \\
+&= 3v_3(3) + 0 \\
+&= 3.
 \end{aligned}
 $$
 
 ## 定理 1
 
+设 $p$ 是素数，$p^k \leqslant n < p^{k+1}$，则
+
 $$
-\text{设 } p^k \le n \le p^{k+1},\ p \text{ 是素数},\ \text{则有 } v_p(n!) = \left\lfloor \frac n p  \right\rfloor + \left\lfloor \frac n {p^2} \right\rfloor + \cdots + \left\lfloor \frac{n }{p^k} \right\rfloor
+v_p(n!) = \left\lfloor \frac{n}{p} \right\rfloor
++ \left\lfloor \frac{n}{p^2} \right\rfloor
++ \cdots
++ \left\lfloor \frac{n}{p^k} \right\rfloor
+= \sum_{i=1}^{k} \left\lfloor \frac{n}{p^i} \right\rfloor.
 $$
 
 ### 证明
 
-根据函数性质 $v_p(n!)=v_p(1)+v_p(2)+\cdots+v_p(n)$
-
-对于 $1\le k \le n$，若 $\gcd(k,p)=1$，$v_p(k)=0$，则只剩下 $p$ 倍数对应的 $v_p(k)$ 
-
-同时 $1,2,\cdots,n$ 中包含 $\left\lfloor \frac n p  \right\rfloor$ 个 $p$ 的倍数，据此可得
+由 $v_p$ 的可加性，
 
 $$
-    v_p(n!) = v_p(p)+v_p \left( 2p \right)+\cdots + v_p\left(\left\lfloor \frac n p  \right\rfloor p\right)
+v_p(n!) = \sum_{j=1}^{n} v_p(j).
 $$
 
-又
-
-$$
-\begin{equation*}
-    v_p \left( kp  \right) = v_p(k)+v_p(p) = v_p(k)+1,\quad k=1,2,\cdots, \left\lfloor \frac n p \right\rfloor 
-\end{equation*}
-$$
-
-所以就有
+在 $1 \sim n$ 中，只有 $p$ 的倍数对和有贡献，这样的数共有 $\lfloor n/p \rfloor$ 个。把每个 $pj$ 写成 $p \cdot j$，得
 
 $$
 \begin{aligned}
-    v_p(n!) &= \sum_{i=1}^{\left\lfloor \frac n p \right\rfloor} v_p(i) + 1 \cdot \left\lfloor \frac n p \right\rfloor \\
-    &= v_p(\left\lfloor \frac n p  \right\rfloor !)+\left\lfloor \frac n p \right\rfloor 
+v_p(n!)
+&= \sum_{j=1}^{\lfloor n/p \rfloor} v_p(pj) \\
+&= \sum_{j=1}^{\lfloor n/p \rfloor} \bigl(v_p(j) + 1\bigr) \\
+&= v_p\!\left(\left\lfloor \frac{n}{p} \right\rfloor !\right) + \left\lfloor \frac{n}{p} \right\rfloor.
 \end{aligned}
 $$
 
-类似地，我们对 $v_p \left( \frac n p  \right)$ 执行式 $(1)$ 的类似操作：
-
-也就是说将 $\left\lfloor \frac n p  \right\rfloor$ 看作新的 **n**，那么在 $1 \sim \left\lfloor \frac n p \right\rfloor$ 中，有
+对 $\lfloor n/p \rfloor!$ 重复同样的操作。因为
 
 $$
-\left\lfloor \frac{\left\lfloor \frac{n}{p} \right\rfloor}{p} \right\rfloor = \left\lfloor \frac{n}{p^2} \right\rfloor
+\left\lfloor \frac{\lfloor n/p \rfloor}{p} \right\rfloor
+= \left\lfloor \frac{n}{p^2} \right\rfloor,
 $$
 
-> 这里是由于 $\left\lfloor \frac{n}{p} \right\rfloor \sim \frac n p$ 之间没有 $p$ 的倍数
+所以
 
 $$
-    v_p(n!)=\left\lfloor \frac n p  \right\rfloor + \left\lfloor \frac{n }{p^2} \right\rfloor + \sum_{i=1}^{\left\lfloor \frac{n }{p^2} \right\rfloor } v_p(i)
+v_p(n!) = \left\lfloor \frac{n}{p} \right\rfloor
++ \left\lfloor \frac{n}{p^2} \right\rfloor
++ v_p\!\left(\left\lfloor \frac{n}{p^2} \right\rfloor !\right).
 $$
 
-以此类推：
+继续下去，直到 $p^k \leqslant n < p^{k+1}$，此时 $\lfloor n/p^{k+1} \rfloor = 0$，于是
 
 $$
-    v_p(n!) = \left\lfloor \frac n p  \right\rfloor +\left\lfloor \frac n {p^2} \right\rfloor + \cdots + \left\lfloor \frac n {p^k} \right\rfloor + \sum_{i=1}^{\left\lfloor \frac n {p^k } \right\rfloor} v_p(i) 
-$$
-
-因为 $p^k \le n < p^{k+1}$，所以
-
-$$
-\begin{equation*}
-    v_p(n!)=\sum_{i=1}^{\infty} \left\lfloor \frac{n }{p^i} \right\rfloor \quad \square
-\end{equation*}
+v_p(n!) = \sum_{i=1}^{k} \left\lfloor \frac{n}{p^i} \right\rfloor. \qquad \square
 $$
 
 > **推论**：
->
 > $$
-> n!=\prod_{i=1}^{s } p_i^{a_i} = \prod_{i=1}^{s } p_i^{\sum\limits_{j=1 }^{\infty} \left\lfloor \frac{n}{p_i^j} \right\rfloor}
+> n! = \prod_{i=1}^{s} p_i^{a_i}
+> = \prod_{i=1}^{s} p_i^{\sum_{j \geqslant 1} \lfloor n/p_i^j \rfloor}.
 > $$
 
-## 定理2
+## 定理 2
+
+设 $0 < r < n$，则
 
 $$
-\text{设 } 0 < r < n,\ \text{ 则 } \begin{pmatrix}
-    n \\
-    r
-\end{pmatrix} = \frac{n!}{r!(n-r)!} \text{ 是一个整数}
+\binom{n}{r} = \frac{n!}{r!\,(n-r)!}
 $$
+
+是整数。
 
 ### 证明
 
-$$
-\text{设 } n!=p_1^{a_1}\cdots p_s^{a_s},\ r!=p_1^{b_1}\cdots p_s^{b_s},\ (n-r)!=p_1^{c_1}\cdots p_s^{c_s}
-$$
+设
 
 $$
-a_i,b_i,c_i \ge 0,\quad i=1,2,\cdots,s
+n! = \prod_{i=1}^{s} p_i^{a_i}, \qquad
+r! = \prod_{i=1}^{s} p_i^{b_i}, \qquad
+(n-r)! = \prod_{i=1}^{s} p_i^{c_i},
 $$
 
-$$
-n!= \prod_{i=1}^{s } p_i^{\sum\limits_{j=1 }^{\infty} \left\lfloor \frac{n}{p_i^j} \right\rfloor},\
-r!= \prod_{i=1}^{s } p_i^{\sum\limits_{j=1 }^{\infty} \left\lfloor \frac{r}{p_i^j} \right\rfloor},\
-(n-r)!= \prod_{i=1}^{s } p_i^{\sum\limits_{j=1 }^{\infty} \left\lfloor \frac{n-r}{p_i^j} \right\rfloor}
-$$
+其中 $a_i,b_i,c_i \geqslant 0$。由定理 1，
 
 $$
-\begin{equation*}
-    r!(n-r)!=\prod_{i=1}^{s }  p_i^{\sum\limits_{j=1}^{\infty} \left\lfloor {\frac{r }{p_i^j }}\right\rfloor+\sum\limits_{j=1}^{\infty} \left\lfloor {\frac{n-r }{p_i^j }} \right\rfloor }
-\end{equation*}
+a_i = \sum_{j \geqslant 1} \left\lfloor \frac{n}{p_i^j} \right\rfloor, \quad
+b_i = \sum_{j \geqslant 1} \left\lfloor \frac{r}{p_i^j} \right\rfloor, \quad
+c_i = \sum_{j \geqslant 1} \left\lfloor \frac{n-r}{p_i^j} \right\rfloor.
 $$
 
-$$
-\because n = r+n-r \implies \frac{n }{p_i^j}=\frac{r }{p_i^j }+\frac{n-r }{p_i^j } 
-$$
+对每个 $j$，由 $n = r + (n-r)$ 及 $\lfloor x+y \rfloor \geqslant \lfloor x \rfloor + \lfloor y \rfloor$，有
 
 $$
-\therefore \left\lfloor \frac{n }{p_i^j } \right\rfloor \ge \left\lfloor \frac{r }{p_i^j } \right\rfloor+\left\lfloor \frac{n-r }{p_i^j } \right\rfloor
+\left\lfloor \frac{n}{p_i^j} \right\rfloor
+\geqslant
+\left\lfloor \frac{r}{p_i^j} \right\rfloor
++ \left\lfloor \frac{n-r}{p_i^j} \right\rfloor.
 $$
 
-$$
-\therefore \sum_{j=1}^{\infty} \left\lfloor \frac{n }{p_i^j } \right\rfloor \ge \sum_{j=1}^{\infty} \left\lfloor \frac{r }{p_i^j } \right\rfloor +\sum_{j=1}^{\infty} \left\lfloor \frac{n-r }{p_i^j } \right\rfloor
-$$
+对 $j$ 求和得 $a_i \geqslant b_i + c_i$。因此分母的每个素因子幂次都不超过分子，故
 
 $$
-\therefore p_i^{\sum_{j=1}^{\infty} \left\lfloor \frac{r }{p_i^j } \right\rfloor+\sum_{j=1}^{\infty} \left\lfloor \frac{n-r }{p_i^j } \right\rfloor} \mid p_i^{\sum_{j=1}^{\infty} \left\lfloor \frac{n }{p_i^j } \right\rfloor}
+\binom{n}{r} = \frac{n!}{r!\,(n-r)!}
 $$
 
-$$
-\therefore \begin{pmatrix}
-    n  \\
-    r
-\end{pmatrix} = \frac{n!}{r!(n-r)!} \text{ 是一个整数}\quad \square
-$$
+是整数。$\square$

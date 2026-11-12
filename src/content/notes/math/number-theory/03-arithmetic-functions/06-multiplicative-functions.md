@@ -39,11 +39,7 @@ $$
 
 ## 定理 1
 
-$$
-\begin{equation*}
-   若 f(n) 是积性函数（且不恒为零），则 f(1) = 1。
-\end{equation*}
-$$
+若 $f(n)$ 是积性函数且不恒为零，则 $f(1) = 1$。
 
 **证明**：取 $m = n = 1$，由 $\gcd(1, 1) = 1$ 及积性定义：
 
@@ -57,31 +53,35 @@ $$
 
 ## 定理 2：狄利克雷卷积保持积性
 
+如果 $f(n)$ 与 $g(n)$ 都是积性函数，那么
+
 $$
-\begin{equation*}
-如果 f(n) 和 g(n) 是积性函数，那么 h(n) = (f * g)(n) = \sum_{d \mid n} f(d) g\!\left(\frac{n}{d}\right) 也是积性函数。
-\end{equation*}
+h(n) = (f * g)(n) = \sum_{d \mid n} f(d)\, g\!\left(\frac{n}{d}\right)
 $$
+
+也是积性函数。
 
 **证明**：设 $(m, n) = 1$，需要证明 $h(mn) = h(m) h(n)$。
 
 $$
 \begin{aligned}
 h(mn)
-&= (f * g)(mn) = \sum_{d \mid mn} f(d) g\!\left(\frac{mn}{d}\right) \\
-&= \sum_{t_1 \mid m,\; t_2 \mid n} f(t_1 t_2) \, g\!\left(\frac{mn}{t_1 t_2}\right)
-\quad \text{(因为 } (m,n)=1 \text{，} mn \text{ 的每个因子唯一分解为 } t_1 t_2 \text{)}
+&= (f * g)(mn) = \sum_{d \mid mn} f(d)\, g\!\left(\frac{mn}{d}\right) \\
+&= \sum_{t_1 \mid m,\; t_2 \mid n} f(t_1 t_2)\, g\!\left(\frac{mn}{t_1 t_2}\right).
 \end{aligned}
 $$
 
-由于 $(t_1, t_2) = 1$ 且 $f, g$ 是积性函数，所以 $f(t_1 t_2) = f(t_1) f(t_2)$，同时：
+最后一步用了 $(m,n)=1$ 时 $mn$ 的每个因子可唯一写成 $t_1t_2$（$t_1\mid m$，$t_2\mid n$）。
+
+由于 $(t_1, t_2) = 1$ 且 $f, g$ 是积性函数，
 
 $$
-g\!\left(\frac{mn}{t_1 t_2}\right) = g\!\left(\frac{m}{t_1} \cdot \frac{n}{t_2}\right) = g\!\left(\frac{m}{t_1}\right) g\!\left(\frac{n}{t_2}\right)
-\quad \left(\text{注意 } \left(\frac{m}{t_1}, \frac{n}{t_2}\right) = 1\right)
+f(t_1 t_2) = f(t_1) f(t_2), \qquad
+g\!\left(\frac{mn}{t_1 t_2}\right)
+= g\!\left(\frac{m}{t_1}\right) g\!\left(\frac{n}{t_2}\right),
 $$
 
-代入得：
+其中第二个等式用到 $\left(\frac{m}{t_1}, \frac{n}{t_2}\right) = 1$。代入得：
 
 $$
 \begin{aligned}
@@ -104,11 +104,7 @@ $$
 
 在所有这样的 $(m, n)$ 中，选取使得乘积 $mn$ 最小的一对。
 
-由于 $h = f * g$ 是积性函数，且 $(m, n) = 1$：
-
-$$
-h(mn) = h(m) h(n) \tag{1}
-$$
+由于 $h = f * g$ 是积性函数，且 $(m, n) = 1$，有 $h(mn) = h(m) h(n)$。
 
 另一方面，按狄利克雷卷积展开 $h(mn)$。因为 $(m, n) = 1$，$mn$ 的每个因子可唯一写成 $d_1 d_2$ 的形式（其中 $d_1 \mid m,\; d_2 \mid n$）：
 
@@ -135,7 +131,7 @@ h(mn) &= f(mn) + \sum_{d_1 \mid m} \sum_{d_2 \mid n} f(d_1) f(d_2) \cdot g\!\lef
 \end{aligned}
 $$
 
-结合 $(1)$ 式 $h(mn) = h(m) h(n)$，代入上式：
+结合 $h(mn) = h(m) h(n)$，代入上式：
 
 $$
 h(m) h(n) = f(mn) + h(m) h(n) - f(m) f(n)
@@ -196,11 +192,7 @@ $$
 
 故 $f^{-1} = \mu \cdot f$。$\square$
 
-#### 反向
-
-$$
-\text{若 } f^{-1} = \mu \cdot f,\ \text{则 } f \text{ 完全积性}
-$$
+反过来，若 $f^{-1} = \mu \cdot f$，则 $f$ 完全积性。
 
 先证一个引理。
 

@@ -38,43 +38,40 @@ $$
 ---
 
 #### 结合律
-我们需要证明 $(f*g)*k=f*(g*k)$
 
-$\text{设 } A(n)=(f*g)(n)$
+需要证明 $(f*g)*k = f*(g*k)$。
 
-$$
-\begin{aligned}
-(A*k)(n)&=\sum_{a\mid n} A(a)k \left( \frac n a  \right)\\
-    &= \sum_{a\mid n} \left[ (f*g)(a) \right] \cdot k \left( \frac n a  \right) \\
-   &= \sum_{a\mid n} \sum_{b\mid a } f(b)\cdot g \left( \frac a b  \right) \cdot k \left( \frac n a  \right) \\
-   &= \sum_{abc=n} f(a)\,g(b)\,k(c)
-\end{aligned}
-$$
-
-设 $B(n)=(g*k)(n)$
+设 $A(n) = (f*g)(n)$，则
 
 $$
 \begin{aligned}
-   (f*B)(n) &= \sum_{a\mid n} f(a)\,B \left( \frac n a  \right) \\
-   &= \sum_{a\mid n} f(a) \cdots
+(A*k)(n)
+&= \sum_{a\mid n} A(a)\, k\!\left(\frac{n}{a}\right) \\
+&= \sum_{a\mid n} \left[ (f*g)(a) \right] k\!\left(\frac{n}{a}\right) \\
+&= \sum_{a\mid n} \sum_{b\mid a} f(b)\, g\!\left(\frac{a}{b}\right) k\!\left(\frac{n}{a}\right) \\
+&= \sum_{abc=n} f(a)\, g(b)\, k(c).
 \end{aligned}
 $$
 
+设 $B(n) = (g*k)(n)$，同理
 
 $$
-\text{笔者已经累了🥱🥱🥱, 这里剩余部分就交给读者自行证明了}
+\begin{aligned}
+(f*B)(n)
+&= \sum_{a\mid n} f(a)\, B\!\left(\frac{n}{a}\right) \\
+&= \sum_{a\mid n} f(a) \sum_{b\mid n/a} g(b)\, k\!\left(\frac{n}{ab}\right) \\
+&= \sum_{abc=n} f(a)\, g(b)\, k(c).
+\end{aligned}
 $$
 
-~~这些话好像经常出现在某些教材，这里学习大师的语言艺术~~
+两式相等，故 $(f*g)*k = f*(g*k)$。$\square$
 
 ---
 
 ## 定理 1
 
 $$
-\begin{equation*}
   I(n)= \left[ \frac 1 n  \right]
-\end{equation*}
 $$
 
 对于所有的数论函数，均有 $(f*I)(n)=f(n)$
@@ -97,33 +94,50 @@ $$
 
 ## 定理 2
 
+设 $f$ 是数论函数且 $f(1) \neq 0$。则存在唯一的数论函数 $f^{-1}$，称为 $f$ 的狄利克雷逆，使得
+
 $$
-\begin{gathered}
-   \text{设数论函数 } f(n) ,满足f(1)\neq 0 ,则存在唯一的数论函数 f^{-1}(n)称为f(n)的狄利克雷逆函数\\使得\ \displaystyle{(f*f^{-1})(n)=I(n)} \\
-   且 f^{-1}(n)=\begin{cases}
-      \cfrac 1 {f(1)} & n=1 \\[8pt]
-      \cfrac{-1}{f(1)}\sum\limits_{d\mid n,\, d\neq n} f \left( \frac n d \right)f^{-1}(d) & n>1
-   \end{cases}
-\end{gathered}
+(f * f^{-1})(n) = I(n),
+$$
+
+且
+
+$$
+f^{-1}(n) =
+\begin{cases}
+\dfrac{1}{f(1)}, & n = 1, \\[8pt]
+-\dfrac{1}{f(1)} \displaystyle\sum_{\substack{d \mid n \\ d \neq n}}
+f\!\left(\frac{n}{d}\right) f^{-1}(d), & n > 1.
+\end{cases}
 $$
 
 ## 证明
 
-$$
-\begin{gathered}
-当 n=1 时, \sum_{d\mid 1} f(d)\cdot f^{-1} \left( \frac 1 d  \right) = I(1) =1 \\
-\because\ f(1)\neq 0 \quad f^{-1}(1)= \cfrac{1}{f(1)} \quad f^{-1}(n)在n=1的值唯一 \\
-假设结论对于所有小于n的正整数都成立,下证对n也成立 \\
-   \begin{aligned}
-   0  &= I(n)=(f*f^{-1})(n) =(f^{-1}*f)(n)\\
-      &= \sum_{d\mid n}f^{-1}(d)\cdot f \left( \frac n d  \right)\\
-      &= \sum_{d\mid n,\, d\neq n} f^{-1}(d)\cdot f \left( \frac n d  \right)+f^{-1}(n)f(1) \\
-   \end{aligned}
-\end{gathered}
-$$
+当 $n = 1$ 时，
 
 $$
-\because\ f(1)\neq 0 \quad \therefore\ f^{-1}(n)=\cfrac{-1}{f(1)} \sum_{d\mid n,\, d\neq n}f^{-1}(d)f \left( \frac n d  \right) \quad \square
+(f * f^{-1})(1) = f(1) f^{-1}(1) = I(1) = 1.
+$$
+
+由 $f(1) \neq 0$ 得 $f^{-1}(1) = 1/f(1)$，且这个值唯一。
+
+假设结论对所有小于 $n$ 的正整数成立，下证对 $n$ 也成立。因为 $n > 1$ 时 $I(n) = 0$，
+
+$$
+\begin{aligned}
+0
+&= I(n) = (f * f^{-1})(n) \\
+&= \sum_{d \mid n} f^{-1}(d) f\!\left(\frac{n}{d}\right) \\
+&= \sum_{\substack{d \mid n \\ d \neq n}} f^{-1}(d) f\!\left(\frac{n}{d}\right)
+   + f^{-1}(n) f(1).
+\end{aligned}
+$$
+
+移项得
+
+$$
+f^{-1}(n) = -\frac{1}{f(1)}
+\sum_{\substack{d \mid n \\ d \neq n}} f^{-1}(d) f\!\left(\frac{n}{d}\right). \qquad \square
 $$
 
 ---

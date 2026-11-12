@@ -22,8 +22,10 @@ $$
 
 ## 定理 1
 
+如果 $n \ge 1$，则
+
 $$
-\text{如果 } n \ge 1,\ \text{则有}\quad \sum_{d \mid n} \mu(d) = \left[ \frac{1}{n} \right]
+\sum_{d \mid n} \mu(d) = \left[ \frac{1}{n} \right].
 $$
 
 ### 证明
@@ -121,6 +123,4 @@ $$
 \end{aligned}
 $$
 
-$$
-然后请读者自行分类讨论后得出答案\cancel{\scriptscriptstyle 绝对不是因为我想偷懒}
-$$
+按 $m$ 的奇偶性分类讨论，即可得到相同的结论。

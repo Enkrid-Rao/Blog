@@ -1,0 +1,81 @@
+---
+import { courseList, getChaptersForCourse, subjects } from '../data/taxonomy';
+
+const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const subjectList = Object.values(subjects).map((subject) => ({
+  ...subject,
+  courses: courseList
+    .filter((course) => course.subject === subject.id)
+    .map((course) => ({
+      ...course,
+      chapters: getChaptersForCourse(course.id),
+    })),
+}));
+
+function isActive(href: string): boolean {
+  const path = href.split('#')[0].replace(/\/+$/, '') || '/';
+  return current === path || current.startsWith(`${path}/`);
+}
+---
+
+<details class="notes-side" data-notes-side open>
+  <summary>
+    笔记目录
+    <span>Index</span>
+  </summary>
+
+  <nav class="notes-side__nav" aria-label="笔记目录">
+    {subjectList.map((subject) => (
+      <div class="notes-side__group">
+        <a
+          class:list={['notes-side__subject', { 'is-active': isActive(`/notes/${subject.id}`) }]}
+          href={`/notes/${subject.id}`}
+        >
+          {subject.title}
+          <span>{subject.en}</span>
+        </a>
+
+        {subject.courses.map((course) => (
+          <div class="notes-side__course-block">
+            <a
+              class:list={[
+                'notes-side__course',
+                { 'is-active': isActive(`/notes/${subject.id}/${course.id}`) },
+              ]}
+              href={`/notes/${subject.id}/${course.id}`}
+            >
+              {course.title}
+              {course.status === 'planned' && <span class="notes-side__badge">筹备中</span>}
+            </a>
+
+            {course.chapters.length > 0 && (
+              <div class="notes-side__chapters">
+                {course.chapters.map((chapter) => (
+                  <a href={`/notes/${subject.id}/${course.id}#${chapter.id}`}>
+                    <span class="notes-side__num">{chapter.index}</span>
+                    {chapter.title}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    ))}
+  </nav>
+</details>
+
+<script>
+  const side = document.querySelector<HTMLDetailsElement>('[data-notes-side]');
+
+  if (side) {
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const sync = () => {
+      side.open = desktop.matches;
+    };
+
+    sync();
+    desktop.addEventListener('change', sync);
+  }
+</script>

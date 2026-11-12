@@ -11,278 +11,257 @@ featured: false
 ---
 ## 定义
 
-$\varphi(n)$ 表示 $1 \sim n$ 中与 $n$ 互质的正整数个数。即：
+$\varphi(n)$ 表示 $1 \sim n$ 中与 $n$ 互质的正整数个数，即
 
 $$
-\varphi(n) = \sum_{\substack{1 \leqslant k \leqslant n \\ \gcd(k, n) = 1}} 1
+\varphi(n) = \sum_{\substack{1 \leqslant k \leqslant n \\ \gcd(k, n) = 1}} 1.
 $$
 
 约定 $\varphi(1) = 1$。
 
 ## 基本性质
 
-### (a) 对素数
+### (a) 素数
 
 若 $p$ 是素数，则
 
 $$
-\varphi(p) = p - 1
+\varphi(p) = p - 1.
 $$
 
-因为 $1 \sim p$ 中除了 $p$ 自身，其余 $p-1$ 个数全部与 $p$ 互质。
+因为 $1 \sim p$ 中除了 $p$ 自身，其余 $p - 1$ 个数都与 $p$ 互质。
 
-### (b) 对素数幂
+### (b) 素数幂
 
 若 $p$ 是素数，则
 
 $$
-\varphi(p^k) = p^k - p^{k-1} = p^k \left(1 - \frac{1}{p}\right)
+\varphi(p^k) = p^k - p^{k-1} = p^k \left(1 - \frac{1}{p}\right).
 $$
 
-因为 $1 \sim p^k$ 中与 $p^k$ 不互质的数恰好是 $p$ 的倍数：$p, 2p, \dots, p^{k-1} \cdot p$，共 $p^{k-1}$ 个。
+因为 $1 \sim p^k$ 中与 $p^k$ 不互质的数恰好是 $p$ 的倍数，共有 $p^{k-1}$ 个。
 
 ## 计算公式
 
-设 $n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_r^{\alpha_r}$（标准分解），则
+设 $n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_r^{\alpha_r}$ 为标准分解，则
 
 $$
-\varphi(n) = n \prod_{i=1}^{r} \left(1 - \frac{1}{p_i}\right)
+\varphi(n) = n \prod_{i=1}^{r} \left(1 - \frac{1}{p_i}\right).
 $$
 
-**证明（容斥原理）**：在 $1 \sim n$ 中，先去掉所有 $p_1$ 的倍数，再去掉 $p_2$ 的倍数，再把被重复去掉的 $p_1p_2$ 的倍数加回来……这正是容斥原理：
+**证明（容斥原理）**：在 $1 \sim n$ 中，先去掉所有 $p_1$ 的倍数，再去掉所有 $p_2$ 的倍数，再把被重复去掉的 $p_1p_2$ 的倍数加回来。依此类推，得到
 
 $$
 \begin{aligned}
-\varphi(n) &= n - \sum_{i} \frac{n}{p_i} + \sum_{i < j} \frac{n}{p_i p_j} - \sum_{i < j < k} \frac{n}{p_i p_j p_k} + \cdots \\
-&= n \left[ 1 - \sum_{i} \frac{1}{p_i} + \sum_{i < j} \frac{1}{p_i p_j} - \cdots \right] \\
-&= n \prod_{i=1}^{r} \left(1 - \frac{1}{p_i}\right)
+\varphi(n)
+&= n - \sum_{i} \frac{n}{p_i} + \sum_{i < j} \frac{n}{p_i p_j} - \sum_{i < j < k} \frac{n}{p_i p_j p_k} + \cdots \\
+&= n \left( 1 - \sum_{i} \frac{1}{p_i} + \sum_{i < j} \frac{1}{p_i p_j} - \cdots \right) \\
+&= n \prod_{i=1}^{r} \left(1 - \frac{1}{p_i}\right).
 \end{aligned}
 $$
 
-最后一步用到了展开式 $\prod (1 - x_i) = 1 - \sum x_i + \sum x_i x_j - \cdots$
+最后一步用了展开式 $\prod_i (1 - x_i) = 1 - \sum_i x_i + \sum_{i<j} x_i x_j - \cdots$。
 
 ---
 
 ## 定理 1
 
+对任意 $n \geqslant 1$，有
+
 $$
-\begin{gathered}
-\mathbf{\text{对于 } n \ge 1,\ \text{有 } \displaystyle\sum_{d \mid n} \varphi(d)=n}
-\end{gathered}
+\sum_{d \mid n} \varphi(d) = n.
 $$
+
 ### 思路
 
-集合 $S=\left\{\dfrac{i}{n} \,\middle|\, 1\le i \le n\right\}$，$\left| S \right|=n$。
+考虑集合
 
-对于 $d \mid n$，令 $S_d = \left\{\dfrac{i}{d} \,\middle|\, 1\le i \le d \text{ 且 } \gcd(i,d)=1\right\}$，则 $\left| S_d \right|=\varphi(d)$。
+$$
+S = \left\{\frac{i}{n} \,\middle|\, 1 \leqslant i \leqslant n\right\},
+$$
 
-**即证**：$S_d$ 构成集合 $S$ 的一个划分——所有 $S_d$ 并起来为 $S$，且两两不相交。
+则 $|S| = n$。对每个 $d \mid n$，令
+
+$$
+S_d = \left\{\frac{i}{d} \,\middle|\, 1 \leqslant i \leqslant d,\ \gcd(i,d) = 1\right\},
+$$
+
+则 $|S_d| = \varphi(d)$。只需证明 $\{S_d\}_{d \mid n}$ 构成 $S$ 的一个划分。
 
 ### 证明
 
-**(1)** $S_d \cap S_{d'}= \emptyset$
-
-**反证法**：
+**（1）两两不交。** 设 $d, d' \mid n$ 且 $d \neq d'$。若存在 $a \in S_d \cap S_{d'}$，则
 
 $$
-\begin{gathered}
-\text{对于 } d\mid n,\ d'\mid n ,\ d\neq d' ,\ \text{有 } S_d \cap S_{d'} = \emptyset \\
-\text{假设 } \exists\ a \in S_d \cap S_{d'} \\
-\begin{cases}
-a\in S_d \quad \therefore a= \dfrac{i}{d} ,\ 1 \le i \le d \text{ 且 } \gcd(i,d)=1 \\[4pt]
-a\in S_{d'} \quad \therefore a= \dfrac{i'}{d'} ,\ 1 \le i' \le d' \text{ 且 } \gcd(i',d')=1
-\end{cases} \\[8pt]
-\therefore\ \dfrac{i}{d}= \dfrac{i'}{d'} \Rightarrow\ id'=i'd \\
-\therefore\ d \mid id' ,\ \text{又 } \because\ \gcd(i,d)=1 \Rightarrow\ d \mid d' \\
-\text{同理可得 } d' \mid d \Rightarrow\ d=d' \quad \textbf{矛盾，假设不成立} \quad \square
-\end{gathered}
+a = \frac{i}{d} = \frac{i'}{d'}, \qquad 1 \leqslant i \leqslant d,\ 1 \leqslant i' \leqslant d',
 $$
 
-**(2)** $\displaystyle\bigcup_{d\mid n} S_d \subset S$
+且 $\gcd(i,d) = \gcd(i',d') = 1$。由 $id' = i'd$ 得 $d \mid id'$；又因为 $\gcd(i,d) = 1$，所以 $d \mid d'$。同理 $d' \mid d$，于是 $d = d'$，矛盾。因此 $S_d \cap S_{d'} = \varnothing$。
+
+**（2）并集包含于 $S$。** 任取 $a \in \bigcup_{d \mid n} S_d$，存在 $d \mid n$ 使 $a = i/d$，其中 $1 \leqslant i \leqslant d$ 且 $\gcd(i,d) = 1$。由 $d \mid n$，
 
 $$
-\begin{gathered}
-\text{对于 }\forall\ a\in \bigcup_{d\mid n} S_d,\ \text{有 } a\in S_d \\
-\therefore a = \dfrac{i}{d} ,\ 1 \le i \le d \text{ 且 } \gcd(i,d)=1 \\
-\because d \mid n \quad \therefore a = \dfrac{i}{d} = \dfrac{i \cdot \frac{n}{d}}{n} \\[4pt]
-\because 1\le i \le d \quad \therefore 1\le \frac{n}{d} \le i \cdot \frac{n}{d} \le n \\
-\therefore\ a\in S \quad \Longrightarrow \quad \bigcup_{d \mid n} S_d \subset S \quad \square
-\end{gathered}
+a = \frac{i}{d} = \frac{i \cdot (n/d)}{n},
 $$
 
-**(3)** $\displaystyle S\subset \bigcup_{d\mid n} S_d$
+且 $1 \leqslant i \cdot (n/d) \leqslant n$，故 $a \in S$。
+
+**（3）$S$ 包含于并集。** 任取 $a \in S$，写 $a = i/n$，其中 $1 \leqslant i \leqslant n$。令 $d = \gcd(i,n)$，则
 
 $$
-\begin{gathered}
-\text{对于 }\forall\ a \in S ,\quad a = \dfrac{i}{n} ,\ 1\le i \le n \\
-\text{设 } \gcd(i,n)=d \\
-a=\dfrac{i}{n} = \dfrac{\;i/d\;}{n/d} ,\quad \text{显然 } 1 \le \frac{i}{d} \le \frac{n}{d} \\
-\text{且 } \gcd\!\left(\frac{i}{d}, \frac{n}{d}\right) =1 \quad \therefore a \in S_{n/d} \\
-\therefore\ a\in \bigcup_{d\mid n} S_d \\
-\therefore\ S \subset \bigcup_{d\mid n} S_d \quad \square
-\end{gathered}
+a = \frac{i/d}{n/d}, \qquad 1 \leqslant \frac{i}{d} \leqslant \frac{n}{d}, \qquad \gcd\left(\frac{i}{d}, \frac{n}{d}\right) = 1,
+$$
+
+故 $a \in S_{n/d}$。因此 $S \subset \bigcup_{d \mid n} S_d$。
+
+综上，$S = \bigsqcup_{d \mid n} S_d$，于是
+
+$$
+\sum_{d \mid n} \varphi(d) = |S| = n. \qquad \square
 $$
 
 ---
 
 ## 引理
 
-$$
-\begin{gathered}
-    \mathbf{\text{设 } \gcd(m,n)=1,\ \text{如果 } t_1 \text{ 通过 } n \text{ 的全部因子},\ t_2 \text{ 通过 } m \text{ 的全部因子},\ \text{则 } t_1t_2 \text{ 通过 } mn \text{ 的全部因子}}
-\end{gathered}
-$$
+设 $\gcd(m,n) = 1$。若 $t_1$ 遍历 $n$ 的全部因子，$t_2$ 遍历 $m$ 的全部因子，则 $t_1t_2$ 遍历 $mn$ 的全部因子。
 
 ### 证明
 
-#### Step 1
+**第一步：$t_1t_2 \mid mn$。** 由 $t_1 \mid m$、$t_2 \mid n$，立即得到 $t_1t_2 \mid mn$。
 
-**证明**：$t_1 t_2 \mid mn$
+**第二步：表示唯一。** 证明 $t_1t_2 = t_1't_2'$ 当且仅当 $t_1 = t_1'$、$t_2 = t_2'$。
 
-$$
-\because\ t_1 \mid m,\ t_2 \mid n \quad \therefore\ t_1t_2\mid mn \quad \square
-$$
-
-#### Step 2
-
-**证明**：$t_1t_2=t_1't_2'$ 当且仅当 $t_1=t_1'$，$t_2=t_2'$。
-
-**反证法**：
+假设 $t_1t_2 = t_1't_2'$ 且 $(t_1,t_2) \neq (t_1',t_2')$。由
 
 $$
-\begin{gathered}
-\text{对于 } t_1 \mid m,\ t_1'\mid m,\ t_2 \mid n,\ t_2' \mid n \\[4pt]
-\text{若 } (t_1,t_2) \neq (t_1',t_2'),\, t_1t_2 \neq t_1't_2' \\[4pt]
-\text{假设 } t_1t_2=t_1't_2' \\[4pt]
-\therefore\ t_1 \mid t_1't_2',\ t_1' \mid t_1t_2 \\[4pt]
-\begin{cases}
-\gcd(t_1,t_2') \mid t_1,\ t_1 \mid m \Rightarrow  \gcd(t_1,t_2') \mid m \\[4pt]
-\gcd(t_1,t_2') \mid t_2',\ t_2' \mid n \Rightarrow \gcd(t_1,t_2') \mid n
-\end{cases} \\[12pt]
-\therefore\ \gcd(t_1,t_2') \mid \gcd(m,n),\ \text{又 }\because \gcd(m,n)=1 \\[4pt]
-\therefore\ \gcd(t_1,t_2')=1 \\[4pt]
-\text{又 } \because t_1 \mid t_1't_2',\ \therefore\ t_1 \mid t_1' \\[4pt]
-\text{同理可得 } t_1' \mid t_1 \quad \therefore\ t_1=t_1' \\[4pt]
-\therefore\ \textbf{假设不成立} \quad \square
-\end{gathered}
+t_1 \mid t_1't_2', \qquad t_1' \mid t_1t_2
 $$
 
-#### Step 3
+以及 $\gcd(m,n)=1$，可得 $\gcd(t_1,t_2') = 1$。于是 $t_1 \mid t_1'$；同理 $t_1' \mid t_1$，故 $t_1 = t_1'$，进而 $t_2 = t_2'$，与假设矛盾。
 
-**证明**：$mn$ 的全部因子可以表示为 $t_1t_2$。
+**第三步：遍历全部因子。** 任取 $t \mid mn$，令
 
 $$
-\begin{gathered}
-\forall\ t \mid mn ,\ \text{令 } t_1 = \gcd(t,m),\ t_2 = \frac{t}{t_1} \\[4pt]
-\therefore\ \gcd\!\left(\frac{t}{\gcd(t,m)},\ \frac{m}{\gcd(t,m)}\right)=1 \\[4pt]
-\frac{t}{\gcd(t,m)}\mid n \Rightarrow \frac{t}{t_1} \mid n \Rightarrow t_2 \mid n \quad \square
-\end{gathered}
+t_1 = \gcd(t,m), \qquad t_2 = \frac{t}{t_1}.
 $$
+
+则 $t_1 \mid m$。又
+
+$$
+\gcd\left(\frac{t}{\gcd(t,m)}, \frac{m}{\gcd(t,m)}\right) = 1,
+$$
+
+且 $t/t_1 \mid n$，所以 $t_2 \mid n$。因此每个 $t \mid mn$ 都能写成 $t_1t_2$ 的形式。
+
+结合三步，引理得证。$\square$
 
 ---
 
 ## 积性（定理 2）
 
-$$
-\begin{gathered}
-    \mathbf{\text{若 } \gcd(m,n)=1,\ \text{则 } \varphi(mn)=\varphi(m)\varphi(n)}
-\end{gathered}
-$$
-### 法一（正向）
+若 $\gcd(m,n) = 1$，则
 
-**证明**：
+$$
+\varphi(mn) = \varphi(m)\varphi(n).
+$$
 
-设 $m = \prod p_i^{\alpha_i}$，$n = \prod q_j^{\beta_j}$，由 $\gcd(m, n) = 1$ 知 $\{p_i\}$ 与 $\{q_j\}$ 不相交。于是：
+### 法一：直接展开
+
+设 $m = \prod_i p_i^{\alpha_i}$，$n = \prod_j q_j^{\beta_j}$。由 $\gcd(m,n)=1$ 知 $\{p_i\}$ 与 $\{q_j\}$ 不相交。于是
 
 $$
 \begin{aligned}
-\varphi(mn) &= mn \prod_{p \mid mn} \left(1 - \frac{1}{p}\right) \\
-&= mn \left( \prod_{p_i \mid m} \left(1 - \frac{1}{p_i}\right) \right) \left( \prod_{q_j \mid n} \left(1 - \frac{1}{q_j}\right) \right) \\
-&= \left[ m \prod_{p_i \mid m} \left(1 - \frac{1}{p_i}\right) \right] \cdot \left[ n \prod_{q_j \mid n} \left(1 - \frac{1}{q_j}\right) \right] \\
-&= \varphi(m) \varphi(n) \quad \square
+\varphi(mn)
+&= mn \prod_{p \mid mn} \left(1 - \frac{1}{p}\right) \\
+&= mn \left( \prod_{p_i \mid m} \left(1 - \frac{1}{p_i}\right) \right)
+      \left( \prod_{q_j \mid n} \left(1 - \frac{1}{q_j}\right) \right) \\
+&= \left[ m \prod_{p_i \mid m} \left(1 - \frac{1}{p_i}\right) \right]
+   \cdot \left[ n \prod_{q_j \mid n} \left(1 - \frac{1}{q_j}\right) \right] \\
+&= \varphi(m)\varphi(n). \qquad \square
 \end{aligned}
 $$
 
-### 法二（数学归纳）
+### 法二：数学归纳
 
-**证明**：
-
-当 $m=n=1$ 时，$\varphi(1)=1=1\times 1=\varphi(1)\cdot \varphi(1)$。
-
-假设结论对所有小于 $mn$ 的正整数都成立，下面证明对于 $mn$ 也成立。
+当 $m=n=1$ 时结论显然。假设结论对所有小于 $mn$ 的正整数成立。由定理 1，
 
 $$
-\begin{gathered}
-\begin{aligned}
-mn &= \sum_{t_1 \mid m} \varphi(t_1) \sum_{t_2 \mid n} \varphi(t_2) = \sum_{t_1 \mid m}\sum_{t_2 \mid n} \varphi(t_1)\varphi(t_2) \\
-&= \sum_{\substack{t_1 \mid m,\, t_2 \mid n\\ (t_1,t_2) \neq (m,n)}} \varphi(t_1) \varphi(t_2)+ \varphi(m)\,\varphi(n)
-\end{aligned} \\[6pt]
-\because\ t_1 \mid m,\ t_2 \mid n,\ \gcd(m,n)=1 \quad \therefore\ \gcd(t_1,t_2)=1 \\[4pt]
-\therefore\ \varphi(t_1)\varphi(t_2)=\varphi(t_1t_2) \\[8pt]
-\begin{aligned}
-\therefore\ mn &= \sum_{\substack{t_1 \mid m,\, t_2 \mid n \\ (t_1,t_2)\neq (m,n)}} \varphi \left( t_1t_2 \right)+\varphi(m)\varphi(n) \\[4pt]
-&= \sum_{t_1 \mid m,\, t_2 \mid n }\varphi(t_1t_2)-\varphi(mn)+\varphi(m)\varphi(n) \\[4pt]
-&= \sum_{t_1t_2 \mid mn} \varphi(t_1t_2)-\varphi(mn)+\varphi(m)\varphi(n) \\
-&= mn-\varphi(mn)+\varphi(m)\varphi(n)
-\end{aligned} \\[8pt]
-\therefore\ \varphi(mn)=\varphi(m)\varphi(n) \quad \square
-\end{gathered}
+mn = \sum_{t_1 \mid m} \varphi(t_1) \sum_{t_2 \mid n} \varphi(t_2)
+   = \sum_{t_1 \mid m} \sum_{t_2 \mid n} \varphi(t_1)\varphi(t_2).
 $$
 
-> **推论**：有了积性，就可以通过 $n$ 的质因数分解直接拼出 $\varphi(n)$：
->
+因为 $\gcd(m,n)=1$，所以 $\gcd(t_1,t_2)=1$，从而 $\varphi(t_1)\varphi(t_2) = \varphi(t_1t_2)$。于是
+
+$$
+\begin{aligned}
+mn
+&= \sum_{\substack{t_1 \mid m,\ t_2 \mid n \\ (t_1,t_2) \neq (m,n)}} \varphi(t_1t_2) + \varphi(m)\varphi(n) \\
+&= \sum_{t_1 \mid m,\ t_2 \mid n} \varphi(t_1t_2) - \varphi(mn) + \varphi(m)\varphi(n) \\
+&= \sum_{t_1t_2 \mid mn} \varphi(t_1t_2) - \varphi(mn) + \varphi(m)\varphi(n) \\
+&= mn - \varphi(mn) + \varphi(m)\varphi(n),
+\end{aligned}
+$$
+
+最后一步再次使用定理 1。因此 $\varphi(mn) = \varphi(m)\varphi(n)$。$\square$
+
+> **推论**：由积性，
 > $$
-> \varphi(n) = \prod_{i=1}^{r} \varphi(p_i^{\alpha_i}) = \prod_{i=1}^{r} p_i^{\alpha_i-1} (p_i - 1)
+> \varphi(n) = \prod_{i=1}^{r} \varphi(p_i^{\alpha_i})
+> = \prod_{i=1}^{r} p_i^{\alpha_i-1}(p_i - 1).
 > $$
 
 ---
 
 ## 定理 3
 
-1. 设 $\gcd(m,n)=d$，则有 $\displaystyle\varphi(mn)=\varphi(m)\varphi(n)\dfrac{d}{\varphi(d)}$
-2. 若 $a\mid b$，则 $\displaystyle\varphi(a) \mid \varphi(b)$
+设 $\gcd(m,n) = d$，则
+
+$$
+\varphi(mn) = \varphi(m)\varphi(n)\frac{d}{\varphi(d)}.
+$$
+
+若 $a \mid b$，则 $\varphi(a) \mid \varphi(b)$。
 
 ### 证明
 
-**(1)**
-
-令 $\gcd(m,n)=d$，则
+**（1）** 令 $\gcd(m,n)=d$。则
 
 $$
 \begin{aligned}
-\varphi(mn) &= mn \cdot \prod_{p \mid mn} \left(1-\frac{1}{p}\right) \\[6pt]
-&= mn \cdot \frac{\displaystyle\prod_{p \mid m} \left(1-\frac{1}{p}\right) \prod_{p\mid n} \left(1-\frac{1}{p}\right)}{\displaystyle\prod_{p\mid d}\left(1-\frac{1}{p}\right)} \\[8pt]
-&= \frac{m \cdot \displaystyle\prod_{p\mid m} \left(1-\frac{1}{p}\right) \cdot n \cdot \displaystyle\prod_{p\mid n} \left(1-\frac{1}{p}\right) \cdot d}{d \cdot \displaystyle\prod_{p\mid d} \left(1-\frac{1}{p}\right)} \\[8pt]
-&= \varphi(m)\,\varphi(n)\,\frac{d}{\varphi(d)} \qquad \square
+\varphi(mn)
+&= mn \prod_{p \mid mn} \left(1-\frac{1}{p}\right) \\
+&= mn \cdot
+   \frac{\displaystyle\prod_{p \mid m} \left(1-\frac{1}{p}\right)
+         \prod_{p \mid n} \left(1-\frac{1}{p}\right)}
+        {\displaystyle\prod_{p \mid d} \left(1-\frac{1}{p}\right)} \\
+&= \frac{m \displaystyle\prod_{p \mid m} \left(1-\frac{1}{p}\right)
+         \cdot n \displaystyle\prod_{p \mid n} \left(1-\frac{1}{p}\right) \cdot d}
+        {d \cdot \displaystyle\prod_{p \mid d} \left(1-\frac{1}{p}\right)} \\
+&= \varphi(m)\varphi(n)\frac{d}{\varphi(d)}. \qquad \square
 \end{aligned}
 $$
 
----
-
-**(2)**
+**（2）** 设 $b = ac$，并令 $d = \gcd(a,c)$。由（1），
 
 $$
-\because\ a \mid b \quad \therefore\ \exists c \in \mathbb{Z} ,\quad \text{s.t.}\quad b=ac
-$$  
-
-$$
-\text{设 } \gcd(a,c)=d
-$$
-  
-$$
-\begin{align}
-\therefore\ \varphi(b)&=\varphi(a)\varphi(c)\cdot \frac{d }{\varphi(d)} = \varphi(a) \cdot \frac{c \cdot \prod_{p\mid c } \left( 1-\frac{1 }{p } \right)}{\prod_{p\mid d }^{} \left( 1-\frac{1 }{p } \right)  } \\
-     &=  c\cdot \prod_{\substack{p\mid c \text{ 且  }p \nmid d }}^{} \left( 1-\frac 1 p  \right) \cdot \varphi(a)   \\
-    &= \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i} \cdot \prod_{p\mid c \text{ 且  } p \nmid d }^{} p_i^{c_i} \cdot \prod_{p\mid c \text{ 且  } p\nmid d }^{ } \left( 1-\frac 1 p  \right) \cdot \varphi(a) \\
-    &=   \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i} \cdot \prod_{p\mid c \text{ 且 } p\nmid d } \left( p_i^{c_i} \cdot \left( 1-\frac 1 p \right) \right) \cdot \varphi(a) \\
-    &=  \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i} \cdot \prod_{p\mid c \text{ 且 } p\nmid d } \left(p_i^{c_i} -p_i^{c_i -1}\right) \cdot \varphi(a) 
-\end{align}
+\begin{aligned}
+\varphi(b)
+&= \varphi(ac) \\
+&= \varphi(a)\varphi(c)\frac{d}{\varphi(d)} \\
+&= \varphi(a) \cdot
+   \frac{c \displaystyle\prod_{p \mid c} \left(1-\frac{1}{p}\right)}
+        {\displaystyle\prod_{p \mid d} \left(1-\frac{1}{p}\right)} \\
+&= \varphi(a) \cdot c \prod_{\substack{p \mid c \\ p \nmid d}} \left(1-\frac{1}{p}\right).
+\end{aligned}
 $$
 
-$$
-显然 \prod_{p\mid c \text{ 且 } p\mid d } p_i^{c_i}\cdot \prod_{p\mid c \text{ 且 } p\nmid d } \left(p_i^{c_i}-p_i^{c_i-1}\right) 是整数
-$$
+其中最后一步约去了 $p \mid d$ 的因子。将 $c$ 按素因子拆开：
 
 $$
-\therefore\ \varphi(a) \mid \varphi(b) \quad \square
+c \prod_{\substack{p \mid c \\ p \nmid d}} \left(1-\frac{1}{p}\right)
+= \prod_{\substack{p \mid c \\ p \mid d}} p^{v_p(c)}
+  \cdot \prod_{\substack{p \mid c \\ p \nmid d}} \left(p^{v_p(c)} - p^{v_p(c)-1}\right).
 $$
+
+右边是整数，故 $\varphi(a) \mid \varphi(b)$。$\square$

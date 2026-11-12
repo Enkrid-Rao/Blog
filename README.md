@@ -49,16 +49,44 @@ src/
 
 ## 页面与交互
 
-- 笔记：`/notes` → `/notes/[subject]` → `/notes/[subject]/[course]` → `/notes/[...slug]`；桌面三栏、移动端折叠目录。
+- 笔记：`/notes` 为课程总览（课程卡 + 最近更新，不放侧栏）；`/notes/[subject]` 按学科列课程；`/notes/[subject]/[course]` 用可折叠章节展示篇目，支持「全部展开 / 收起」和章节锚点。
+- 笔记详情：桌面三栏（课程树 256px / 正文 720px / 本页目录），移动端目录折叠；行间公式不加边框和底色，长公式独立横向滚动。
 - 日志：`/writing` 与 `/writing/[type]`（随笔 / CTF / 项目），详情页 `/writing/[slug]`。
 - 实验室：`/lab`、`/lab/diary`、`/lab/resources`（预留，不实现上传）。
 - 索引：`/tags`、`/tags/[tag]`、`/archive`、`/guide`。
 - 搜索：页头按钮或 ⌘K / Ctrl+K 打开面板，`/search` 为完整结果页；索引按需加载，不预取。
 
+## 新增笔记
+
+新建 `src/content/notes/<subject>/<course>/<chapter>/<order>-<slug>.md`，例如：
+
+```
+src/content/notes/math/number-theory/03-arithmetic-functions/07-example.md
+```
+
+```yaml
+---
+title: "§3.7 标题（可含 $公式$）"
+description: "一句话摘要"
+subject: math
+course: number-theory
+chapter: 03-arithmetic-functions
+order: 7
+updated: 2026-11-12
+tags: [数论, 数论函数]
+featured: false
+draft: false
+---
+```
+
+`order` 控制章内顺序，`updated` 用于归档和「最后更新」，`tags` 会自动进入 `/tags`，`draft: true` 不参与构建。新增章节或课程时，先在 `src/data/taxonomy.ts` 补 `ChapterId` / `CourseId` 和对应记录。
+
+公式写法约定：符号和短表达式用 `$...$`；独立单式用 `$$...$$`；多步推导用 `$$\begin{aligned}...\end{aligned}$$` 并以 `&=` 对齐；分段函数用 `cases`。不要把整段中文塞进 `\text{}`，定理陈述和证明步骤放回正文。
+
 ## 字体说明
 
 - **JetBrains Mono**：本地优先。`src/styles/global.css` 顶部用 `@font-face` 的 `local(...)` 先找本地安装的字体，找不到再回退到 `public/fonts/jetbrains-mono/*.woff2`。代码统一用 `var(--font-mono)`。
-- **Noto Serif SC**：`public/fonts/noto-serif-sc-display.woff2` 是**仅含显示字符的子集**（Google Fonts `text=` 生成，当前 272 字）。新增标题用到了新汉字后，需要重新生成子集，否则会回退到系统宋体。
+- **Noto Serif SC**：`public/fonts/noto-serif-sc-display.woff2` 是**仅含显示字符的子集**（Google Fonts `text=` 生成，当前 245 字）。新增标题用到了新汉字后，需要重新生成子集，否则会回退到系统宋体。
 
 ## 部署到 Vercel
 

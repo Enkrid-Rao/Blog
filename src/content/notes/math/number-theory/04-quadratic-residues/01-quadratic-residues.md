@@ -68,12 +68,8 @@ $$
 
 设 $p$ 是奇素数，$\gcd(n, p) = 1$，则
 
-$$
-\begin{gathered}
-\mathbf{n \text{ 是模 } p \text{ 的二次剩余 } \iff n^{\frac{p-1}{2}} \equiv 1 \pmod{p}} \\[4pt]
-\mathbf{n \text{ 是模 } p \text{ 的二次非剩余 } \iff n^{\frac{p-1}{2}} \equiv -1 \pmod{p}}
-\end{gathered}
-$$
+- $n$ 是模 $p$ 的二次剩余 $\iff n^{\frac{p-1}{2}} \equiv 1 \pmod{p}$；
+- $n$ 是模 $p$ 的二次非剩余 $\iff n^{\frac{p-1}{2}} \equiv -1 \pmod{p}$。
 
 ### 证明
 
@@ -111,13 +107,9 @@ $$
 
 ## 定理 3（二次剩余乘积性质）
 
-$$
-\begin{gathered}
-\mathbf{\text{模 } p \text{ 的两个二次剩余之积仍是二次剩余}} \\[4pt]
-\mathbf{\text{二次剩余与二次非剩余之积是二次非剩余}} \\[4pt]
-\mathbf{\text{两个二次非剩余之积是二次剩余}}
-\end{gathered}
-$$
+- 模 $p$ 的两个二次剩余之积仍是二次剩余；
+- 二次剩余与二次非剩余之积是二次非剩余；
+- 两个二次非剩余之积是二次剩余。
 
 ### 证明
 

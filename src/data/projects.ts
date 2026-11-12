@@ -16,7 +16,7 @@ export const projects: Project[] = [
     subtitle: 'A quieter place to keep the days.',
     status: '规划中',
     description:
-      '一个更私人的记录空间。它不会出现在时间流里，也不急着被谁读到。先留一个位置。',
+      '一个更私人的记录空间。它不会出现在时间流里，也不急着被谁读到。',
     meta: 'PRIVATE LOG / 2026',
     scope: [
       '私密记录，不进入公开时间流',

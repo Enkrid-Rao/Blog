@@ -1,14 +1,14 @@
-# HANDOFF — 站点重构进度交接（2026-11-12 14:00）
+# HANDOFF — 站点重构进度交接（2026-11-12 18:55）
 
 > 给下一次继续执行的会话看。先读这个，再按需读 `REFACTOR-PLAN.md`（原始方案）。
 
 ## 一句话状态
 
-旧 MkDocs 站点已被 **Astro 6.4.8 + 原生 CSS** 的新站取代。主体功能、页面补齐与仓库清理都已完成：**42 个页面**构建成功，`npx astro check` 0 error，360 / 768 / 1440 无横向溢出，内部链接 0 404（抽查 56 条），三主题与 ⌘K 搜索可用。
+旧 MkDocs 站点已被 **Astro 6.4.8 + 原生 CSS** 的新站取代。主体功能、页面补齐、仓库清理与部署都已完成：**42 个页面**构建成功，`npx astro check` 0 error，360 / 768 / 1440 无横向溢出，三主题与 ⌘K 搜索可用。线上在 **https://www.251890411.xyz**。
 
-**本轮改动已提交并推送。** 提交见 `git log`；`main` 与 `workbuddy/main-aef8e669` 都指向新 commit。
+**本轮傍晚的笔记区重做与公式排版已提交并推送**（commit 见 `git log`）。
 
-部署走 **www `www.251890411.xyz`**：Vercel 项目的主域名是 www，apex 会 307 到 www；`vercel.json` 只保留 `blog` → www 的 301，**不要再加 www → apex**，否则会形成循环。旧站 26 条中文路径已在 `vercel.json` 里补 301。Vercel CLI 的本地 token 已失效，无法从命令行手动发布；push 后是否自动构建取决于项目的 Git 集成，需看线上确认。
+部署走 **www `www.251890411.xyz`**：Vercel 项目的主域名是 www，apex 会 307 到 www；`vercel.json` 只保留 `blog` → www 的 301，**不要再加 www → apex**，否则会形成循环。旧站 26 条中文路径已在 `vercel.json` 里补 301。Vercel CLI 的本地 token 已失效，但 push 后 Git 集成会自动构建。
 
 > 2026-11-12 14:05 修正：早先的 `vercel.json` 写的是 `www → apex`，与 Vercel 的 apex → www 冲突，线上出现 307/308 循环；已移除该条并把 canonical 切到 www。
 
@@ -25,9 +25,18 @@
 - **页头搜索按钮**、**页脚新增入口**（归档 / 标签 / 使用说明 / 搜索）、**笔记页脚标签可点**。
 - **JSON-LD**：`BaseLayout` 支持 `jsonLd` prop；首页 `WebSite`、笔记 `TechArticle`、随笔 `BlogPosting`。
 - **样式**：新增集中在 `src/styles/pages.css` 与 `src/styles/search.css`；未改三主题令牌和既有页面结构。
-- **字体子集**：重新生成 `public/fonts/noto-serif-sc-display.woff2`，覆盖 272 个显示字符（新增标签/归档/使用说明/搜索等标题用字 + 数字标点）。
+- **字体子集**：重新生成 `public/fonts/noto-serif-sc-display.woff2`，覆盖 245 个显示字符（新增标签/归档/使用说明/搜索等标题用字 + 数字标点）。
 - **清理**：`site/` 已 `git rm -r --cached`（本地文件保留，`.gitignore` 加了 `site/`）；删除根目录 VitePress 遗留 `index.md`；卸载未使用的 `@fontsource/jetbrains-mono`。
 - **旧链接 301**：`vercel.json` 增加 26 条旧中文路径映射，覆盖旧站 27 个页面（首页不跳）。
+
+## 傍晚：笔记区重做与公式排版
+
+- **`/notes` 重做**：改为课程卡 + 最近更新，**不放侧栏**；删除重复的学科条和整段数论章节列表；不再出现「正文已迁入 Astro」等说明。
+- **学科页**：`/notes/math` 保留课程卡，接入同一侧边栏；物理/编程无课程时显示极简空状态。
+- **课程页**：章节改为 `<details>` 折叠面板，默认展开第一章；新增「全部展开 / 收起」；侧边栏章节链接可直接跳到对应章节并自动展开。
+- **笔记详情**：左树从 200px 加宽到 256px，正文 720px，右目录 172px；树内字号略增。
+- **公式排版**：行间公式框改为 `width: fit-content`，短公式不再撑满整行；长公式独立横向滚动。清理笔记里的 `gathered` / `equation*` / `align` / `\tag` 等不一致写法，长段落从 `\text{}` 移回正文，统一用 `aligned` 和 `cases`。重点重写了欧拉函数、数论函数、狄利克雷卷积、勒让德符号、二次剩余、二次互反律几篇的证明排版。
+- **文案清理**：首页写作段落、日志幽灵条目、实验室说明、资源库说明、关于页历史叙述、`projects.ts` 里的「先留一个位置」等说明性文字全部删除或改短。
 
 ## 可直接跑的命令
 
@@ -42,9 +51,9 @@ npm run preview                                 # 预览生产构建
 
 ```
 /                         首页
-/notes                    笔记库（学科条 + 数论章节）
+/notes                    笔记库（课程卡 + 最近更新）
 /notes/[subject]          math / physics / cs
-/notes/[subject]/[course] number-theory / discrete-math / data-structures
+/notes/[subject]/[course] number-theory / discrete-math / data-structures（章节折叠）
 /notes/[...slug]          13 篇笔记
 /writing                  日志总览
 /writing/[type]           essay / ctf / project
@@ -61,6 +70,7 @@ npm run preview                                 # 预览生产构建
 
 - 技术栈、设计系统（三主题 obsidian/ivory/sepia + 液态玻璃 + 动效）。
 - 首页、笔记库、课程页、13 篇笔记详情、日志、实验室、关于、404。
+- 笔记区：`/notes` 课程卡 + 最近更新（无侧栏）；学科/课程页侧边栏；课程页章节折叠与锚点；详情页三栏左树 256px。
 - 笔记详情三栏（课程树 / 正文 / 目录）+ 移动端折叠面板；桌面端目录滚动高亮。
 - 笔记标题 KaTeX 行内公式（`src/lib/math.ts` + `InlineMath.astro`）。
 - RSS、sitemap、canonical / OG 基础标签、JSON-LD（笔记 / 首页 / 随笔）。
@@ -71,7 +81,7 @@ npm run preview                                 # 预览生产构建
 
 ## 剩余（按需，涉及用户决策或外部操作）
 
-1. **确认线上部署**：push 后看 Vercel 是否自动构建；若没有，在本机 `vercel login` 后执行 `vercel --prod`。项目已链接（`.vercel/project.json`），无需重新导入。
+1. **确认线上部署**：push 后 Vercel 会自动构建；若没有触发，在本机 `vercel login` 后执行 `vercel --prod`。
 2. **子域名**：当前方案是 www 直接服务、apex 307 到 www、`blog` 301 到 www，不需要新增 DNS；若以后想让 `blog` 直接服务，需在 Spaceship 加 CNAME（`cname.vercel-dns.com`）并在 Vercel 绑定域名，同时删掉 `vercel.json` 里的 blog 301、把 `SITE_URL` 设为 blog。
 3. **仍待用户拍板的视觉问题**：移动菜单「底部对齐 + 上方留白」是否保留、Hero 文案「把复杂的事，写清楚。」是否定稿、三主题够不够。
 4. **本轮未做（方案里可选，不阻塞）**：阅读工具栏 Aa / 字号 / 专注模式、OG 分享图、`/writing` 按年分组。
@@ -82,8 +92,9 @@ npm run preview                                 # 预览生产构建
 - **`overrides.vite = ^7.3.8`** 必须保留（防 vitefu 拉 Vite 8）。
 - **markdown 数学**：`unified({...})`（`@astrojs/markdown-remark`），不是旧的 `markdown.remarkPlugins`。
 - **zod**：`import { z } from 'astro/zod'`。
-- **字体子集**：新增显示用汉字后要重新生成 `public/fonts/noto-serif-sc-display.woff2`（Google Fonts `text=`，`wght@400..600`）。本轮用实际渲染元素（`font-family` 含 `Noto Serif SC Display`）提取字符，272 字。
+- **字体子集**：新增显示用汉字后要重新生成 `public/fonts/noto-serif-sc-display.woff2`（Google Fonts `text=`，`wght@400..600`）。本轮用实际渲染元素（`font-family` 含 `Noto Serif SC Display`）提取字符，245 字。
 - **中文标签路由**：`getStaticPaths` 传原始中文，链接用 `encodeURIComponent`；构建产物是 `dist/tags/数论/index.html`，`/tags/%E6%95%B0%E8%AE%BA/` 可访问。
+- **笔记公式写法**：符号和短表达式用 `$...$`；独立单式用 `$$...$$`；多步推导用 `$$\begin{aligned}...\end{aligned}$$` 并以 `&=` 对齐；分段函数用 `cases`。定理陈述和证明步骤放回正文，不要把整段中文塞进 `\text{}`；避免 `equation*`、单式外层 `gathered`、`\tag`。
 - **旧 URL 301**：`vercel.json` 的 source 不带尾斜杠；`trailingSlash: false` 会先把带斜杠的请求归一化，再匹配。旧站 27 页 = 首页（不跳）+ 26 条映射。
 - **`site/` 与 `docs/`**：`site/` 已取消跟踪但本地保留；`docs/`、`mkdocs.yml` 仍跟踪，作为回滚材料。不要再把 `site/` 加回 git。
 - **搜索索引不要预取**：`CommandPalette` 只在 open 时 `loadSearchIndex()`；此前若在初始化时调用，会让每页多一次 30KB 请求。

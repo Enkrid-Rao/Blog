@@ -22,9 +22,9 @@ const total = counts.reduce((sum, type) => sum + type.count, 0);
 
 const emptyCopy =
   entry.type === 'CTF'
-    ? 'CTF Writeups 正在准备中。等第一场比赛之后，这里会有题目、环境和完整的解题过程。'
+    ? '还没有 CTF Writeups。'
     : entry.type === '项目'
-      ? '项目记录还没开始。等一个东西真的做出来，再把它为什么长成这样写下来。'
+      ? '还没有项目记录。'
       : '还没有新的随笔。';
 ---
 
@@ -86,10 +86,6 @@ const emptyCopy =
           </div>
         </div>
       )}
-
-      <p class="section-note">
-        日志只按时间走，不追求体系。想系统读的东西，去<a href="/notes">笔记库</a>。
-      </p>
     </div>
   </section>
 </BaseLayout>

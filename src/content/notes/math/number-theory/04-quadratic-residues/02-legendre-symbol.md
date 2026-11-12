@@ -36,20 +36,12 @@ $$
 
 ### (a) 周期性
 
-$$
-\begin{gathered}
-\mathbf{\text{若 } a \equiv b \pmod{p},\ \text{则 } \left(\frac{a}{p}\right) = \left(\frac{b}{p}\right)}
-\end{gathered}
-$$
-
-直接由定义可得。
+若 $a \equiv b \pmod{p}$，则 $\left(\frac{a}{p}\right) = \left(\frac{b}{p}\right)$。直接由定义可得。
 
 ### (b) 完全积性
 
 $$
-\begin{gathered}
-\mathbf{\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)}
-\end{gathered}
+\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right).
 $$
 
 ### 证明
@@ -75,12 +67,11 @@ $$
 ### (c) 补充律一
 
 $$
-\begin{gathered}
-\mathbf{\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}} = \begin{cases}
-\ \ 1 & \text{若 } p \equiv 1 \pmod{4} \\[4pt]
--1  & \text{若 } p \equiv 3 \pmod{4}
-\end{cases}}
-\end{gathered}
+\left(\frac{-1}{p}\right) = (-1)^{\frac{p-1}{2}} =
+\begin{cases}
+1, & p \equiv 1 \pmod{4}, \\[4pt]
+-1, & p \equiv 3 \pmod{4}.
+\end{cases}
 $$
 
 ### 证明
@@ -99,12 +90,11 @@ $$
 ### (d) 补充律二
 
 $$
-\begin{gathered}
-\mathbf{\left(\frac{2}{p}\right) = (-1)^{\frac{p^2-1}{8}} = \begin{cases}
-\ \ 1 & \text{若 } p \equiv \pm 1 \pmod{8} \\[4pt]
--1  & \text{若 } p \equiv \pm 3 \pmod{8}
-\end{cases}}
-\end{gathered}
+\left(\frac{2}{p}\right) = (-1)^{\frac{p^2-1}{8}} =
+\begin{cases}
+1, & p \equiv \pm 1 \pmod{8}, \\[4pt]
+-1, & p \equiv \pm 3 \pmod{8}.
+\end{cases}
 $$
 
 ### 证明
@@ -117,32 +107,29 @@ $$
 
 所以我们证明的关键是判断 $2^{\frac{p-1}{2}} \bmod{p}$ 这个数到底是 $1$ 还是 $-1$
 
-然后我们自然地想到如何构造出一个等式结果恰好包含 $2^{\frac{p-1}{2}}$ 且恰好有另外一种表达形式呢? 而且另外一种形式是非常易求的,或者说易判断符号的
+然后我们自然地想到：能否构造一个等式，使它的结果包含 $2^{\frac{p-1}{2}}$，同时又有另一种容易判断符号的表达？
 
-这就到了 **集中注意力** 的时候了🐷🐷🐷
-
-数列 $\left\{ 2,4,6,\cdots,p-1 \right \}$ 可不就恰好可以得到 $\frac{p-1}{2}$ 个 $2$ 吗?
-
-即:
-$$
-\prod_{i=1}^{\frac{p-1}{2}} 2i = 2^{\frac{p-1}{2}} \cdot \prod_{i=1}^{\frac{p-1}{2}} i
-$$
-
-所以问题就来到了 $\displaystyle \prod_{i=1}^{\frac{p-1}{2}} 2i$ 与 $\displaystyle \prod_{i=1}^{\frac{p-1}{2}} i$ 之间是否有其他的某种**联系**?
-
-事实上他们都有 $\frac{p-1}{2}$ 个数, 但是一个是 $\left\{ 2,4,\cdots p-1 \right \}$, 一个是 $\left\{ 1,2,\cdots \frac{p-1}{2} \right \}$ 
-
-这时候想到**绝对最小剩余**, 注意到  $\left\{ 2,4,\cdots p-1 \right \}$ 在模 $p$ 下,可以化为 $\left\{ \cdots-3, -1,2,4\cdots  \right \}$, 这里就 **初见端倪** 了, 不难发现他们都含有数字 $\left\{ 1,2,\cdots ,\frac{p-1}{2} \right \}$ , 那么我们再进一步研究就可以得到
-
-> 这里其实有点儿不严谨, 后续在 *高斯引理* 部分有严谨的证明
-
-我们假设从 $\left\{ 2,4,\cdots p-1 \right \}$ 化为 **绝对最小剩余** 后的**负数**有 $k$ 个 ~~(因为判断奇偶性真的很麻烦或者说繁琐)~~, 那么就会有:
+数列 $\left\{ 2,4,6,\cdots,p-1 \right\}$ 恰好给出 $\frac{p-1}{2}$ 个 $2$，即
 
 $$
-\prod_{i=1}^{\frac{p-1}{2}} 2i =(-1)^k \cdot \prod_{i=1}^{\frac{p-1}{2}} i
+\prod_{i=1}^{\frac{p-1}{2}} 2i = 2^{\frac{p-1}{2}} \cdot \prod_{i=1}^{\frac{p-1}{2}} i.
 $$
 
-那现在就只剩下最后一步, 就是找到 $k$ 和 $p$ 的关系了
+于是问题变成：$\displaystyle \prod_{i=1}^{\frac{p-1}{2}} 2i$ 与 $\displaystyle \prod_{i=1}^{\frac{p-1}{2}} i$ 之间有什么联系？
+
+两者都有 $\frac{p-1}{2}$ 个数，但一个是 $\left\{ 2,4,\cdots,p-1 \right\}$，另一个是 $\left\{ 1,2,\cdots,\frac{p-1}{2} \right\}$。
+
+这时考虑**绝对最小剩余**。$\left\{ 2,4,\cdots,p-1 \right\}$ 在模 $p$ 下可以化为 $\left\{ \cdots,-3,-1,2,4,\cdots \right\}$，其中同样含有 $\left\{ 1,2,\cdots,\frac{p-1}{2} \right\}$。
+
+> 这里略去了严谨性，后面高斯引理部分会补上完整证明。
+
+假设化为绝对最小剩余后，负数有 $k$ 个，则
+
+$$
+\prod_{i=1}^{\frac{p-1}{2}} 2i = (-1)^k \cdot \prod_{i=1}^{\frac{p-1}{2}} i.
+$$
+
+下面只需找出 $k$ 与 $p$ 的关系。
 
 又 $p$ 是奇素数, 所以绝对最小剩余是 $\left\{ r \mid -\frac{p-1}{2}\le r \le \frac{p-1}{2} \right \}$
 
@@ -158,45 +145,39 @@ $$
 
 那么类似地可以计算出 $k=\displaystyle \frac{p-1-\frac{p+3}{2}}{2}+1=\frac{p-1}{4}=t$
 
-显然分类讨论 $t$ 的奇偶**就可以得出答案**,然后通过验证发现 $\dfrac{p^2-1}{8}$ 完美符合, 但是我们能否顺利成章地推出  $\dfrac{p^2-1}{8}$ 呢?
+分类讨论 $t$ 的奇偶性即可得到 $(-1)^k$。下面直接推出 $\dfrac{p^2-1}{8}$。
 
 ### 进一步研究
-也就是说我们想得到一种函数关系: $\displaystyle k=k(p)$ 来方便我们的计算
 
-已知:
+也就是说，我们想得到 $k = k(p)$ 的具体表达式。
+
+已知
 
 $$
-\displaystyle
 k = \begin{cases}
-    \frac{p+1}{4} & p \equiv -1 \pmod{4} \\[4pt]
-    \frac{p-1}{4} & p \equiv 1 \pmod{4} 
+\dfrac{p+1}{4}, & p \equiv -1 \pmod{4}, \\[6pt]
+\dfrac{p-1}{4}, & p \equiv 1 \pmod{4}.
 \end{cases}
 $$
 
-所以 
+所以
 
 $$
 (-1)^{k} = \begin{cases}
-    (-1)^{\frac{p+1}{4}} & \frac{p-1}{2} 为奇数 \\
-    (-1)^{\frac{p-1}{4}} & \frac{p+1}{2} 为奇数 
+(-1)^{\frac{p+1}{4}}, & \dfrac{p-1}{2}\ \text{为奇数}, \\[8pt]
+(-1)^{\frac{p-1}{4}}, & \dfrac{p+1}{2}\ \text{为奇数}.
 \end{cases}
 $$
 
 显然 **一个数的奇数次方是不改变符号的** , 那么
 
 $$
-\begin{equation*}
     (-1)^k = \left( (-1)^{\frac{p+1}{4}} \right) ^{\frac{p-1}{2}} = \left( (-1)^{\frac{p-1}{4}} \right)^{\frac{p+1}{2}} = (-1)^{\frac{p^2-1}{8}}
-\end{equation*}
 $$
 
-> 其实这里看起来非常巧妙,但实际上还是由结果反推来的,但是下面这个是真的
+---
 
---- 
-
-这次我们不是将绝对最小剩余外的数分离,而是全部讨论
-
-注意到
+这次不再只分离绝对最小剩余之外的数，而是全部讨论。注意到
 
 $$
 \begin{aligned}
@@ -215,20 +196,14 @@ $$
 左右累乘,可得:
 
 $$
-\begin{equation*}
     \prod_{i=1}^{\frac{p-1}{2}}2i  = \prod_{i=1}^{\frac{p-1}{2}} i \cdot (-1)^{1+2+\cdots+\frac{p-1}{2} }
-\end{equation*}
 $$
 
 所以最后有
 
 $$
-\begin{equation*}
-    k = \frac{(1+\frac{p-1}{2})\cdot \frac{p-1}{2}}{2} = \frac{p^2-1}{8} \quad \square
-\end{equation*}
+k = \frac{(1+\frac{p-1}{2})\cdot \frac{p-1}{2}}{2} = \frac{p^2-1}{8}. \quad \square
 $$
-
-> 这也就是老师上课讲的方法, 我原本想着写一种更加简单易懂的方法, 但是却发现不妨便顺着推出 $\frac{p^2-1}{8}$ 这个确切的表达式, 回过头来发现老师这个方法挺好的
 
 ---
 
@@ -238,6 +213,4 @@ $$
 
 ### 证明
 
-$$
-设 \left\langle n  \right\rangle_p, \left\langle 2n \right\rangle_p, \left\langle \left( \frac{p-1}{2} \right) \right\rangle_p 中小于 \frac{p }{2 } 的数为 a_1,a_2,\cdots, a_s, 大于\frac{p }{2} 的数为 b_1,b_2,\cdots b_m,l+m=\frac{p-1}{2} 
-$$
+把 $\left\langle n\right\rangle_p,\left\langle 2n\right\rangle_p,\cdots,\left\langle \frac{p-1}{2}n\right\rangle_p$ 中小于 $\frac{p}{2}$ 的数记为 $a_1,a_2,\cdots,a_s$，大于 $\frac{p}{2}$ 的数记为 $b_1,b_2,\cdots,b_m$，其中 $s+m=\frac{p-1}{2}$。

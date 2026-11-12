@@ -366,3 +366,38 @@ document.querySelectorAll<HTMLElement>('[data-back-to-top]').forEach((button) =>
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 });
+
+/* ── Chapter accordion ─────────────────────────────────── */
+
+const chapterDetails = Array.from(
+  document.querySelectorAll<HTMLDetailsElement>('[data-chapter]')
+);
+const expandAll = document.querySelector<HTMLButtonElement>('[data-expand-all]');
+
+function syncExpandAll() {
+  if (!expandAll || !chapterDetails.length) return;
+  const allOpen = chapterDetails.every((item) => item.open);
+  expandAll.textContent = allOpen ? '全部收起' : '全部展开';
+  expandAll.setAttribute('aria-expanded', String(allOpen));
+}
+
+expandAll?.addEventListener('click', () => {
+  const allOpen = chapterDetails.every((item) => item.open);
+  chapterDetails.forEach((item) => {
+    item.open = !allOpen;
+  });
+  syncExpandAll();
+});
+
+chapterDetails.forEach((item) => item.addEventListener('toggle', syncExpandAll));
+syncExpandAll();
+
+function openHashChapter() {
+  const id = decodeURIComponent(window.location.hash.slice(1));
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (target instanceof HTMLDetailsElement) target.open = true;
+}
+
+openHashChapter();
+window.addEventListener('hashchange', openHashChapter);

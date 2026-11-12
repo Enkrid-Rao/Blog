@@ -14,9 +14,8 @@ featured: false
 设 $p, q$ 是互不相同的奇素数，则
 
 $$
-\begin{gathered}
-\mathbf{\left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = (-1)^{\frac{p-1}{2} \cdot \frac{q-1}{2}}}
-\end{gathered}
+\left(\frac{p}{q}\right)\left(\frac{q}{p}\right)
+= (-1)^{\frac{p-1}{2} \cdot \frac{q-1}{2}}.
 $$
 
 等价地：
