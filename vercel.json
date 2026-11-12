@@ -6,7 +6,12 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "blog.251890411.xyz" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "blog.251890411.xyz"
+        }
+      ],
       "destination": "https://www.251890411.xyz/$1",
       "permanent": true
     },
@@ -16,132 +21,127 @@
       "permanent": true
     },
     {
-      "source": "/关于",
-      "destination": "/about",
-      "permanent": true
-    },
-    {
-      "source": "/关于/阅读指南",
+      "source": "/%E5%85%B3%E4%BA%8E/%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97",
       "destination": "/guide",
       "permanent": true
     },
     {
-      "source": "/其他分享",
+      "source": "/%E5%85%B6%E4%BB%96%E5%88%86%E4%BA%AB",
       "destination": "/writing",
       "permanent": true
     },
     {
-      "source": "/其他分享/刷课",
+      "source": "/%E5%85%B6%E4%BB%96%E5%88%86%E4%BA%AB/%E5%88%B7%E8%AF%BE",
       "destination": "/writing/project",
       "permanent": true
     },
     {
-      "source": "/数学",
+      "source": "/%E6%95%B0%E5%AD%A6",
       "destination": "/notes/math",
       "permanent": true
     },
     {
-      "source": "/数学/数论",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA",
       "destination": "/notes/math/number-theory",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第二章_同余",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%BA%8C%E7%AB%A0_%E5%90%8C%E4%BD%99",
       "destination": "/notes/math/number-theory",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第二章_同余/同余的概念",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%BA%8C%E7%AB%A0_%E5%90%8C%E4%BD%99/%E5%90%8C%E4%BD%99%E7%9A%84%E6%A6%82%E5%BF%B5",
       "destination": "/notes/math/number-theory/02-congruence/01-congruence",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0",
       "destination": "/notes/math/number-theory",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数/数论函数",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0",
       "destination": "/notes/math/number-theory/03-arithmetic-functions/01-arithmetic-functions",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数/莫比乌斯函数",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%87%BD%E6%95%B0",
       "destination": "/notes/math/number-theory/03-arithmetic-functions/02-mobius-function",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数/欧拉函数",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0",
       "destination": "/notes/math/number-theory/03-arithmetic-functions/03-euler-function",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数/狄利克雷卷积",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF",
       "destination": "/notes/math/number-theory/03-arithmetic-functions/04-dirichlet-convolution",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数/莫比乌斯反演",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94",
       "destination": "/notes/math/number-theory/03-arithmetic-functions/05-mobius-inversion",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第三章_数论函数/积性函数",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0",
       "destination": "/notes/math/number-theory/03-arithmetic-functions/06-multiplicative-functions",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第四章_二次剩余",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99",
       "destination": "/notes/math/number-theory",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第四章_二次剩余/二次剩余",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99",
       "destination": "/notes/math/number-theory/04-quadratic-residues/01-quadratic-residues",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第四章_二次剩余/勒让德符号",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/%E5%8B%92%E8%AE%A9%E5%BE%B7%E7%AC%A6%E5%8F%B7",
       "destination": "/notes/math/number-theory/04-quadratic-residues/02-legendre-symbol",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第四章_二次剩余/二次互反律",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/%E4%BA%8C%E6%AC%A1%E4%BA%92%E5%8F%8D%E5%BE%8B",
       "destination": "/notes/math/number-theory/04-quadratic-residues/03-quadratic-reciprocity",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第四章_二次剩余/雅可比符号",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%AC%A6%E5%8F%B7",
       "destination": "/notes/math/number-theory/04-quadratic-residues/04-jacobi-symbol",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第五章_原根",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0_%E5%8E%9F%E6%A0%B9",
       "destination": "/notes/math/number-theory",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第五章_原根/整数的次数",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0_%E5%8E%9F%E6%A0%B9/%E6%95%B4%E6%95%B0%E7%9A%84%E6%AC%A1%E6%95%B0",
       "destination": "/notes/math/number-theory/05-primitive-roots/01-order-of-integer",
       "permanent": true
     },
     {
-      "source": "/数学/数论/第五章_原根/原根",
+      "source": "/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0_%E5%8E%9F%E6%A0%B9/%E5%8E%9F%E6%A0%B9",
       "destination": "/notes/math/number-theory/05-primitive-roots/02-primitive-roots",
       "permanent": true
     },
     {
-      "source": "/物理",
+      "source": "/%E7%89%A9%E7%90%86",
       "destination": "/notes/physics",
       "permanent": true
     },
     {
-      "source": "/编程",
+      "source": "/%E7%BC%96%E7%A8%8B",
       "destination": "/notes/cs",
       "permanent": true
     },
     {
-      "source": "/编程/数据结构与算法设计",
+      "source": "/%E7%BC%96%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1",
       "destination": "/notes/cs/data-structures",
       "permanent": true
     }
@@ -150,7 +150,10 @@
     {
       "source": "/fonts/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     }
   ]
