@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InlineMath from '../../components/InlineMath.astro';
+import { formatDate, getNotes } from '../../lib/notes';
+import { collectTagEntries, countTags } from '../../lib/tags';
+import '../../styles/pages.css';
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  const entries = collectTagEntries(notes);
+  const tags = countTags(entries);
+
+  return tags.map((tag) => ({
+    params: { tag: tag.tag },
+    props: {
+      tag,
+      entries: entries
+        .filter((entry) => entry.tag === tag.tag)
+        .sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0)),
+    },
+  }));
+}
+
+const { tag, entries } = Astro.props;
+const noteCount = entries.filter((entry) => entry.kind === '笔记').length;
+const postCount = entries.filter((entry) => entry.kind === '日志').length;
+---
+
+<BaseLayout
+  title={`${tag.tag} — 标签 — rxx`}
+  description={`与「${tag.tag}」相关的笔记与日志，共 ${entries.length} 条。`}
+>
+  <section class="page-hero">
+    <div class="container">
+      <div class="course-breadcrumb">
+        <a href="/tags">标签</a>
+        <span aria-hidden="true">/</span>
+        <span>{tag.tag}</span>
+      </div>
+      <p class="label page-hero__label">Tag / {tag.tag}</p>
+      <h1 class="page-title">{tag.tag}</h1>
+      <p class="page-lede">
+        「{tag.tag}」下的全部条目。笔记按更新时间排，日志按发布日期排。
+      </p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>{entries.length} 条</span>
+        <span>{noteCount} 篇笔记</span>
+        <span>{postCount} 篇日志</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="entry-list" data-reveal>
+        {entries.map((entry) => (
+          <a class="entry-row" href={entry.href}>
+            <span class="entry-row__meta">
+              {formatDate(entry.date)}
+              <br />
+              {entry.kind}
+            </span>
+            <span>
+              <span class="entry-row__title"><InlineMath text={entry.title} /></span>
+              <span class="entry-row__desc">{entry.description}</span>
+            </span>
+            <span class="entry-row__kind">{entry.kind === '笔记' ? 'Note' : 'Log'}</span>
+          </a>
+        ))}
+      </div>
+
+      <p class="section-note">
+        想按课程顺序读，去<a href="/notes">笔记库</a>；想看时间线，去<a href="/archive">归档</a>。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

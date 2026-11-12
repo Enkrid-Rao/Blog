@@ -9,12 +9,21 @@ import '../styles/home.css';
 
 const featuredNotes = (await getNotes()).filter((note) => note.data.featured).slice(0, 3);
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: new URL('/', Astro.site ?? 'https://251890411.xyz').href,
+  description: site.description,
+  inLanguage: 'zh-CN',
+};
+
 function chapterTitle(id: string) {
   return chapters[id as keyof typeof chapters]?.title ?? '';
 }
 ---
 
-<BaseLayout>
+<BaseLayout jsonLd={jsonLd}>
   <section class="hero">
     <div class="hero-aurora" aria-hidden="true">
       <div class="aurora-blob aurora-blob--a"></div>

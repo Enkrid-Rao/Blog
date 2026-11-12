@@ -41,13 +41,16 @@ import '../../styles/pages.css';
             <p class="project-card__desc">{project.description}</p>
 
             <ul class="scope-list">
-              <li><span class="num">01</span>私密记录，不进入公开时间流</li>
-              <li><span class="num">02</span>先做本地优先，再考虑同步</li>
-              <li><span class="num">03</span>等它真的值得打开，再放出来</li>
+              {project.scope.map((item, index) => (
+                <li><span class="num">{String(index + 1).padStart(2, '0')}</span>{item}</li>
+              ))}
             </ul>
 
             <div class="project-card__foot">
               <span class="status-pill">{project.meta}</span>
+              <a class="text-link" href={`/lab/${project.slug}`}>
+                项目详情 <span class="arrow" aria-hidden="true">↗</span>
+              </a>
             </div>
           </article>
         ))}
@@ -69,6 +72,13 @@ import '../../styles/pages.css';
             <li><span class="num">01</span>文件元数据与下载入口</li>
             <li><span class="num">02</span>对象存储，不把大文件塞进仓库</li>
           </ul>
+
+          <div class="project-card__foot">
+            <span class="status-pill">尚未开放</span>
+            <a class="text-link" href="/lab/resources">
+              查看说明 <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
         </article>
       </div>
 

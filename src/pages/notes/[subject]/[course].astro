@@ -2,16 +2,14 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import NoteRow from '../../../components/NoteRow.astro';
 import { courses, getChaptersForCourse, subjects } from '../../../data/taxonomy';
-import { formatDate, getNotes } from '../../../lib/notes';
+import { formatDate, getNotes, latestUpdated } from '../../../lib/notes';
 import '../../../styles/pages.css';
 
-export async function getStaticPaths() {
-  return Object.values(courses)
-    .filter((course) => course.status === 'active')
-    .map((course) => ({
-      params: { subject: course.subject, course: course.id },
-      props: { course },
-    }));
+export function getStaticPaths() {
+  return Object.values(courses).map((course) => ({
+    params: { subject: course.subject, course: course.id },
+    props: { course },
+  }));
 }
 
 const { course } = Astro.props;
@@ -22,10 +20,7 @@ const courseChapters = getChaptersForCourse(course.id).map((chapter) => ({
   ...chapter,
   notes: courseNotes.filter((note) => note.data.chapter === chapter.id),
 }));
-const lastUpdated = courseNotes
-  .map((note) => note.data.updated)
-  .filter((date): date is Date => Boolean(date))
-  .sort((a, b) => b.getTime() - a.getTime())[0];
+const lastUpdated = latestUpdated(courseNotes);
 ---
 
 <BaseLayout
@@ -37,57 +32,65 @@ const lastUpdated = courseNotes
       <div class="course-breadcrumb">
         <a href="/notes">笔记</a>
         <span aria-hidden="true">/</span>
-        <span>{subject.title}</span>
+        <a href={`/notes/${subject.id}`}>{subject.title}</a>
         <span aria-hidden="true">/</span>
         <span>{course.title}</span>
       </div>
       <h1 class="page-title">{course.title}</h1>
       <p class="page-lede">{course.description}</p>
       <div class="page-hero__meta">
-        <span><span class="dot"></span>{courseNotes.length} 篇笔记</span>
-        <span>{courseChapters.length} 个章节</span>
-        <span>最后更新 {formatDate(lastUpdated)}</span>
+        {course.status === 'active' ? (
+          <>
+            <span><span class="dot"></span>{courseNotes.length} 篇笔记</span>
+            <span>{courseChapters.length} 个章节</span>
+            <span>最后更新 {formatDate(lastUpdated)}</span>
+          </>
+        ) : (
+          <>
+            <span><span class="dot"></span>筹备中</span>
+            <span>0 篇笔记</span>
+            <span>章节尚未排定</span>
+          </>
+        )}
       </div>
     </div>
   </section>
 
   <section class="page-body">
     <div class="container">
-      <div class="notes-index">
-        {courseChapters.map((chapter) => (
-          <section class="chapter-block" data-reveal>
-            <div class="chapter-head">
-              <span class="chapter-head__index">{chapter.index}</span>
-              <h2 class="chapter-head__title">{chapter.title}</h2>
-              <p class="chapter-head__desc">{chapter.description}</p>
-            </div>
-            <div class="note-list">
-              {chapter.notes.map((note) => <NoteRow note={note} />)}
-            </div>
-          </section>
-        ))}
-      </div>
+      {course.status === 'planned' ? (
+        <div class="empty-state" data-reveal>
+          <p class="label">Planned</p>
+          <h2 class="empty-state__title">这门课还没开始。</h2>
+          <p>
+            章节和篇目还没定下来，所以这里暂时没有目录。
+            等第一篇真的写出来，它会自动出现在这里，不需要手写导航。
+          </p>
+          <div class="empty-state__actions">
+            <a class="btn btn--glass" href={`/notes/${subject.id}`}>回到{subject.title}</a>
+            <a class="btn btn--ghost" href="/notes">全部笔记</a>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div class="notes-index">
+            {courseChapters.map((chapter) => (
+              <section class="chapter-block" data-reveal>
+                <div class="chapter-head">
+                  <span class="chapter-head__index">{chapter.index}</span>
+                  <h2 class="chapter-head__title">{chapter.title}</h2>
+                  <p class="chapter-head__desc">{chapter.description}</p>
+                </div>
+                <div class="note-list">
+                  {chapter.notes.map((note) => <NoteRow note={note} />)}
+                </div>
+              </section>
+            ))}
+          </div>
 
-      <p class="notes-end">— {course.title} · 未完待续 —</p>
+          <p class="notes-end">— {course.title} · 未完待续 —</p>
+        </>
+      )}
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .course-breadcrumb {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
-    color: var(--fg-subtle);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .course-breadcrumb a:hover {
-    color: var(--fg);
-  }
-</style>

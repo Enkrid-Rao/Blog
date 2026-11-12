@@ -29,3 +29,10 @@ export function formatDate(date: Date | undefined): string {
 export function noteHref(note: NoteEntry): string {
   return `/notes/${note.id}`;
 }
+
+export function latestUpdated(notes: NoteEntry[]): Date | undefined {
+  return notes
+    .map((note) => note.data.updated)
+    .filter((date): date is Date => Boolean(date))
+    .sort((a, b) => b.getTime() - a.getTime())[0];
+}

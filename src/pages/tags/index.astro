@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getNotes } from '../../lib/notes';
+import { collectTagEntries, countTags } from '../../lib/tags';
+import '../../styles/pages.css';
+
+const notes = await getNotes();
+const entries = collectTagEntries(notes);
+const tags = countTags(entries);
+---
+
+<BaseLayout
+  title="标签 — rxx"
+  description="按标签浏览笔记与日志：数论、二次剩余、原根、随笔、建站。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">Index / Tags</p>
+      <h1 class="page-title">标签</h1>
+      <p class="page-lede">
+        标签是横向的索引。章节按顺序读，标签用来找同一类东西。
+      </p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>{tags.length} 个标签</span>
+        <span>{entries.length} 条关联</span>
+        <span>笔记与日志</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="tag-cloud" data-reveal>
+        {tags.map((tag) => (
+          <a class="tag-cloud__item" href={tag.href}>
+            {tag.tag}
+            <span class="tag-cloud__count">{tag.count}</span>
+          </a>
+        ))}
+      </div>
+
+      <p class="section-note">
+        标签只做聚合，不改变正文的顺序。想按课程读，回<a href="/notes">笔记库</a>。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

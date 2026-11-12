@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { posts } from '../../data/posts';
+import { postTypes, posts } from '../../data/posts';
 import '../../styles/pages.css';
+
+const counts = postTypes.map((type) => ({
+  ...type,
+  count: posts.filter((post) => post.type === type.type).length,
+}));
 ---
 
 <BaseLayout
@@ -17,10 +22,14 @@ import '../../styles/pages.css';
         比笔记松一点，也比笔记诚实一点。
       </p>
       <div class="filter-row">
-        <span class="filter-chip filter-chip--active">全部 <span class="count">1</span></span>
-        <span class="filter-chip">随笔 <span class="count">1</span></span>
-        <span class="filter-chip">CTF <span class="count">0</span></span>
-        <span class="filter-chip">项目 <span class="count">0</span></span>
+        <span class="filter-chip filter-chip--active" aria-current="page">
+          全部 <span class="count">{posts.length}</span>
+        </span>
+        {counts.map((type) => (
+          <a class="filter-chip" href={`/writing/${type.slug}`}>
+            {type.type} <span class="count">{type.count}</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>

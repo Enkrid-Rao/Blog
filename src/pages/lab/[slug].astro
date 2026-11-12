@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+import '../../styles/pages.css';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout title={`${project.title} — 实验室 — rxx`} description={project.description}>
+  <section class="page-hero">
+    <div class="container">
+      <div class="course-breadcrumb">
+        <a href="/lab">实验室</a>
+        <span aria-hidden="true">/</span>
+        <span>{project.slug}</span>
+      </div>
+      <p class="label page-hero__label">03 / The Lab</p>
+      <h1 class="page-title project-detail__title">{project.title}</h1>
+      <p class="page-lede project-detail__sub">{project.subtitle}</p>
+      <div class="project-detail__meta">
+        <span class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          {project.status}
+        </span>
+        <span>{project.meta}</span>
+        <span>Project / {project.slug}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="detail-block" data-reveal>
+        <p class="detail-block__lead">{project.description}</p>
+
+        <div class="detail-sections">
+          <section class="detail-section">
+            <h2>要解决什么</h2>
+            <p>
+              把每天发生的事留在本地，不进入公开时间流，也不需要为了记录而先登录一个服务。
+              它更像一本随手翻的册子，而不是一个需要维护的社交账号。
+            </p>
+          </section>
+
+          <section class="detail-section">
+            <h2>准备怎么做</h2>
+            <ul>
+              {project.scope.map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+
+          <section class="detail-section">
+            <h2>现在到哪一步</h2>
+            <p>{project.stage}</p>
+          </section>
+
+          <section class="detail-section">
+            <h2>状态</h2>
+            <p>
+              当前标记为「{project.status}」。这里不放截图，也不写假的进度条；
+              等它能真的打开，再回来更新这一页。
+            </p>
+          </section>
+        </div>
+
+        <p class="section-note">
+          项目索引在<a href="/lab">实验室</a>。还没开放的东西也在那里。
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

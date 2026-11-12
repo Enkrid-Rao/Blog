@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/pages.css';
+---
+
+<BaseLayout
+  title="resources — 实验室 — rxx"
+  description="资源库尚未开放：以后放可下载的资料、模板与工具。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <div class="course-breadcrumb">
+        <a href="/lab">实验室</a>
+        <span aria-hidden="true">/</span>
+        <span>resources</span>
+      </div>
+      <p class="label page-hero__label">03 / The Lab — Reserved</p>
+      <h1 class="page-title">resources</h1>
+      <p class="page-lede">
+        以后放可下载的资料、模板和工具。现在还没有东西，所以先不打开。
+      </p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>尚未开放</span>
+        <span>对象存储 · 未接入</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="empty-state" data-reveal>
+        <p class="label">Reserved</p>
+        <h2 class="empty-state__title">还没有可以下载的东西。</h2>
+        <p>
+          这一页只说明范围：以后会放 PDF、Markdown 和小的压缩包，
+          文件走对象存储，元数据留在站点里，不把大文件塞进 git。
+        </p>
+        <p>
+          上传和权限都还没有实现，所以现在没有任何入口。
+        </p>
+        <div class="empty-state__actions">
+          <a class="btn btn--glass" href="/lab">回到实验室</a>
+          <a class="btn btn--ghost" href="/notes">先去看笔记</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { postTypes, postsOfType } from '../../data/posts';
+import '../../styles/pages.css';
+
+export function getStaticPaths() {
+  return postTypes.map((entry) => ({
+    params: { type: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const items = postsOfType(entry.type).sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+const counts = postTypes.map((type) => ({
+  ...type,
+  count: postsOfType(type.type).length,
+}));
+const total = counts.reduce((sum, type) => sum + type.count, 0);
+
+const emptyCopy =
+  entry.type === 'CTF'
+    ? 'CTF Writeups 正在准备中。等第一场比赛之后，这里会有题目、环境和完整的解题过程。'
+    : entry.type === '项目'
+      ? '项目记录还没开始。等一个东西真的做出来，再把它为什么长成这样写下来。'
+      : '还没有新的随笔。';
+---
+
+<BaseLayout title={`${entry.title} — 日志 — rxx`} description={entry.lede}>
+  <section class="page-hero">
+    <div class="container">
+      <div class="course-breadcrumb">
+        <a href="/writing">日志</a>
+        <span aria-hidden="true">/</span>
+        <span>{entry.title}</span>
+      </div>
+      <p class="label page-hero__label">02 / Writing — {entry.en}</p>
+      <h1 class="page-title">{entry.title}</h1>
+      <p class="page-lede">{entry.lede}</p>
+      <div class="filter-row">
+        <a class="filter-chip" href="/writing">全部 <span class="count">{total}</span></a>
+        {counts.map((type) => (
+          <a
+            class:list={['filter-chip', { 'filter-chip--active': type.slug === entry.slug }]}
+            href={`/writing/${type.slug}`}
+            aria-current={type.slug === entry.slug ? 'page' : undefined}
+          >
+            {type.type} <span class="count">{type.count}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      {items.length > 0 ? (
+        <div class="posts-index" data-reveal>
+          {items.map((post) => (
+            <a class="post-card" href={`/writing/${post.slug}`}>
+              <span class="post-card__date">{post.displayDate}</span>
+              <div>
+                <h2 class="post-card__title">{post.title}</h2>
+                <p class="post-card__excerpt">{post.excerpt}</p>
+              </div>
+              <div class="post-card__meta">
+                <span>{post.type}</span>
+                <span>{post.reading}</span>
+                <span class="post-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="posts-empty" data-reveal>
+          <span class="post-card__date">TBA</span>
+          <div>
+            <h2 class="post-card__title">{entry.title}</h2>
+            <p class="post-card__excerpt">{emptyCopy}</p>
+          </div>
+          <div class="post-card__meta">
+            <span>预留</span>
+            <span>—</span>
+          </div>
+        </div>
+      )}
+
+      <p class="section-note">
+        日志只按时间走，不追求体系。想系统读的东西，去<a href="/notes">笔记库</a>。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

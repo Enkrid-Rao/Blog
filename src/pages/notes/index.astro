@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NoteRow from '../../components/NoteRow.astro';
-import { chapterList, courses } from '../../data/taxonomy';
+import { chapterList, courses, subjects } from '../../data/taxonomy';
 import { formatDate, getNotes } from '../../lib/notes';
 import '../../styles/pages.css';
 
@@ -17,6 +17,12 @@ const lastUpdated = allNotes
   .map((note) => note.data.updated)
   .filter((date): date is Date => Boolean(date))
   .sort((a, b) => b.getTime() - a.getTime())[0];
+
+const subjectList = Object.values(subjects).map((subject, index) => ({
+  ...subject,
+  index: String(index + 1).padStart(2, '0'),
+  noteCount: allNotes.filter((note) => note.data.subject === subject.id).length,
+}));
 ---
 
 <BaseLayout
@@ -42,6 +48,24 @@ const lastUpdated = allNotes
 
   <section class="page-body">
     <div class="container">
+      <div class="subject-strip">
+        {subjectList.map((subject) => (
+          <a
+            class:list={['subject-card', { 'subject-card--planned': subject.status === 'planned' }]}
+            href={`/notes/${subject.id}`}
+            data-reveal
+          >
+            <span class="subject-card__index">{subject.index}</span>
+            <span class="subject-card__title">{subject.title}</span>
+            <span class="subject-card__en">{subject.en}</span>
+            <span class="subject-card__meta">
+              {subject.status === 'active' ? `${subject.noteCount} 篇 · 进行中` : '筹备中'}
+            </span>
+            <span class="subject-card__arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+
       <div class="notes-notice" data-reveal>
         <span class="status-dot" aria-hidden="true"></span>
         正文已迁入 Astro，公式在构建时由 KaTeX 渲染，阅读时不会闪烁。

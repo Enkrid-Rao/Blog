@@ -1,0 +1,226 @@
+body.search-open {
+  overflow: hidden;
+}
+
+.cmdk {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(64px, 12vh, 132px) 20px 40px;
+}
+
+.cmdk[hidden] {
+  display: none;
+}
+
+.cmdk__scrim {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg) 58%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.cmdk.is-open .cmdk__scrim {
+  opacity: 1;
+}
+
+.cmdk__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(660px, 100%);
+  max-height: min(72vh, 640px);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(30px) saturate(165%);
+  backdrop-filter: blur(30px) saturate(165%);
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-14px) scale(0.985);
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+}
+
+.cmdk.is-open .cmdk__panel {
+  opacity: 1;
+  transform: none;
+}
+
+.cmdk__bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cmdk__bar svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--fg-subtle);
+}
+
+.cmdk__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--fg);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.cmdk__input::placeholder {
+  color: var(--fg-subtle);
+}
+
+.cmdk__kbd {
+  flex: none;
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+}
+
+.cmdk__results {
+  flex: 1;
+  padding: 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cmdk__item {
+  border-radius: 12px;
+  transition: background-color 0.16s ease;
+}
+
+.cmdk__item.is-active {
+  background: var(--glass-strong);
+}
+
+.cmdk__link {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-areas:
+    'group title'
+    'group meta';
+  gap: 3px 14px;
+  align-items: baseline;
+  padding: 12px 14px;
+}
+
+.cmdk__group {
+  grid-area: group;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cmdk__title {
+  grid-area: title;
+  color: var(--fg);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.cmdk__meta {
+  display: -webkit-box;
+  grid-area: meta;
+  color: var(--fg-muted);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.cmdk__hint {
+  padding: 28px 18px;
+  color: var(--fg-subtle);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.cmdk__foot {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 18px;
+  padding: 11px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.06em;
+}
+
+.cmdk__foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cmdk__foot kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg-soft);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+}
+
+.cmdk__brand {
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+@media (max-width: 680px) {
+  .cmdk {
+    padding: 76px 12px 12px;
+  }
+
+  .cmdk__panel {
+    max-height: 80vh;
+  }
+
+  .cmdk__link {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'group'
+      'title'
+      'meta';
+    gap: 2px;
+    padding: 11px 12px;
+  }
+
+  .cmdk__foot {
+    gap: 12px;
+  }
+
+  .cmdk__brand {
+    display: none;
+  }
+}

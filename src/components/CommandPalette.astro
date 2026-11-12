@@ -1,0 +1,227 @@
+---
+import '../styles/search.css';
+---
+
+<div class="cmdk" data-cmdk hidden>
+  <div class="cmdk__scrim" data-cmdk-close aria-hidden="true"></div>
+
+  <div class="cmdk__panel" role="dialog" aria-modal="true" aria-label="站内搜索">
+    <div class="cmdk__bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.4"></circle>
+        <path d="m16 16 4.2 4.2"></path>
+      </svg>
+      <input
+        class="cmdk__input"
+        type="text"
+        placeholder="搜索笔记、日志、页面…"
+        autocomplete="off"
+        spellcheck="false"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="cmdk-results"
+        aria-autocomplete="list"
+        data-cmdk-input
+      />
+      <kbd class="cmdk__kbd">ESC</kbd>
+    </div>
+
+    <ul class="cmdk__results" id="cmdk-results" role="listbox" aria-label="搜索结果" data-cmdk-results></ul>
+
+    <div class="cmdk__foot">
+      <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+      <span><kbd>↵</kbd> 打开</span>
+      <span class="cmdk__brand">rxx / search</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { searchItems, type SearchItem } from '../lib/search';
+  import { loadSearchIndex } from '../scripts/search';
+
+  const root = document.querySelector<HTMLElement>('[data-cmdk]');
+
+  if (root) {
+    const input = root.querySelector<HTMLInputElement>('[data-cmdk-input]');
+    const results = root.querySelector<HTMLElement>('[data-cmdk-results]');
+    const closeButton = root.querySelector<HTMLElement>('[data-cmdk-close]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let index: SearchItem[] | null = null;
+    let list: SearchItem[] = [];
+    let active = -1;
+    let lastFocused: HTMLElement | null = null;
+    let debounceTimer = 0;
+    let closeTimer = 0;
+
+    function setActive(next: number) {
+      if (!results || !list.length) return;
+      active = (next + list.length) % list.length;
+
+      Array.from(results.children).forEach((child, itemIndex) => {
+        const isActive = itemIndex === active;
+        child.classList.toggle('is-active', isActive);
+        child.setAttribute('aria-selected', String(isActive));
+        if (isActive) {
+          child.id = `cmdk-item-${itemIndex}`;
+          input?.setAttribute('aria-activedescendant', `cmdk-item-${itemIndex}`);
+          child.scrollIntoView({ block: 'nearest' });
+        }
+      });
+    }
+
+    function render(query: string) {
+      if (!results) return;
+      results.replaceChildren();
+      active = -1;
+      input?.removeAttribute('aria-activedescendant');
+
+      if (!query.trim()) {
+        const hint = document.createElement('li');
+        hint.className = 'cmdk__hint';
+        hint.textContent = '输入关键词，搜索笔记、日志和页面。';
+        results.append(hint);
+        return;
+      }
+
+      list = searchItems(index ?? [], query, 8);
+
+      if (!list.length) {
+        const empty = document.createElement('li');
+        empty.className = 'cmdk__hint';
+        empty.textContent = '没有找到。换一个词试试，比如「数论」或「欧拉」。';
+        results.append(empty);
+        return;
+      }
+
+      list.forEach((item, itemIndex) => {
+        const li = document.createElement('li');
+        li.className = 'cmdk__item';
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+
+        const link = document.createElement('a');
+        link.className = 'cmdk__link';
+        link.href = item.url;
+        link.tabIndex = -1;
+
+        const group = document.createElement('span');
+        group.className = 'cmdk__group';
+        group.textContent = item.group;
+
+        const title = document.createElement('span');
+        title.className = 'cmdk__title';
+        title.textContent = item.title;
+
+        const description = document.createElement('span');
+        description.className = 'cmdk__meta';
+        description.textContent = item.description;
+
+        link.append(group, title, description);
+        li.append(link);
+        li.addEventListener('pointermove', () => setActive(itemIndex));
+        results.append(li);
+      });
+    }
+
+    async function ensureIndex() {
+      if (!index) index = await loadSearchIndex();
+    }
+
+    function open() {
+      if (!root) return;
+      window.clearTimeout(closeTimer);
+      lastFocused = document.activeElement as HTMLElement | null;
+      root.hidden = false;
+      document.body.classList.add('search-open');
+      window.requestAnimationFrame(() => root.classList.add('is-open'));
+      if (input) {
+        input.value = '';
+        input.focus({ preventScroll: true });
+      }
+      render('');
+      void ensureIndex();
+    }
+
+    function close() {
+      if (!root) return;
+      root.classList.remove('is-open');
+      document.body.classList.remove('search-open');
+      closeTimer = window.setTimeout(
+        () => {
+          root.hidden = true;
+        },
+        reduceMotion ? 0 : 260
+      );
+      lastFocused?.focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-search-open]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        if (root.hidden) open();
+        else close();
+      });
+    });
+
+    closeButton?.addEventListener('click', close);
+
+    results?.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) close();
+    });
+
+    input?.addEventListener('input', () => {
+      window.clearTimeout(debounceTimer);
+      const value = input.value;
+      debounceTimer = window.setTimeout(async () => {
+        await ensureIndex();
+        render(value);
+      }, 90);
+    });
+
+    input?.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (!list.length) return;
+        void ensureIndex().then(() => setActive(active + 1));
+        return;
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!list.length) return;
+        setActive(active - 1);
+        return;
+      }
+
+      if (event.key === 'Enter') {
+        const target = list[active] ?? list[0];
+        if (!target) return;
+        event.preventDefault();
+        window.location.href = target.url;
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close();
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        event.preventDefault();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        if (root.hidden) open();
+        else close();
+        return;
+      }
+
+      if (event.key === 'Escape' && !root.hidden) close();
+    });
+  }
+</script>

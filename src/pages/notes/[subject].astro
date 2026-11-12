@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { courseList, subjects } from '../../data/taxonomy';
+import { formatDate, getNotes, latestUpdated } from '../../lib/notes';
+import '../../styles/pages.css';
+
+export function getStaticPaths() {
+  return Object.values(subjects).map((subject) => ({
+    params: { subject: subject.id },
+    props: { subject },
+  }));
+}
+
+const { subject } = Astro.props;
+const allNotes = await getNotes();
+const subjectNotes = allNotes.filter((note) => note.data.subject === subject.id);
+
+const subjectCourses = courseList
+  .filter((course) => course.subject === subject.id)
+  .map((course) => {
+    const courseNotes = subjectNotes.filter((note) => note.data.course === course.id);
+    return {
+      ...course,
+      noteCount: courseNotes.length,
+      chapterCount: new Set(courseNotes.map((note) => note.data.chapter)).size,
+      lastUpdated: latestUpdated(courseNotes),
+    };
+  });
+
+const totalNotes = subjectNotes.length;
+const totalChapters = new Set(subjectNotes.map((note) => note.data.chapter)).size;
+const lastUpdated = latestUpdated(subjectNotes);
+const activeCourses = subjectCourses.filter((course) => course.status === 'active');
+const plannedCourses = subjectCourses.filter((course) => course.status === 'planned');
+---
+
+<BaseLayout
+  title={`${subject.title} — 笔记 — rxx`}
+  description={subject.description}
+>
+  <section class="page-hero">
+    <div class="container">
+      <div class="course-breadcrumb">
+        <a href="/notes">笔记</a>
+        <span aria-hidden="true">/</span>
+        <span>{subject.title}</span>
+      </div>
+      <p class="label page-hero__label">{subject.en} / Subject</p>
+      <h1 class="page-title">{subject.title}</h1>
+      <p class="page-lede">{subject.description}</p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>{totalNotes} 篇笔记</span>
+        <span>{totalChapters} 个章节</span>
+        <span>{subjectCourses.length} 门课程</span>
+        {subject.status === 'active' ? (
+          <span>最后更新 {formatDate(lastUpdated)}</span>
+        ) : (
+          <span>筹备中</span>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      {subject.status === 'planned' ? (
+        <div class="empty-state" data-reveal>
+          <p class="label">Planned</p>
+          <h2 class="empty-state__title">这门学科还没开始。</h2>
+          <p>
+            位置先留着。等第一门课的笔记真的写出来，这里才会有可以点开的东西。
+            现在可以先去<a href="/notes/math">数学</a>翻一翻。
+          </p>
+        </div>
+      ) : (
+        <div class="course-grid">
+          {activeCourses.map((course, index) => (
+            <a
+              class="course-card"
+              href={`/notes/${subject.id}/${course.id}`}
+              data-reveal
+              style={`--delay: ${index}`}
+            >
+              <div class="course-card__top">
+                <span class="label">{course.en}</span>
+                <span class="status-pill">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  进行中
+                </span>
+              </div>
+              <h2 class="course-card__title">{course.title}</h2>
+              <p class="course-card__desc">{course.description}</p>
+              <div class="course-card__meta">
+                <span>{course.chapterCount} 章</span>
+                <span>{course.noteCount} 篇</span>
+                <span>更新 {formatDate(course.lastUpdated)}</span>
+              </div>
+              <span class="course-card__arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {plannedCourses.length > 0 && (
+        <div class="course-grid course-grid--planned">
+          {plannedCourses.map((course, index) => (
+            <a
+              class="course-card course-card--muted"
+              href={`/notes/${subject.id}/${course.id}`}
+              data-reveal
+              style={`--delay: ${index + 1}`}
+            >
+              <div class="course-card__top">
+                <span class="label">{course.en}</span>
+                <span class="status-pill">筹备中</span>
+              </div>
+              <h2 class="course-card__title">{course.title}</h2>
+              <p class="course-card__desc">{course.description}</p>
+              <div class="course-card__meta">
+                <span>章节规划中</span>
+              </div>
+              <span class="course-card__arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <p class="section-note">
+        学科只是分类。真正要读的东西，还是按课程和章节排的。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

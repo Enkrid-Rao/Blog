@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InlineMath from '../components/InlineMath.astro';
+import { getNotes } from '../lib/notes';
+import { posts } from '../data/posts';
+import '../styles/pages.css';
+
+type ArchiveEntry = {
+  date: Date;
+  title: string;
+  description: string;
+  href: string;
+  kind: '笔记' | '日志';
+  label: string;
+};
+
+const notes = await getNotes();
+
+const entries: ArchiveEntry[] = [
+  ...notes
+    .filter((note) => Boolean(note.data.updated))
+    .map((note) => ({
+      date: note.data.updated as Date,
+      title: note.data.title,
+      description: note.data.description,
+      href: `/notes/${note.id}/`,
+      kind: '笔记' as const,
+      label: 'Note',
+    })),
+  ...posts.map((post) => ({
+    date: new Date(post.date),
+    title: post.title,
+    description: post.excerpt,
+    href: `/writing/${post.slug}/`,
+    kind: '日志' as const,
+    label: post.type,
+  })),
+].sort((a, b) => b.date.getTime() - a.date.getTime());
+
+const years = [...new Set(entries.map((entry) => entry.date.getFullYear()))].sort((a, b) => b - a);
+const grouped = years.map((year) => ({
+  year,
+  entries: entries.filter((entry) => entry.date.getFullYear() === year),
+}));
+
+function monthDay(date: Date): string {
+  return `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+}
+---
+
+<BaseLayout
+  title="归档 — rxx"
+  description="按年份排列的全部笔记与日志。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">Index / Archive</p>
+      <h1 class="page-title">归档</h1>
+      <p class="page-lede">
+        笔记按最后更新时间、日志按发布日期，一起放进年份里。
+        不分类，只排时间。
+      </p>
+      <div class="page-hero__meta">
+        <span><span class="dot"></span>{entries.length} 条记录</span>
+        <span>{notes.length} 篇笔记</span>
+        <span>{posts.length} 篇日志</span>
+        <span>{years.length} 个年份</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      {grouped.map((group) => (
+        <section class="archive-year" data-reveal>
+          <div>
+            <h2 class="archive-year__num">{group.year}</h2>
+            <p class="archive-year__count">{group.entries.length} 条</p>
+          </div>
+
+          <div class="entry-list">
+            {group.entries.map((entry) => (
+              <a class="entry-row" href={entry.href}>
+                <span class="entry-row__meta">
+                  {monthDay(entry.date)}
+                  <br />
+                  {entry.kind}
+                </span>
+                <span>
+                  <span class="entry-row__title"><InlineMath text={entry.title} /></span>
+                  <span class="entry-row__desc">{entry.description}</span>
+                </span>
+                <span class="entry-row__kind">{entry.label}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <p class="section-note">
+        这里只排时间。想按课程读，去<a href="/notes">笔记库</a>；想按主题找，去<a href="/tags">标签</a>。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

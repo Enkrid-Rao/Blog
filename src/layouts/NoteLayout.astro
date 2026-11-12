@@ -6,6 +6,7 @@ import InlineMath from '../components/InlineMath.astro';
 import type { NoteEntry } from '../lib/notes';
 import { formatDate, readingTime } from '../lib/notes';
 import { stripMath } from '../lib/math';
+import { tagHref } from '../lib/tags';
 import type { Chapter, Course, Subject } from '../data/taxonomy';
 import '../styles/note.css';
 
@@ -34,11 +35,23 @@ const title = match?.[2] ?? note.data.title;
 const updated = formatDate(note.data.updated);
 const reading = readingTime(note.body);
 const courseHref = `/notes/${course.subject}/${course.id}`;
+const canonical = new URL(`/notes/${note.id}/`, Astro.site ?? 'https://251890411.xyz');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: stripMath(note.data.title),
+  description: note.data.description,
+  dateModified: note.data.updated?.toISOString(),
+  author: { '@type': 'Person', name: 'rxx' },
+  mainEntityOfPage: canonical.href,
+  keywords: note.data.tags.join(', '),
+};
 ---
 
 <BaseLayout
   title={`${stripMath(title)} — ${course.title} — rxx`}
   description={note.data.description}
+  jsonLd={jsonLd}
 >
   <div class="note-shell container">
     <aside class="note-tree">
@@ -106,7 +119,9 @@ const courseHref = `/notes/${course.subject}/${course.id}`;
 
         <div class="note-foot__bottom">
           <div class="note-tags">
-            {note.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+            {note.data.tags.map((tag) => (
+              <a class="tag" href={tagHref(tag)}>{tag}</a>
+            ))}
           </div>
           <a class="note-source" href={courseHref}>回到课程 ↗</a>
         </div>

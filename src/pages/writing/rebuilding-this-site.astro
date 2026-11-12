@@ -1,11 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts } from '../../data/posts';
 import '../../styles/pages.css';
+
+const post = posts.find((entry) => entry.slug === 'rebuilding-this-site');
+
+const jsonLd = post
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      author: { '@type': 'Person', name: 'rxx' },
+      mainEntityOfPage: new URL(`/writing/${post.slug}/`, Astro.site ?? 'https://251890411.xyz').href,
+      keywords: post.tags.join(', '),
+    }
+  : undefined;
 ---
 
 <BaseLayout
   title="重建这个站点 — rxx"
   description="把笔记和写作分开，把视觉重新做一遍。"
+  jsonLd={jsonLd}
 >
   <article>
     <header class="article-header">
@@ -63,7 +80,7 @@ import '../../styles/pages.css';
 
         <div class="article-foot">
           <span>写于 2026 年 11 月</span>
-          <span>标签：随笔 / 建站</span>
+          <span>标签：{post ? post.tags.join(' / ') : '随笔 / 建站'}</span>
         </div>
       </div>
     </div>

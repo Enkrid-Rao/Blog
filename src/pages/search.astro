@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages.css';
+---
+
+<BaseLayout
+  title="搜索 — rxx"
+  description="搜索站内的笔记、日志与页面。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">Index / Search</p>
+      <h1 class="page-title">搜索</h1>
+      <p class="page-lede">
+        索引在构建时生成，搜索全部在浏览器里完成。
+        输入的内容不会发给任何服务。
+      </p>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="search-box">
+        <form class="search-field" role="search" data-search-form>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.4"></circle>
+            <path d="m16 16 4.2 4.2"></path>
+          </svg>
+          <input
+            type="search"
+            placeholder="搜索笔记、日志、页面…"
+            aria-label="站内搜索"
+            autocomplete="off"
+            spellcheck="false"
+            data-search-input
+          />
+        </form>
+
+        <p class="search-status" data-search-status>输入关键词开始搜索</p>
+
+        <div class="search-suggest">
+          <span class="label">Try</span>
+          {['数论', '欧拉函数', '二次剩余', '原根', '重建'].map((word) => (
+            <button class="filter-chip" type="button" data-search-suggest={word}>{word}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="search-results" data-search-results hidden></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { searchItems, type SearchItem } from '../lib/search';
+  import { loadSearchIndex } from '../scripts/search';
+
+  const inputEl = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const formEl = document.querySelector<HTMLFormElement>('[data-search-form]');
+  const resultsEl = document.querySelector<HTMLElement>('[data-search-results]');
+  const statusEl = document.querySelector<HTMLElement>('[data-search-status]');
+
+  if (inputEl && resultsEl && statusEl) {
+    const input = inputEl;
+    const results = resultsEl;
+    const status = statusEl;
+    let index: SearchItem[] = [];
+    let ready = false;
+    let timer = 0;
+
+    function syncUrl(query: string) {
+      const next = query ? `?q=${encodeURIComponent(query)}` : window.location.pathname;
+      window.history.replaceState(null, '', next);
+    }
+
+    function render(list: SearchItem[]) {
+      results.replaceChildren();
+      results.hidden = list.length === 0;
+
+      list.forEach((item) => {
+        const link = document.createElement('a');
+        link.className = 'search-result';
+        link.href = item.url;
+
+        const group = document.createElement('span');
+        group.className = 'search-result__group';
+        group.textContent = item.group;
+
+        const body = document.createElement('span');
+        const title = document.createElement('span');
+        title.className = 'search-result__title';
+        title.textContent = item.title;
+        const description = document.createElement('span');
+        description.className = 'search-result__desc';
+        description.textContent = item.description;
+        body.append(title, description);
+
+        const arrow = document.createElement('span');
+        arrow.className = 'search-result__arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '↗';
+
+        link.append(group, body, arrow);
+        results.append(link);
+      });
+    }
+
+    function run(query: string) {
+      const trimmed = query.trim();
+      syncUrl(trimmed);
+
+      if (!trimmed) {
+        results.replaceChildren();
+        results.hidden = true;
+        status.textContent = '输入关键词开始搜索';
+        return;
+      }
+
+      if (!ready) {
+        status.textContent = '正在载入索引…';
+        loadSearchIndex().then((items) => {
+          index = items;
+          ready = true;
+          if (input.value.trim() === trimmed) run(trimmed);
+        });
+        return;
+      }
+
+      const list = searchItems(index, trimmed, 20);
+      render(list);
+      status.textContent = list.length ? `找到 ${list.length} 条结果` : '没有找到匹配的内容';
+    }
+
+    formEl?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      run(input.value);
+    });
+
+    input.addEventListener('input', () => {
+      window.clearTimeout(timer);
+      const value = input.value;
+      timer = window.setTimeout(() => run(value), 120);
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-search-suggest]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const word = button.dataset.searchSuggest ?? '';
+        input.value = word;
+        run(word);
+        input.focus({ preventScroll: true });
+      });
+    });
+
+    loadSearchIndex().then((items) => {
+      index = items;
+      ready = true;
+      const initial = new URLSearchParams(window.location.search).get('q') ?? '';
+      if (initial) {
+        input.value = initial;
+        run(initial);
+      }
+    });
+  }
+</script>

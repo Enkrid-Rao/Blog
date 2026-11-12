@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages.css';
+---
+
+<BaseLayout
+  title="使用说明 — rxx"
+  description="主题、搜索、公式与阅读的简单说明。"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="label page-hero__label">Index / Guide</p>
+      <h1 class="page-title">使用说明</h1>
+      <p class="page-lede">
+        这个站没有账号，也没有需要登录才能读的东西。
+        下面几件事，知道一下会更顺手。
+      </p>
+    </div>
+  </section>
+
+  <section class="page-body">
+    <div class="container">
+      <div class="detail-block" data-reveal>
+        <p class="detail-block__lead">
+          所有功能都在浏览器里完成，不依赖第三方脚本。
+        </p>
+
+        <div class="detail-sections">
+          <section class="detail-section">
+            <h2>主题</h2>
+            <p>
+              页头右侧的圆形按钮可以切换三套配色：黑曜、象牙、暖纸。
+              选择会存在浏览器本地，下次打开还是同一套。
+              切换时会从按钮位置扩散一次，系统开启「减少动态效果」时直接切换。
+            </p>
+          </section>
+
+          <section class="detail-section">
+            <h2>搜索</h2>
+            <p>
+              按 <kbd>⌘</kbd> + <kbd>K</kbd>（Windows / Linux 用 <kbd>Ctrl</kbd> + <kbd>K</kbd>）
+              打开搜索面板，或者点页头的放大镜。输入关键词后，用
+              <kbd>↑</kbd> <kbd>↓</kbd> 选择，<kbd>Enter</kbd> 打开，<kbd>Esc</kbd> 关闭。
+            </p>
+            <p>
+              也可以直接访问<a href="/search">搜索页</a>，每条结果会标出它属于笔记、日志还是页面。
+              索引在构建时生成，不会把你的输入发给任何服务。
+            </p>
+          </section>
+
+          <section class="detail-section">
+            <h2>公式</h2>
+            <p>
+              笔记里的公式由 KaTeX 在构建时渲染成 HTML，阅读时没有额外的数学脚本，
+              也不会出现先闪一下源码再排版的情况。标题里的行内公式同样会渲染。
+            </p>
+            <p>
+              公式比屏幕宽时，公式块自己横向滚动，不会把整页撑开。
+            </p>
+          </section>
+
+          <section class="detail-section">
+            <h2>阅读</h2>
+            <p>
+              笔记详情是桌面三栏：左边课程树，中间正文，右边本页目录。
+              窄屏时两侧收进「课程目录」和「本页目录」两个折叠面板，正文变成单栏。
+              顶部有一条细进度条，页脚可以回到顶部。
+            </p>
+            <p>
+              想按顺序读，从<a href="/notes/math/number-theory">数论</a>开始；
+              想按时间翻，去<a href="/archive">归档</a>。
+            </p>
+          </section>
+
+          <section class="detail-section">
+            <h2>订阅</h2>
+            <p>
+              日志提供 <a href="/rss.xml">RSS</a>，把地址放进阅读器即可。
+              笔记不单独推送，因为它们是长期修改的，不是按天发生的。
+            </p>
+          </section>
+
+          <section class="detail-section">
+            <h2>许可</h2>
+            <p>
+              内容采用 CC BY-SA 4.0，代码采用 MIT。引用请注明出处。
+              联系方式和项目地址在<a href="/about">关于</a>页。
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

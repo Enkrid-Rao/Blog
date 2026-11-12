@@ -10,3 +10,6 @@ dist/
 _inbox/
 .DS_Store
 *.log
+
+# Old MkDocs build output (kept locally for rollback)
+site/

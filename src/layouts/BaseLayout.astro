@@ -7,20 +7,24 @@ import '../styles/global.css';
 import AmbientBackground from '../components/AmbientBackground.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title = 'rxx — 个人索引',
   description = '数学、代码与文字之间的一些记录。',
   noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://251890411.xyz');
+const jsonLdText = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : '';
 ---
 
 <!doctype html>
@@ -42,6 +46,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://251890411.x
     <meta property="og:url" content={canonical.href} />
     <meta name="twitter:card" content="summary" />
     {noindex && <meta name="robots" content="noindex" />}
+    {jsonLdText && <script type="application/ld+json" set:html={jsonLdText} />}
 
     <script is:inline>
       (() => {
@@ -71,6 +76,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://251890411.x
       </main>
       <SiteFooter />
     </div>
+    <CommandPalette />
     <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
     <script>
       import '../scripts/main';

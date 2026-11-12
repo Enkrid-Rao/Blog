@@ -29,6 +29,18 @@ function isActive(href: string) {
     </nav>
 
     <div class="header-tools">
+      <button
+        class="icon-button"
+        type="button"
+        data-search-open
+        aria-label="搜索（⌘K / Ctrl+K）"
+        aria-keyshortcuts="Meta+K Control+K"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.2"></circle>
+          <path d="m15.8 15.8 4 4"></path>
+        </svg>
+      </button>
       <ThemeSwitcher />
       <a class="header-cta" href="/notes">
         开始阅读

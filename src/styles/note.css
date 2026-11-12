@@ -443,6 +443,19 @@
   gap: 6px;
 }
 
+.note-tags a.tag {
+  transition:
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    background-color var(--dur-fast) ease;
+}
+
+.note-tags a.tag:hover {
+  color: var(--fg);
+  border-color: var(--line-strong);
+  background: var(--glass);
+}
+
 .note-source {
   color: var(--fg-subtle);
   font-family: var(--font-mono);
