@@ -11,6 +11,11 @@
       "permanent": true
     },
     {
+      "source": "/%E5%85%B3%E4%BA%8E",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
       "source": "/关于",
       "destination": "/about",
       "permanent": true
